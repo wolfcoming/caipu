@@ -1,0 +1,28 @@
+package com.example.caipuandroid.mvp.p
+
+import com.example.caipuandroid.base.BasePresenter
+import com.example.caipuandroid.mvp.contract.CategoryContract
+import com.example.caipuandroid.mvp.mode.CategoryMode
+import com.hazz.kotlinmvp.net.exception.ExceptionHandle
+import com.infoholdcity.basearchitecture.self_extends.excute
+
+class CategoryPresenter() : BasePresenter<CategoryContract.View>(), CategoryContract.Presenter {
+
+    val categoryMode: CategoryMode by lazy { CategoryMode() }
+
+    override fun getCategoryData() {
+        categoryMode.getCategorys()
+            .excute()
+            .subscribe({ it ->
+                if (it.code != 1) {
+                    mRootView?.onError(it.message!!)
+                } else {
+                    mRootView?.showCategory(it.data!!)
+                }
+            }, {
+                mRootView?.onError(ExceptionHandle.handleException(it))
+            })
+    }
+
+
+}
