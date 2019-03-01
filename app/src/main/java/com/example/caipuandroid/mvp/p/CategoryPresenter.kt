@@ -11,17 +11,20 @@ class CategoryPresenter() : BasePresenter<CategoryContract.View>(), CategoryCont
     val categoryMode: CategoryMode by lazy { CategoryMode() }
 
     override fun getCategoryData() {
-        categoryMode.getCategorys()
+        val subscribe = categoryMode.getCategorys()
             .excute()
             .subscribe({ it ->
                 if (it.code != 1) {
                     mRootView?.onError(it.message!!)
                 } else {
                     mRootView?.showCategory(it.data!!)
+
                 }
             }, {
                 mRootView?.onError(ExceptionHandle.handleException(it))
             })
+
+        addCompositeDisposable(subscribe)
     }
 
 

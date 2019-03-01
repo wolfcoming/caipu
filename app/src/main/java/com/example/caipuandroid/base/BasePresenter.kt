@@ -1,6 +1,7 @@
 package com.example.caipuandroid.base
 
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 open class BasePresenter<T : IBaseView> : IPresenter<T> {
 
@@ -28,5 +29,12 @@ open class BasePresenter<T : IBaseView> : IPresenter<T> {
     private val isViewAttached: Boolean
         get() = mRootView != null
 
+
+    /**
+     * 添加容器中 方便统一销毁
+     */
+    fun addCompositeDisposable(d:Disposable){
+        compositeDisposable.add(d)
+    }
 
 }

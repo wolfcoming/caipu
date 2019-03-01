@@ -45,7 +45,7 @@ class APIManage private constructor() {
         val client = initOkHttp()
         retrofit = Retrofit.Builder()
                 .client(client)
-                .baseUrl("http://www.naone.com")
+                .baseUrl(URLConfig.baseurl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
 //                .addConverterFactory(ScalarsConverterFactory.create())
@@ -124,10 +124,10 @@ class APIManage private constructor() {
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
-//                .addInterceptor(addQueryParameterInterceptor)
-//                .addInterceptor(headerInterceptor)
-//                .addNetworkInterceptor(HttpCacheInterceptor())//只在有网的情况下执行
-//                .addInterceptor(networkStatusInterceptor)//有网无网都执行
+                .addInterceptor(addQueryParameterInterceptor)
+                .addInterceptor(headerInterceptor)
+                .addNetworkInterceptor(HttpCacheInterceptor())//只在有网的情况下执行
+                .addInterceptor(networkStatusInterceptor)//有网无网都执行
                 .build()
         return client!!
     }

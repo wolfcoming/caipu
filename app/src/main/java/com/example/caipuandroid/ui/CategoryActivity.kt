@@ -10,6 +10,7 @@ import com.example.caipuandroid.R
 import com.example.caipuandroid.base.BaseMvpActivity
 import com.example.caipuandroid.mvp.contract.CategoryContract
 import com.example.caipuandroid.mvp.p.CategoryPresenter
+import com.example.caipuandroid.ui.adapter.RvLeftAdapter
 import com.example.caipuandroid.ui.vo.CategoryVo
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.toast
@@ -68,9 +69,11 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
     }
 
     override fun showLoading() {
+
     }
 
     override fun hideLoading() {
+
     }
 
     override fun onError(message: String) {
@@ -85,23 +88,6 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
     }
 
 
-    class RvLeftAdapter : BaseQuickAdapter<CategoryVo, BaseViewHolder> {
 
-        constructor() : super(R.layout.item_category_left)
-
-        override fun convert(helper: BaseViewHolder?, item: CategoryVo?) {
-            helper!!.setText(R.id.tvContent, item!!.categoryName)
-            if (item.categoryLevel == 1) {
-                if (item.isSelect) {
-                    helper!!.setBackgroundColor(R.id.tvContent, Color.WHITE)
-                    helper!!.setTextColor(R.id.tvContent, Color.RED)
-                } else {
-                    helper!!.setBackgroundColor(R.id.tvContent, Color.parseColor("#eeeeee"))
-                    helper!!.setTextColor(R.id.tvContent, Color.BLACK)
-                }
-            }
-
-        }
-    }
 
 }

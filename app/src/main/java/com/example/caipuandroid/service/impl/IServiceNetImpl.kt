@@ -12,7 +12,7 @@ import kotlin.collections.ArrayList
 /**
  * 该层用来转换业务层需要的数据格式
  */
-class IServiceImpl : IService {
+class IServiceNetImpl : IService {
 
     override fun getCategorys(): Observable<BaseBean<List<CategoryVo>>> {
         //将得道的网络数据转换成业务需要数据
