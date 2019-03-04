@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.example.caipuandroid.MainApplaction
 import com.example.caipuandroid.R
 import com.example.caipuandroid.base.BaseMvpActivity
 import com.example.caipuandroid.mvp.contract.CategoryContract
@@ -30,6 +31,7 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
         initView()
+        MainApplaction.setContext(this)
         mPresenter.getCategoryData()
 
     }
@@ -73,7 +75,7 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
     }
 
     override fun hideLoading() {
-
+        Klog.e(contents = "加载结束")
     }
 
     override fun onError(message: String) {
@@ -84,10 +86,5 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
         it.get(0).isSelect = true
         showRightData(it.get(0).subCategorys)
         leftAdapter!!.addData(it)
-
     }
-
-
-
-
 }

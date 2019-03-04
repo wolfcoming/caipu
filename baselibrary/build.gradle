@@ -36,7 +36,7 @@ dependencies {
     //权限管理
     api 'com.github.tbruyelle:rxpermissions:0.10.2'
 
-    //本地数据查看帮助库
+    //本地数据查看帮助库 D/DebugDB: Open http://192.168.1.31:8080 in your browser
     api 'com.amitshekhar.android:debug-db:1.0.4'
     //xml配置圆角背景帮助库
 //    api 'com.noober.background:core:1.2.5'

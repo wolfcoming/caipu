@@ -1,5 +1,6 @@
 package com.hazz.kotlinmvp.net.exception
 
+import com.example.caipuandroid.remote.util.ApiException
 import com.google.gson.JsonParseException
 import com.infoholdcity.basearchitecture.self_extends.Klog
 
@@ -40,6 +41,9 @@ object ExceptionHandle {
             errorCode = ErrorStatus.NETWORK_ERROR
         } else if (e is IllegalArgumentException) {
             errorMsg = "参数错误"
+            errorCode = ErrorStatus.SERVER_ERROR
+        } else if (e is ApiException) {
+            errorMsg = e.message!!
             errorCode = ErrorStatus.SERVER_ERROR
         } else {//未知错误
             try {

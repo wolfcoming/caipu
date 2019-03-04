@@ -6,6 +6,7 @@ import com.example.caipuandroid.remote.APIManage;
 import com.example.caipuandroid.remote.bean.BaseBean;
 import com.example.caipuandroid.remote.bean.CategoryBean;
 import com.example.caipuandroid.ui.vo.CategoryVo;
+import com.google.gson.Gson;
 import io.reactivex.functions.Function;
 
 import java.util.ArrayList;

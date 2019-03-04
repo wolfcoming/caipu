@@ -14,14 +14,11 @@ class CategoryPresenter() : BasePresenter<CategoryContract.View>(), CategoryCont
         val subscribe = categoryMode.getCategorys()
             .excute()
             .subscribe({ it ->
-                if (it.code != 1) {
-                    mRootView?.onError(it.message!!)
-                } else {
-                    mRootView?.showCategory(it.data!!)
-
-                }
+                mRootView?.showCategory(it!!)
             }, {
                 mRootView?.onError(ExceptionHandle.handleException(it))
+            }, {
+                mRootView?.hideLoading()
             })
 
         addCompositeDisposable(subscribe)
