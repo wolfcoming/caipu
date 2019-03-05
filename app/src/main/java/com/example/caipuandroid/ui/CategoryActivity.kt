@@ -1,12 +1,9 @@
 package com.example.caipuandroid.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
-import com.example.caipuandroid.MainApplaction
+import com.infoholdcity.baselibrary.MainApplaction
 import com.example.caipuandroid.R
 import com.example.caipuandroid.base.BaseMvpActivity
 import com.example.caipuandroid.mvp.contract.CategoryContract
@@ -33,7 +30,6 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
         initView()
         MainApplaction.setContext(this)
         mPresenter.getCategoryData()
-
     }
 
 
@@ -43,7 +39,6 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
         rvLeft.layoutManager = LinearLayoutManager(CategoryActivity@ this, LinearLayoutManager.VERTICAL, false)
         leftAdapter = RvLeftAdapter()
         rvLeft.adapter = leftAdapter
-
         leftAdapter!!.setOnItemClickListener { adapter, view, position ->
             val categoryVo = leftAdapter!!.getItem(position)!!
             leftAdapter!!.data.forEachIndexed { index, categoryVo ->
@@ -51,8 +46,6 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
             }
             leftAdapter!!.notifyDataSetChanged()
             showRightData(categoryVo.subCategorys)
-
-
         }
 
         rvRight.layoutManager = GridLayoutManager(this, 3)
@@ -62,7 +55,6 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
             val categoryVo = rightAdapter!!.getItem(position)!!
             toast(categoryVo.categoryName!!)
         }
-
     }
 
 

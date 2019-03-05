@@ -2,7 +2,7 @@ package com.example.caipuandroid.remote
 
 import android.os.Environment
 import com.example.caipuandroid.BuildConfig
-import com.example.caipuandroid.MainApplaction
+import com.infoholdcity.baselibrary.MainApplaction
 import com.example.caipuandroid.utils.NetWorkHelper
 import com.infoholdcity.basearchitecture.net.interceptor.HttpCacheInterceptor
 import com.infoholdcity.baselibrary.annotation.BaseUrl

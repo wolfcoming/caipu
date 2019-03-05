@@ -1,4 +1,4 @@
-package com.example.caipuandroid.remote.util
+package com.infoholdcity.baselibrary.net.util
 
 class ApiException : RuntimeException {
 

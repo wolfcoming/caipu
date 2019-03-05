@@ -1,1 +1,1 @@
-include ':app', ':baselibrary', ':takephoto_library'
+include ':app', ':baselibrary', ':takephoto_library', ':shopingmodule'

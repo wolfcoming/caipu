@@ -5,12 +5,20 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
         android:background="@color/white"
         tools:context=".MainActivity">
 
     <Button android:layout_width="match_parent"
             android:text="进入分类"
             android:id="@+id/btnCategory"
+            android:layout_height="wrap_content"/>
+
+
+    <Button android:layout_width="match_parent"
+            android:text="测试数据库"
+            android:id="@+id/btnDb"
             android:layout_height="wrap_content"/>
 
 </LinearLayout>

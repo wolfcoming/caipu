@@ -1,6 +1,6 @@
 package com.hazz.kotlinmvp.net.exception
 
-import com.example.caipuandroid.remote.util.ApiException
+import com.infoholdcity.baselibrary.net.util.ApiException
 import com.google.gson.JsonParseException
 import com.infoholdcity.basearchitecture.self_extends.Klog
 

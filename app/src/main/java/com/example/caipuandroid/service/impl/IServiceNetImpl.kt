@@ -1,15 +1,16 @@
 package com.example.caipuandroid.service.impl
 
 import android.os.SystemClock
+import com.example.caipuandroid.db.AppDatabase
+import com.example.caipuandroid.db.CategoryEntity
 import com.example.caipuandroid.remote.APIManage
 import com.example.caipuandroid.remote.bean.BaseBean
 import com.example.caipuandroid.remote.bean.CategoryBean
-import com.example.caipuandroid.remote.util.ApiException
+import com.infoholdcity.baselibrary.net.util.ApiException
 import com.example.caipuandroid.service.ICaipuService
 import com.example.caipuandroid.ui.vo.CategoryVo
 import com.google.gson.Gson
 import io.reactivex.Observable
-import java.lang.Exception
 import kotlin.collections.ArrayList
 
 /**
@@ -49,12 +50,12 @@ class IServiceNetImpl : ICaipuService {
     }
 
     private fun save2Db(listBaseBean: BaseBean<List<CategoryBean>>) {
-//        val categoryJson = Gson().toJson(listBaseBean)
-//        val categoryEntity = CategoryEntity()
-//        categoryEntity.categoryJson = categoryJson
-//        categoryEntity.insetTime = SystemClock.currentThreadTimeMillis()
-//        AppDatabase2.getInstance().CaipuDao().delete()
-//        AppDatabase2.getInstance().CaipuDao().insertCategoryResult(categoryEntity)
+        val categoryJson = Gson().toJson(listBaseBean)
+        val categoryEntity = CategoryEntity()
+        categoryEntity.categoryStr = categoryJson
+        categoryEntity.insertTime = SystemClock.currentThreadTimeMillis()
+        AppDatabase.getInstance().CaipuDao().clearCategoryData()
+        AppDatabase.getInstance().CaipuDao().insertCategory(categoryEntity)
     }
 
 

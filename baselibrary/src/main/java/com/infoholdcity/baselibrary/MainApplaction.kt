@@ -1,8 +1,9 @@
-package com.example.caipuandroid
+package com.infoholdcity.baselibrary
 
 import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
+import com.didichuxing.doraemonkit.DoraemonKit
 import com.squareup.leakcanary.LeakCanary
 
 class MainApplaction : Application() {
@@ -13,7 +14,7 @@ class MainApplaction : Application() {
         }
 
         fun setContext(context: Context) {
-            this.mContext = context
+            mContext = context
         }
     }
 
@@ -21,6 +22,12 @@ class MainApplaction : Application() {
         super.onCreate()
         mContext = this
         LeakCanary.install(this);
+        initDoraemon()//调试工具
+
+    }
+
+    private fun initDoraemon() {
+        DoraemonKit.install(this)
     }
 
 
