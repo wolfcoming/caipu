@@ -3,7 +3,8 @@ package com.example.caipuandroid.service.impl
 import android.os.SystemClock
 import com.example.caipuandroid.db.AppDatabase
 import com.example.caipuandroid.db.CategoryEntity
-import com.example.caipuandroid.remote.APIManage
+import com.infoholdcity.baselibrary.net.APIManage
+import com.example.caipuandroid.remote.APIService
 import com.example.caipuandroid.remote.bean.BaseBean
 import com.example.caipuandroid.remote.bean.CategoryBean
 import com.infoholdcity.baselibrary.net.util.ApiException
@@ -19,8 +20,9 @@ import kotlin.collections.ArrayList
 class IServiceNetImpl : ICaipuService {
 
     override fun getCategorys(): Observable<List<CategoryVo>> {
+
         //将得道的网络数据转换成业务需要数据
-        return APIManage.instance.apiService()
+        return APIManage.instance.getRequest(APIService::class.java)
             .getCategorys()
             .map { listBaseBean ->
 

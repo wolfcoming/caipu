@@ -1,4 +1,4 @@
-package com.example.caipuandroid.utils
+package com.infoholdcity.baselibrary.net.util
 
 import android.content.Context
 import android.net.ConnectivityManager

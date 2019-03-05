@@ -7,5 +7,5 @@ package com.example.caipuandroid.remote
  *@version  
 */
 object URLConfig {
-    const val baseurl = "http://192.168.1.147:8000/"
+    const val caipuBaseurl = "http://192.168.1.145:8000/"
 }
