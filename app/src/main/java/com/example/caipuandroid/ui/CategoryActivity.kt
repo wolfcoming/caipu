@@ -71,6 +71,7 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
     }
 
     override fun onError(message: String) {
+        Klog.e(contents = message)
         toast(message)
     }
 

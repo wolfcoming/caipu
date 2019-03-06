@@ -32,4 +32,16 @@ abstract class BaseMvpActivity<P : IPresenter<*>> : BaseActiviy(), IBaseView {
 
     abstract fun attachView(presenter: P)
 
+    override fun showLoading() {
+
+    }
+
+    override fun hideLoading() {
+
+    }
+
+    override fun onError(message: String) {
+
+    }
+
 }

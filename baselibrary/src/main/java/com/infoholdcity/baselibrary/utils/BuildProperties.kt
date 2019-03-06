@@ -5,6 +5,7 @@ import android.os.Environment
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
+import java.lang.Exception
 import java.util.Enumeration
 import java.util.Properties
 
@@ -41,8 +42,14 @@ private constructor() {
         return properties.getProperty(name)
     }
 
+    //TODO 报错
     fun getProperty(name: String, defaultValue: String?): String {
-        return properties.getProperty(name, defaultValue)
+        try {
+            return properties.getProperty(name, defaultValue)
+        } catch (e: Exception) {
+            return ""
+        }
+
     }
 
     fun keys(): Enumeration<Any> {
