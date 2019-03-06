@@ -3,6 +3,7 @@ package com.infoholdcity.basearchitecture.self_extends
 import android.app.Activity
 import android.support.v4.app.Fragment
 import android.widget.Toast
+import com.chad.library.adapter.base.BaseQuickAdapter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -20,7 +21,6 @@ fun Activity.toast(msg:String){
 fun Fragment.toast(msg:String){
     Toast.makeText(context,msg,Toast.LENGTH_LONG).show()
 }
-
 fun <T> Observable<T>.excute():Observable<T>{
     return  this.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

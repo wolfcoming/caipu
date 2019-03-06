@@ -29,6 +29,7 @@ class ShopingService : IShopingService {
                             productVo.brandName = itemsBean.brandName
                             productVo.keyword = itemsBean.keyword
                             productVo.price = itemsBean.price
+                            productVo.image = itemsBean.image
                             items.add(productVo)
                         }
                         shopBannerVo.items = items

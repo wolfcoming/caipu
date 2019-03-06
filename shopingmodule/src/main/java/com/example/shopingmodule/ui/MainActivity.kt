@@ -1,11 +1,13 @@
 package com.example.shopingmodule.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import com.example.caipuandroid.base.BaseMvpActivity
 import com.example.shopingmodule.R
-import com.example.shopingmodule.adapter.TempAdapter
+import com.example.shopingmodule.adapter.CategoryAdapter
+import com.example.shopingmodule.adapter.ContentBean
+import com.example.shopingmodule.adapter.HomeAdapter
 import com.example.shopingmodule.mvp.HomeContract
 import com.example.shopingmodule.mvp.HomePresenter
 import com.example.shopingmodule.ui.vo.ShopBannerVo
@@ -16,15 +18,17 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseMvpActivity<HomeContract.Ipresenter>(), HomeContract.IHomeView {
-    var tempAdapter: TempAdapter? = null
+    var tempAdapter: HomeAdapter? = null
 
 
     override fun showData(datas: HashMap<String, Any>) {
         val categorys = datas["category"] as ArrayList<ShopCategoryVo>
         val bannerList = datas["bannerlist"] as ArrayList<ShopBannerVo>
-        tempAdapter!!.setNewData(categorys)
-        Klog.e(contents = categorys)
-        Klog.e(contents = bannerList)
+
+        val datas: ArrayList<ContentBean> = ArrayList()
+        datas.add(ContentBean(1, categorys = categorys))
+        datas.add(ContentBean(2, goods = bannerList))
+        tempAdapter!!.setNewDatas(datas)
     }
 
     override fun getPresenter(): HomeContract.Ipresenter {
@@ -38,8 +42,8 @@ class MainActivity : BaseMvpActivity<HomeContract.Ipresenter>(), HomeContract.IH
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        recycleView.layoutManager = GridLayoutManager(this, 4)
-        tempAdapter = TempAdapter()
+        recycleView.layoutManager = LinearLayoutManager(this)
+        tempAdapter = HomeAdapter()
         recycleView.adapter = tempAdapter
         mPresenter.getData()
     }
