@@ -44,7 +44,8 @@ dependencies {
 
     api 'com.android.support:recyclerview-v7:28.0.0-rc02'
     //recycleview帮助库
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
+//    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
+    api project(':brva_library')
 
     //图片压缩
     api 'top.zibin:Luban:1.1.8'
