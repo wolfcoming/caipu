@@ -1,7 +1,10 @@
 package com.example.shopingmodule.ui
 
 import android.os.Bundle
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
+import android.view.View
 import com.example.caipuandroid.base.BaseMvpActivity
 import com.example.shopingmodule.R
 import com.example.shopingmodule.ScreenUtil
@@ -12,16 +15,18 @@ import com.example.shopingmodule.mvp.HomePresenter
 import com.example.shopingmodule.ui.vo.ShopBannerVo
 import com.example.shopingmodule.ui.vo.ShopCategoryVo
 import com.infoholdcity.basearchitecture.self_extends.toast
+import com.infoholdcity.baselibrary.utils.StatusBarHelper
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.common_search_title.*
 
 
 class MainActivity : BaseMvpActivity<HomeContract.Ipresenter>(), HomeContract.IHomeView {
     var tempAdapter: HomeAdapter? = null
-    val titles = arrayOf("精选", "大家喜欢")
 
 
+    var headerHegiht: Int? = 0
     override fun showData(datas: HashMap<String, Any>) {
         val categorys = datas["category"] as ArrayList<ShopCategoryVo>
         val bannerList = datas["bannerlist"] as ArrayList<ShopBannerVo>
@@ -41,14 +46,15 @@ class MainActivity : BaseMvpActivity<HomeContract.Ipresenter>(), HomeContract.IH
                 .create()
         )
 
+
+
+        headerHegiht = search_contain.height
         vp_shoping.adapter = adapter
         tablayout.setViewPager(vp_shoping)
 //        设置viewpage的高度
         val params = vp_shoping.layoutParams
-        params.height = ScreenUtil.getScreenHeight(this) - ScreenUtil.getStatusBarHeight(this) - rl_tablayout.height
+        params.height = ScreenUtil.getScreenHeight(this) - headerHegiht!! - rl_tablayout.height
         vp_shoping.layoutParams = params
-
-
     }
 
     override fun getPresenter(): HomeContract.Ipresenter {
@@ -62,6 +68,8 @@ class MainActivity : BaseMvpActivity<HomeContract.Ipresenter>(), HomeContract.IH
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        initLinstener()
 //        recycleView.layoutManager = LinearLayoutManager(this)
         recycleView.layoutManager = object : LinearLayoutManager(this) {
             override fun canScrollVertically(): Boolean {
@@ -72,6 +80,23 @@ class MainActivity : BaseMvpActivity<HomeContract.Ipresenter>(), HomeContract.IH
         tempAdapter = HomeAdapter()
         recycleView.adapter = tempAdapter
         mPresenter.getData()
+    }
+
+    private fun initLinstener() {
+
+        scrollview.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener {
+            internal var lastScrollY = 0
+
+            override fun onScrollChange(
+                v: NestedScrollView,
+                scrollX: Int,
+                scrollY: Int,
+                oldScrollX: Int,
+                oldScrollY: Int
+            ) {
+
+            }
+        })
     }
 
 

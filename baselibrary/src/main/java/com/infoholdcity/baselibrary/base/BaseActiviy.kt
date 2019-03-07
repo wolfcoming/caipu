@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import android.view.WindowManager
+import com.infoholdcity.baselibrary.utils.StatusBarHelper
 import com.noober.background.BackgroundLibrary
 import com.yq.wolfcoming.baselibrary.common.AppManage
 
@@ -20,6 +21,11 @@ abstract class BaseActiviy : AppCompatActivity() {
         //   解决共享元素闪屏问题
         getWindow().setBackgroundDrawableResource(android.R.color.transparent)
         AppManage.getSingleInstance().addActivity(this)
+
+
+        //设置沉浸式状态栏
+        StatusBarHelper.setStatusBar(this, false, true)
+
     }
 
     override fun onDestroy() {

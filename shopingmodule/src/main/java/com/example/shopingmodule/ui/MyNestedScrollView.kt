@@ -25,6 +25,7 @@ class MyNestedScrollView @JvmOverloads constructor(
 
     var downX: Float = 0f
     var downY: Float = 0f
+    private var isNeedScroll = true
 
     init {
 
@@ -35,7 +36,6 @@ class MyNestedScrollView @JvmOverloads constructor(
         //思路：
 //        如果没有滑动到底部 拦截掉向上拖动事件
 //        如果滑动到了底部 不需要拦截 默认处理
-        stopNestedScroll()
         if (!isScrollBottom()) {
             when (ev.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -51,7 +51,7 @@ class MyNestedScrollView @JvmOverloads constructor(
                     val dexX = curX - downX
                     val dexY = curY - downY
                     if (dexY < 0) {//向上移动
-                        if (Math.abs(dexY) > Math.abs(dexX)) {//垂直方向移动
+                        if (Math.abs(dexY) > Math.abs(dexX) && isNeedScroll) {//垂直方向移动
                             return true
                         }
                     }
@@ -69,15 +69,11 @@ class MyNestedScrollView @JvmOverloads constructor(
         return onlyChild.getHeight() <= scrollY + this.getHeight()
     }
 
-
-    override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
-        Klog.e(contents = "dispatchKeyEvent:${event!!.action}")
-        return super.dispatchKeyEvent(event)
-    }
-
-    override fun onTouchEvent(ev: MotionEvent?): Boolean {
-        Klog.e(contents = "onTouchEvent:${ev!!.action}")
-        return super.onTouchEvent(ev)
+    /*
+       该方法用来处理NestedScrollView是否拦截滑动事件  isNeedScroll= true 表示MyNestedScrollView消费该事件，false表示给子View消费
+        */
+    fun setNeedScroll(isNeedScroll: Boolean) {
+        this.isNeedScroll = isNeedScroll
     }
 
 }

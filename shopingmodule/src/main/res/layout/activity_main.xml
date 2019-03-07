@@ -8,8 +8,11 @@
         android:layout_height="match_parent"
         tools:context=".ui.MainActivity">
 
+    <include
+            layout="@layout/common_search_title"></include>
 
     <com.example.shopingmodule.ui.MyNestedScrollView
+            android:id="@+id/scrollview"
             android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
