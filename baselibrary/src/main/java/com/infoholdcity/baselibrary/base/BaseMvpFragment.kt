@@ -2,24 +2,25 @@ package com.example.caipuandroid.base
 
 import android.content.Context
 import android.os.Bundle
-import com.infoholdcity.baselibrary.base.BaseActiviy
+import android.view.View
+import com.infoholdcity.baselibrary.base.BaseFragment
 
-abstract class BaseMvpActivity<P : IPresenter<*>> : BaseActiviy(), IBaseView {
+abstract class BaseMvpFragment<P : IPresenter<*>> : BaseFragment(), IBaseView {
 
     lateinit var mPresenter: P
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mPresenter = getPresenter()
         //TODO 为什么不能再这儿绑定view
 //        mPresenter.attachView(this)//关联p和v
         attachView(mPresenter)
+        super.onViewCreated(view, savedInstanceState)
 
     }
 
 
     override fun getCon(): Context {
-        return this
+        return context!!
     }
 
     override fun onDestroy() {

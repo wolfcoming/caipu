@@ -35,7 +35,7 @@ class MyNestedScrollView @JvmOverloads constructor(
         //思路：
 //        如果没有滑动到底部 拦截掉向上拖动事件
 //        如果滑动到了底部 不需要拦截 默认处理
-
+        stopNestedScroll()
         if (!isScrollBottom()) {
             when (ev.action) {
                 MotionEvent.ACTION_DOWN -> {

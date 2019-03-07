@@ -7,5 +7,5 @@ open interface IBaseView {
     fun showLoading()
     fun hideLoading()
     fun onError(message: String)
-    fun getContext(): Context
+    fun getCon(): Context
 }
