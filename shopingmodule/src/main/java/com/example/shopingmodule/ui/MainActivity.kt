@@ -1,24 +1,25 @@
 package com.example.shopingmodule.ui
 
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.example.caipuandroid.base.BaseMvpActivity
 import com.example.shopingmodule.R
-import com.example.shopingmodule.adapter.CategoryAdapter
-import com.example.shopingmodule.adapter.ContentBean
-import com.example.shopingmodule.adapter.HomeAdapter
+import com.example.shopingmodule.ScreenUtil
+import com.example.shopingmodule.adapter.home.ContentBean
+import com.example.shopingmodule.adapter.home.HomeAdapter
 import com.example.shopingmodule.mvp.HomeContract
 import com.example.shopingmodule.mvp.HomePresenter
 import com.example.shopingmodule.ui.vo.ShopBannerVo
 import com.example.shopingmodule.ui.vo.ShopCategoryVo
-import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.toast
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseMvpActivity<HomeContract.Ipresenter>(), HomeContract.IHomeView {
     var tempAdapter: HomeAdapter? = null
+    val titles = arrayOf("精选", "大家喜欢")
 
 
     override fun showData(datas: HashMap<String, Any>) {
@@ -29,6 +30,25 @@ class MainActivity : BaseMvpActivity<HomeContract.Ipresenter>(), HomeContract.IH
         datas.add(ContentBean(1, categorys = categorys))
         datas.add(ContentBean(2, goods = bannerList))
         tempAdapter!!.setNewDatas(datas)
+
+
+        //添加底部fragment
+        val adapter = FragmentPagerItemAdapter(
+            supportFragmentManager,
+            FragmentPagerItems.with(this)
+                .add("精选", FragmentA::class.java)
+                .add("大家喜欢", FragmentB::class.java)
+                .create()
+        )
+
+        vp_shoping.adapter = adapter
+        tablayout.setViewPager(vp_shoping)
+//        设置viewpage的高度
+        val params = vp_shoping.layoutParams
+        params.height = ScreenUtil.getScreenHeight(this) - ScreenUtil.getStatusBarHeight(this) - rl_tablayout.height
+        vp_shoping.layoutParams = params
+
+
     }
 
     override fun getPresenter(): HomeContract.Ipresenter {
@@ -42,7 +62,13 @@ class MainActivity : BaseMvpActivity<HomeContract.Ipresenter>(), HomeContract.IH
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        recycleView.layoutManager = LinearLayoutManager(this)
+//        recycleView.layoutManager = LinearLayoutManager(this)
+        recycleView.layoutManager = object : LinearLayoutManager(this) {
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+        }
+
         tempAdapter = HomeAdapter()
         recycleView.adapter = tempAdapter
         mPresenter.getData()

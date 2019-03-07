@@ -1,4 +1,4 @@
-package com.example.shopingmodule.adapter
+package com.example.shopingmodule.adapter.home
 
 import android.net.Uri
 import android.widget.Toast

@@ -1,14 +1,11 @@
-package com.example.shopingmodule.adapter
+package com.example.shopingmodule.adapter.home
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import com.example.shopingmodule.R
 
 

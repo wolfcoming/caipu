@@ -58,6 +58,12 @@ dependencies {
 
 
 
+    api 'com.ogaclejapan.smarttablayout:library:1.7.0@aar'
+    //Optional: see how to use the utility.
+    api 'com.ogaclejapan.smarttablayout:utils-v4:1.7.0@aar'
+    //Deprecated since 1.7.0
+//    api 'com.ogaclejapan.smarttablayout:utils-v13:1.7.0@aar'
+
 
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
     api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-18'//没有使用特殊Header，可以不加这行

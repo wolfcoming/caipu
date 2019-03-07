@@ -1,4 +1,4 @@
-package com.example.shopingmodule.adapter
+package com.example.shopingmodule.adapter.home
 
 import android.net.Uri
 import android.support.v7.widget.LinearLayoutManager
@@ -8,7 +8,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.shopingmodule.R
 import com.example.shopingmodule.ui.vo.ShopBannerVo
-import com.example.shopingmodule.ui.vo.ShopCategoryVo
 
 class GoodsAdapter : BaseQuickAdapter<ShopBannerVo, BaseViewHolder> {
 

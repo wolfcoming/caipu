@@ -1,4 +1,4 @@
-package com.example.shopingmodule.adapter
+package com.example.shopingmodule.adapter.home
 
 import com.example.shopingmodule.ui.vo.ShopBannerVo
 import com.example.shopingmodule.ui.vo.ShopCategoryVo
