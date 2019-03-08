@@ -5,6 +5,7 @@ import com.google.gson.JsonParseException
 import com.infoholdcity.basearchitecture.self_extends.Klog
 
 import org.json.JSONException
+import retrofit2.HttpException
 
 import java.net.ConnectException
 
@@ -43,6 +44,9 @@ object ExceptionHandle {
             errorMsg = "参数错误"
             errorCode = ErrorStatus.SERVER_ERROR
         } else if (e is ApiException) {
+            errorMsg = e.message!!
+            errorCode = ErrorStatus.SERVER_ERROR
+        } else if (e is HttpException) {
             errorMsg = e.message!!
             errorCode = ErrorStatus.SERVER_ERROR
         } else {//未知错误

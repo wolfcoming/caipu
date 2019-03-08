@@ -3,8 +3,6 @@ package com.example.shopingmodule.ui
 import android.os.Bundle
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
-import android.view.View
 import com.example.caipuandroid.base.BaseMvpActivity
 import com.example.shopingmodule.R
 import com.example.shopingmodule.ScreenUtil
@@ -15,7 +13,6 @@ import com.example.shopingmodule.mvp.HomePresenter
 import com.example.shopingmodule.ui.vo.ShopBannerVo
 import com.example.shopingmodule.ui.vo.ShopCategoryVo
 import com.infoholdcity.basearchitecture.self_extends.toast
-import com.infoholdcity.baselibrary.utils.StatusBarHelper
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
 import kotlinx.android.synthetic.main.activity_main.*

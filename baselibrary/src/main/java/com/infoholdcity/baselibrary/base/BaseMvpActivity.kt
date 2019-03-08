@@ -11,8 +11,6 @@ abstract class BaseMvpActivity<P : IPresenter<*>> : BaseActiviy(), IBaseView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mPresenter = getPresenter()
-        //TODO 为什么不能再这儿绑定view
-//        mPresenter.attachView(this)//关联p和v
         attachView(mPresenter)
 
     }

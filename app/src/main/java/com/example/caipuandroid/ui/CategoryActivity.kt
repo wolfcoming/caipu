@@ -28,7 +28,6 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
         initView()
-        MainApplaction.setContext(this)
         mPresenter.getCategoryData()
     }
 

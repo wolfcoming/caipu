@@ -23,6 +23,4 @@ class CategoryPresenter() : BasePresenter<CategoryContract.View>(), CategoryCont
 
         addCompositeDisposable(subscribe)
     }
-
-
 }

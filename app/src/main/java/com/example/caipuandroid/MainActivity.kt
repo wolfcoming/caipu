@@ -9,7 +9,9 @@ import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.caipuandroid.test.LocationUtils
+import com.example.caipuandroid.ui.TestLeackActivity
 import com.infoholdcity.baselibrary.utils.StatusBarHelper
+import com.squareup.leakcanary.LeakCanary
 import com.tbruyelle.rxpermissions2.RxPermissions
 
 
@@ -17,9 +19,10 @@ class MainActivity : BaseActiviy() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
         StatusBarHelper.setStatusTextColor(true, this)
-        StatusBarHelper.setStautsBarColor(this, Color.WHITE,0)
+        StatusBarHelper.setStautsBarColor(this, Color.WHITE, 0)
         btnCategory.setOnClickListener {
             startActivity(Intent(this, CategoryActivity::class.java))
         }
@@ -28,8 +31,9 @@ class MainActivity : BaseActiviy() {
             RxPermissions(this)
                 .request(Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe { it ->
-//                    Klog.e(contents = "开始定位")
+                    //                    Klog.e(contents = "开始定位")
 //                    LocationUtils.getInstance(this@MainActivity)
+                    startActivity(Intent(this@MainActivity, TestLeackActivity::class.java))
                 }
 
         }

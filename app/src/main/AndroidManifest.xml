@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.CategoryActivity"/>
+        <activity android:name=".ui.TestLeackActivity"/>
     </application>
 
 </manifest>

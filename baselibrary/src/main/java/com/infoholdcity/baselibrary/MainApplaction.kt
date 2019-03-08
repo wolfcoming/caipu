@@ -21,6 +21,9 @@ class MainApplaction : Application() {
     override fun onCreate() {
         super.onCreate()
         mContext = this
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
         LeakCanary.install(this);
         initDoraemon()//调试工具
 
