@@ -1,1 +1,1 @@
-include ':app', ':baselibrary', ':takephoto_library', ':shopingmodule', ':brva_library'
+include ':caipu', ':baselibrary', ':takephoto_library', ':shopingmodule', ':brva_library', ':app'

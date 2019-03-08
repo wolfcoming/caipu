@@ -6,7 +6,7 @@ import android.support.multidex.MultiDex
 import com.didichuxing.doraemonkit.DoraemonKit
 import com.squareup.leakcanary.LeakCanary
 
-class MainApplaction : Application() {
+open class MainApplaction : Application() {
     companion object {
         private var mContext: Context? = null
         fun getContext(): Context? {

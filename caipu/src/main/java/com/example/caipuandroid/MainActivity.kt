@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import com.example.caipuandroid.test.LocationUtils
 import com.example.caipuandroid.ui.TestLeackActivity
 import com.infoholdcity.baselibrary.utils.StatusBarHelper
-import com.squareup.leakcanary.LeakCanary
 import com.tbruyelle.rxpermissions2.RxPermissions
 
 

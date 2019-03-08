@@ -15,11 +15,10 @@ import com.example.shopingmodule.ui.vo.ShopCategoryVo
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.shop_activity_main.*
 import kotlinx.android.synthetic.main.common_search_title.*
 
-
-class MainActivity : BaseMvpActivity<HomeContract.Ipresenter>(), HomeContract.IHomeView {
+class ShopMainActivity : BaseMvpActivity<HomeContract.Ipresenter>(), HomeContract.IHomeView {
     var tempAdapter: HomeAdapter? = null
 
 
@@ -64,7 +63,7 @@ class MainActivity : BaseMvpActivity<HomeContract.Ipresenter>(), HomeContract.IH
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.shop_activity_main)
 
         initLinstener()
 //        recycleView.layoutManager = LinearLayoutManager(this)
