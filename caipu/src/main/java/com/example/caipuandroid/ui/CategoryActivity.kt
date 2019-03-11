@@ -3,6 +3,7 @@ package com.example.caipuandroid.ui
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.infoholdcity.baselibrary.MainApplaction
 import com.example.caipuandroid.R
 import com.example.caipuandroid.base.BaseMvpActivity
@@ -12,8 +13,11 @@ import com.example.caipuandroid.ui.adapter.RvLeftAdapter
 import com.example.caipuandroid.ui.vo.CategoryVo
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.toast
+import com.infoholdcity.baselibrary.config.ARouterConfig
 import kotlinx.android.synthetic.main.activity_category.*
 
+
+@Route(path = ARouterConfig.ACT_CAIPU_CATEGORY)
 class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), CategoryContract.View {
     override fun attachView(presenter: CategoryContract.Presenter) {
         presenter.attachView(this)

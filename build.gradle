@@ -29,6 +29,6 @@ task clean(type: Delete) {
 
 
 ext {
-    CaipuRunAlone = false
-    ShopRunAlone = false
+    CaipuRunAlone = true
+    ShopRunAlone = true
 }

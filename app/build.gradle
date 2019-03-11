@@ -15,6 +15,12 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
     }
 
     buildTypes {
@@ -37,11 +43,16 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     if(!rootProject.ext.CaipuRunAlone.toBoolean()){
-        implementation project(':caipu')
+        api project(':caipu')
     }
     if(!rootProject.ext.ShopRunAlone.toBoolean()){
-        implementation project(':shopingmodule')
+        api project(':shopingmodule')
     }
+
+
+    api "com.alibaba:arouter-api:1.4.1"
+    annotationProcessor "com.alibaba:arouter-compiler:1.2.2"
+
 }
 
 

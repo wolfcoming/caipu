@@ -12,6 +12,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".ui.CategoryActivity"/>
         <activity android:name=".ui.TestLeackActivity"/>
+        <activity android:name=".ui.GoodsAddActivity"/>
     </application>
 
 </manifest>

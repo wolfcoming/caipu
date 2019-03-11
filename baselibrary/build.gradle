@@ -13,6 +13,11 @@ android {
         versionName "1.0"
         multiDexEnabled = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
 
     }
 
@@ -22,6 +27,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
 
 }
 
@@ -88,4 +95,14 @@ dependencies {
 
     debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:1.1.2'
     releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:1.1.2'
+
+
+    api "com.alibaba:arouter-api:1.4.1"
+    annotationProcessor "com.alibaba:arouter-compiler:1.2.2"
+
+
+//    七牛图片上传
+    api 'com.qiniu:qiniu-android-sdk:7.3.15'
+
+
 }

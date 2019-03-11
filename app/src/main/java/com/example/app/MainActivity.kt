@@ -3,8 +3,8 @@ package com.example.app
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.example.caipuandroid.ui.CategoryActivity
-import com.example.shopingmodule.ui.ShopMainActivity
+import com.alibaba.android.arouter.launcher.ARouter
+import com.infoholdcity.baselibrary.config.ARouterConfig
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,11 +13,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnCaipu.setOnClickListener {
-            startActivity(Intent(this@MainActivity,CategoryActivity::class.java))
+            ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_CATEGORY).navigation()
         }
 
         btnShop.setOnClickListener {
-            startActivity(Intent(this@MainActivity,ShopMainActivity::class.java))
+            ARouter.getInstance().build(ARouterConfig.ACT_SHOP_HOME).navigation();
         }
     }
 }
