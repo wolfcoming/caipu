@@ -1,6 +1,5 @@
 package com.example.app
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.alibaba.android.arouter.launcher.ARouter
@@ -13,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnCaipu.setOnClickListener {
-            ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_CATEGORY).navigation()
+            ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_HOME).navigation()
         }
 
         btnShop.setOnClickListener {

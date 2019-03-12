@@ -8,10 +8,18 @@ package com.infoholdcity.baselibrary.config
  */
 class ARouterConfig {
     companion object {
-        //const声明编译时常量
-        const val ACT_CAIPU_CATEGORY = "/caipu/aa/ACT_CAIPU_CATEGORY"
-        const val ACT_SHOP_HOME = "/shop/bb/ACT_SHOP_HOME"
+        //菜谱组件
+        const val ACT_CAIPU_CATEGORY = "/caipu/ACT_CAIPU_CATEGORY"//分类界面
+        const val ACT_CAIPU_HOME = "/caipu/ACT_CAIPU_HOME"//菜谱首页
+        const val ACT_CAIPU_ADD = "/caipu/ACT_CAIPU_ADD"//菜谱增加界面
 
+
+        //购物模块
+        const val ACT_SHOP_HOME = "/shop/ACT_SHOP_HOME"
+
+
+        //用户中心模块
+        const val ACT_USER_LOGIN = "/user/ACT_USER_LOGIN"
 
 
     }

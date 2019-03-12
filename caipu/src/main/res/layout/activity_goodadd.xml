@@ -8,10 +8,13 @@
 
 
 
+
+
     <Button android:layout_width="match_parent"
             android:text="上传图片到七牛"
             android:id="@+id/btnAddImg"
             android:layout_height="wrap_content"/>
+
 
 
 </LinearLayout>

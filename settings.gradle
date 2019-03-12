@@ -1,1 +1,8 @@
-include ':caipu', ':baselibrary', ':takephoto_library', ':shopingmodule', ':brva_library', ':app'
+include ':caipu',
+        ':baselibrary',
+        ':takephoto_library',
+        ':shopingmodule',
+        ':brva_library',
+        ':app',
+        ':componentbase',
+        ':userCentercomponent'

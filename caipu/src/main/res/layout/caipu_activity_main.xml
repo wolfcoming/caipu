@@ -8,7 +8,7 @@
         android:orientation="vertical"
         android:fitsSystemWindows="true"
         android:background="@color/white"
-        tools:context=".MainActivity">
+        tools:context=".CaipuMainActivity">
 
     <Button android:layout_width="match_parent"
             android:text="进入分类"
@@ -17,8 +17,8 @@
 
 
     <Button android:layout_width="match_parent"
-            android:text="测试数据库"
-            android:id="@+id/btnDb"
+            android:text="上报功能"
+            android:id="@+id/btnADD"
             android:layout_height="wrap_content"/>
 
 </LinearLayout>

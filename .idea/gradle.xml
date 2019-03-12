@@ -12,8 +12,10 @@
             <option value="$PROJECT_DIR$/baselibrary" />
             <option value="$PROJECT_DIR$/brva_library" />
             <option value="$PROJECT_DIR$/caipu" />
+            <option value="$PROJECT_DIR$/componentbase" />
             <option value="$PROJECT_DIR$/shopingmodule" />
             <option value="$PROJECT_DIR$/takephoto_library" />
+            <option value="$PROJECT_DIR$/userCentercomponent" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

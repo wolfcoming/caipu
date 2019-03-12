@@ -4,11 +4,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.caipuandroid.R
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.base.TakePhotoBaseActivity
+import com.infoholdcity.baselibrary.config.ARouterConfig
 import kotlinx.android.synthetic.main.activity_goodadd.*
 import com.qiniu.android.common.FixedZone
 import com.qiniu.android.http.CompletionHandler
@@ -22,6 +24,7 @@ import java.io.File
 import java.time.temporal.TemporalQueries.zone
 
 
+@Route(path = ARouterConfig.ACT_CAIPU_ADD)
 class GoodsAddActivity : TakePhotoBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,13 +53,13 @@ class GoodsAddActivity : TakePhotoBaseActivity() {
         super.takeSuccess(result)
 
         val filePath = result!!.image.compressPath
-        val key = System.currentTimeMillis().toString()+".jpg"
+        val key = System.currentTimeMillis().toString() + ".jpg"
         val token =
             "9SGCOiw4SnXTZj0QumvO7QMsAKdGiherr_DnHXpg:bJunwWScZoMvdGpTYVuO1DuziNY=:eyJzY29wZSI6ImRqYW5nb19jYWlwdV9pbWFnZSIsImRlYWRsaW5lIjoxNTUyMjIyNjU1fQ==";
 
-        uploadManager!!.put(filePath,key,token,object :UpCompletionHandler{
+        uploadManager!!.put(filePath, key, token, object : UpCompletionHandler {
             override fun complete(key: String?, info: ResponseInfo, response: JSONObject) {
-                if(info.isOK()) {
+                if (info.isOK()) {
                     Log.i("qiniu", "Upload Success");
                 } else {
                     Log.i("qiniu", "Upload Fail");
@@ -65,13 +68,13 @@ class GoodsAddActivity : TakePhotoBaseActivity() {
                 Log.i("qiniu___", "$key,\r\n $info,\r\n $response");
             }
 
-        }, UploadOptions(null,null,false,object :UpProgressHandler{
+        }, UploadOptions(null, null, false, object : UpProgressHandler {
             override fun progress(key: String?, percent: Double) {
 
                 Klog.e(contents = "$key:::::$percent")
             }
 
-        },null))
+        }, null))
     }
 
 

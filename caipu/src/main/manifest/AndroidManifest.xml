@@ -16,7 +16,7 @@
             android:supportsRtl="true"
             android:name="com.infoholdcity.baselibrary.MainApplaction"
             android:theme="@style/MyAppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".CaipuMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -25,6 +25,7 @@
         </activity>
         <activity android:name=".ui.CategoryActivity"/>
         <activity android:name=".ui.TestLeackActivity"/>
+        <activity android:name=".ui.GoodsAddActivity"></activity>
     </application>
 
 </manifest>

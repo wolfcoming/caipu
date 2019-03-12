@@ -48,7 +48,9 @@ dependencies {
     if(!rootProject.ext.ShopRunAlone.toBoolean()){
         api project(':shopingmodule')
     }
-
+    if(!rootProject.ext.UserCenterRunAlone.toBoolean()){
+        api project(':userCentercomponent')
+    }
 
     api "com.alibaba:arouter-api:1.4.1"
     annotationProcessor "com.alibaba:arouter-compiler:1.2.2"
