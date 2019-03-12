@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".LoginMainActivity">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="用户中心组件"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
 
-</android.support.constraint.ConstraintLayout>
+    <TextView android:layout_width="match_parent"
+              android:gravity="center"
+              android:id="@+id/tvStatus"
+              android:text="登录状态"
+              android:layout_margin="10dp"
+              android:layout_height="wrap_content"/>
+
+    <Button android:layout_width="match_parent"
+            android:id="@+id/btnLogin"
+            android:text="登录"
+            android:layout_height="wrap_content"/>
+
+
+    <Button android:layout_width="match_parent"
+            android:id="@+id/btnLoginOut"
+            android:text="退出"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

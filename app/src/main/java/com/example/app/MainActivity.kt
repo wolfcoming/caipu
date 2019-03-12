@@ -18,5 +18,8 @@ class MainActivity : AppCompatActivity() {
         btnShop.setOnClickListener {
             ARouter.getInstance().build(ARouterConfig.ACT_SHOP_HOME).navigation();
         }
+        btnUser.setOnClickListener {
+            ARouter.getInstance().build(ARouterConfig.ACT_USER_LOGIN).navigation();
+        }
     }
 }

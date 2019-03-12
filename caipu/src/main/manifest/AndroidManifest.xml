@@ -14,7 +14,7 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:name="com.infoholdcity.baselibrary.MainApplaction"
+            android:name=".CaipuApplication"
             android:theme="@style/MyAppTheme">
         <activity android:name=".CaipuMainActivity">
             <intent-filter>

@@ -8,7 +8,7 @@ import com.didichuxing.doraemonkit.DoraemonKit
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.squareup.leakcanary.LeakCanary
 
-open class MainApplaction : Application() {
+open abstract class BaseApplaction : Application() {
     companion object {
         private var mContext: Context? = null
         fun getContext(): Context? {
@@ -26,6 +26,8 @@ open class MainApplaction : Application() {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
+        initModuleApp(this)
+        initModuleData(this)
         LeakCanary.install(this);
         initDoraemon()//调试工具
         initArouter()
@@ -51,4 +53,15 @@ open class MainApplaction : Application() {
         }
         ARouter.init(this); // As early as possible, it is recommended to initialize in the Application
     }
+
+
+    /**
+     * Application 初始化
+     */
+    abstract fun initModuleApp(application: Application)
+
+    /**
+     * 所有 Application 初始化后的自定义操作
+     */
+    abstract fun initModuleData(application: Application)
 }

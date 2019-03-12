@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.infoholdcity.baselibrary.MainApplaction
 import com.example.caipuandroid.R
 import com.example.caipuandroid.base.BaseMvpActivity
 import com.example.caipuandroid.mvp.contract.CategoryContract

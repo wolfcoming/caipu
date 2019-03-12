@@ -19,4 +19,9 @@
             android:text="电商组件"
             android:layout_height="wrap_content"/>
 
+    <Button android:layout_width="match_parent"
+            android:id="@+id/btnUser"
+            android:text="用户中心组件"
+            android:layout_height="wrap_content"/>
+
 </LinearLayout>

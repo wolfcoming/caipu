@@ -1,4 +1,4 @@
-package com.example.logincomponent
+package com.example.userCentercomponent
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

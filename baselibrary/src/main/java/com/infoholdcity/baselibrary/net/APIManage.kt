@@ -1,7 +1,7 @@
 package com.infoholdcity.baselibrary.net
 
 import android.os.Environment
-import com.infoholdcity.baselibrary.MainApplaction
+import com.infoholdcity.baselibrary.BaseApplaction
 import com.infoholdcity.basearchitecture.net.interceptor.HttpCacheInterceptor
 import com.infoholdcity.baselibrary.BuildConfig
 import com.infoholdcity.baselibrary.annotation.BaseUrl
@@ -164,7 +164,7 @@ class APIManage private constructor() {
     //检测网络是否连接
     val networkStatusInterceptor = Interceptor { chain ->
         var request = chain.request()
-        if (!NetWorkHelper.isNetConnected(MainApplaction.getContext()!!)) {
+        if (!NetWorkHelper.isNetConnected(BaseApplaction.getContext()!!)) {
             val maxStale = 4 * 7 * 24 * 60; // 离线时缓存保存4周,单位:秒
             val tempCacheControl: CacheControl = CacheControl.Builder()
                 .onlyIfCached()

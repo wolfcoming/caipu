@@ -1,4 +1,4 @@
-package com.example.logincomponent
+package com.example.userCentercomponent
 
 import org.junit.Test
 
