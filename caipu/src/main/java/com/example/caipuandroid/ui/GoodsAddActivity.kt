@@ -31,10 +31,7 @@ class GoodsAddActivity : TakePhotoBaseActivity() {
         setContentView(R.layout.activity_goodadd)
         initQiniu()
         btnAddImg.setOnClickListener {
-            //            uploadManager!!
-
             val imageUri = getFileUri()
-
             val takePhotoOptions = TakePhotoOptions.Builder()
                 .setCorrectImage(true)//是否纠正旋转
                 .create()
@@ -55,14 +52,17 @@ class GoodsAddActivity : TakePhotoBaseActivity() {
         val filePath = result!!.image.compressPath
         val key = System.currentTimeMillis().toString() + ".jpg"
         val token =
-            "9SGCOiw4SnXTZj0QumvO7QMsAKdGiherr_DnHXpg:bJunwWScZoMvdGpTYVuO1DuziNY=:eyJzY29wZSI6ImRqYW5nb19jYWlwdV9pbWFnZSIsImRlYWRsaW5lIjoxNTUyMjIyNjU1fQ==";
+            "9SGCOiw4SnXTZj0QumvO7QMsAKdGiherr_DnHXpg:LYk-YYmlkK6HVJD0uXZJfKmbQwI=:eyJzY29wZSI6ImRqYW5nb19jYWlwdV9pbWFnZSIsImRlYWRsaW5lIjoxNTUyMzc4NjkyfQ==";
+
 
         uploadManager!!.put(filePath, key, token, object : UpCompletionHandler {
             override fun complete(key: String?, info: ResponseInfo, response: JSONObject) {
                 if (info.isOK()) {
                     Log.i("qiniu", "Upload Success");
+                    toast("图片上传到七牛")
                 } else {
                     Log.i("qiniu", "Upload Fail");
+                    toast("上传失败")
                     //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
                 }
                 Log.i("qiniu___", "$key,\r\n $info,\r\n $response");

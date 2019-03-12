@@ -9,28 +9,28 @@ import java.lang.Exception
 class AppApplaction : BaseApplaction() {
     override fun initModuleData(application: Application) {
 //        反射所有父类
-        try {
-            AppConfig.moduleApps.forEach { cls ->
+        AppConfig.moduleApps.forEach { cls ->
+            try {
                 val clazz = Class.forName(cls) as Class
                 val baseApp: BaseApplaction = clazz.newInstance() as BaseApplaction
                 baseApp.initModuleData(this)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
-
     }
 
     override fun initModuleApp(application: Application) {
-        try {
-            AppConfig.moduleApps.map { cls ->
+        AppConfig.moduleApps.forEach { cls ->
+            try {
                 val clazz = Class.forName(cls) as Class
                 val baseApp: BaseApplaction = clazz.newInstance() as BaseApplaction
                 baseApp.initModuleApp(this)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
+
 
     }
 }

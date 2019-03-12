@@ -34,7 +34,7 @@ android {
 
 dependencies {
 
-    implementation project(':baselibrary')
+    implementation project(':componentbase')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -43,13 +43,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     if(!rootProject.ext.CaipuRunAlone.toBoolean()){
-        api project(':caipu')
+        runtimeOnly project(':caipu')//runtimeOnly代码隔离
     }
     if(!rootProject.ext.ShopRunAlone.toBoolean()){
-        api project(':shopingmodule')
+        runtimeOnly project(':shopingmodule')
     }
     if(!rootProject.ext.UserCenterRunAlone.toBoolean()){
-        api project(':userCentercomponent')
+        runtimeOnly project(':userCentercomponent')
     }
 
     api "com.alibaba:arouter-api:1.4.1"
