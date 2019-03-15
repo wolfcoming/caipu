@@ -15,6 +15,11 @@
             android:id="@+id/btnAddImg"
             android:layout_height="wrap_content"/>
 
+    <Button android:layout_width="match_parent"
+            android:id="@+id/btnAddGreens"
+            android:text="上传菜谱"
+            android:layout_height="wrap_content"/>
+
 
 
 </LinearLayout>

@@ -6,7 +6,10 @@ import android.os.Environment
 import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.caipuandroid.R
+import com.example.caipuandroid.service.impl.IServiceNetImpl
+import com.example.caipuandroid.ui.vo.Greens
 import com.infoholdcity.basearchitecture.self_extends.Klog
+import com.infoholdcity.basearchitecture.self_extends.excute
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.base.TakePhotoBaseActivity
@@ -26,6 +29,7 @@ import java.time.temporal.TemporalQueries.zone
 
 @Route(path = ARouterConfig.ACT_CAIPU_ADD)
 class GoodsAddActivity : TakePhotoBaseActivity() {
+    val service by lazy { IServiceNetImpl() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goodadd)
@@ -44,6 +48,30 @@ class GoodsAddActivity : TakePhotoBaseActivity() {
             getTakePhoto()!!.onEnableCompress(config, false)//压缩后的文件存放在了cache缓存文件夹
             getTakePhoto().onPickFromCapture(imageUri)
         }
+        btnAddGreens.setOnClickListener {
+            val greens = Greens()
+            greens.name = "name"
+            greens.brief = "breief"
+            greens.views = 10
+            greens.collect = 10
+            greens.tips = "tip"
+            greens.makes = "makes"
+            greens.burden = "burden"
+            greens.img = "img"
+            service.addGreens(greens)
+                .excute()
+                .subscribe({ it ->
+                    if (it) {
+                        toast("上传成功")
+                    } else {
+                        toast("上传失败")
+                    }
+
+                }, {
+                    toast(it.message!!)
+                })
+        }
+
     }
 
     override fun takeSuccess(result: TResult?) {
@@ -114,5 +142,6 @@ class GoodsAddActivity : TakePhotoBaseActivity() {
         val imageUri = Uri.fromFile(file)
         return imageUri
     }
+
 
 }

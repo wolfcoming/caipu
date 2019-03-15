@@ -73,9 +73,16 @@ class APIManage private constructor() {
             var timeOutAnno: TimeOut? = api.getAnnotation(TimeOut::class.java)
             timeOut = timeOutAnno?.value
             if (timeOut != null) {
-                retrofit = retrofit?.newBuilder()?.client(initOkHttp(timeOut!!))?.baseUrl(baseUrl)?.build()
+                retrofit = retrofit?.newBuilder()?.client(initOkHttp(timeOut!!))
+                    ?.baseUrl(baseUrl)
+//                    ?.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                    ?.addConverterFactory(GsonConverterFactory.create())
+                    ?.build()
             } else {
-                retrofit = retrofit?.newBuilder()?.baseUrl(baseUrl)?.build()
+                retrofit = retrofit?.newBuilder()?.baseUrl(baseUrl)
+//                    ?.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                    ?.addConverterFactory(GsonConverterFactory.create())
+                    ?.build()
             }
         }
         return retrofit!!.create(api)

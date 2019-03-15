@@ -2,11 +2,11 @@ package com.example.caipuandroid.remote
 
 import com.example.caipuandroid.remote.bean.BaseBean
 import com.example.caipuandroid.remote.bean.CategoryBean
+import com.example.caipuandroid.ui.vo.Greens
 import com.infoholdcity.baselibrary.annotation.BaseUrl
 import com.infoholdcity.baselibrary.annotation.TimeOut
 import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
 @BaseUrl(URLConfig.caipuBaseurl)
@@ -16,7 +16,12 @@ interface APIService {
     /**
      * 首页精选
      */
-    @GET("/getMenu")
+    @GET("/getMenu/")
     fun getCategorys(): Observable<BaseBean<List<CategoryBean>>>
+
+
+    @POST("/addCaipu/")
+    fun addGreens(@Body greens: Greens): Observable<BaseBean<String>>
+
 
 }

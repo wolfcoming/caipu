@@ -10,6 +10,7 @@ import com.example.caipuandroid.remote.bean.CategoryBean
 import com.infoholdcity.baselibrary.net.util.ApiException
 import com.example.caipuandroid.service.ICaipuService
 import com.example.caipuandroid.ui.vo.CategoryVo
+import com.example.caipuandroid.ui.vo.Greens
 import com.google.gson.Gson
 import io.reactivex.Observable
 import kotlin.collections.ArrayList
@@ -18,6 +19,19 @@ import kotlin.collections.ArrayList
  * 该层用来转换业务层需要的数据格式
  */
 class IServiceNetImpl : ICaipuService {
+
+
+    override fun addGreens(greens: Greens): Observable<Boolean> {
+        return APIManage.instance.getRequest(APIService::class.java)
+            .addGreens(greens)
+            .map { result ->
+                if (result.code == 1) {
+                    true
+                }else{
+                    throw ApiException("${result.message}")
+                }
+            }
+    }
 
     override fun getCategorys(): Observable<List<CategoryVo>> {
 
