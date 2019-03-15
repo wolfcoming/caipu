@@ -32,4 +32,8 @@ class CaipuMainActivity : BaseActiviy() {
                 ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_ADD).navigation()
         }
     }
+
+    override fun onUserInteraction() {
+        super.onUserInteraction()
+    }
 }
