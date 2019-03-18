@@ -20,7 +20,14 @@ import kotlin.collections.ArrayList
  */
 class IServiceNetImpl : ICaipuService {
     override fun getQiNiuToken(): Observable<String> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return APIManage.instance.getRequest(APIService::class.java)
+            .getQiNiuToken().map { result ->
+                if (result.code == 1) {
+                    result.data
+                } else {
+                    throw ApiException("${result.message}")
+                }
+            }
     }
 
 
@@ -30,7 +37,7 @@ class IServiceNetImpl : ICaipuService {
             .map { result ->
                 if (result.code == 1) {
                     true
-                }else{
+                } else {
                     throw ApiException("${result.message}")
                 }
             }
@@ -45,7 +52,7 @@ class IServiceNetImpl : ICaipuService {
 
                 val list = ArrayList<CategoryVo>()
                 if (listBaseBean.code == 1) {
-                    save2Db(listBaseBean)
+//                    save2Db(listBaseBean)
                     //取出一级数据
                     listBaseBean.data!!.forEach {
                         if (it.category_level == 1) {

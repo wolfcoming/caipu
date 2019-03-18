@@ -80,20 +80,20 @@ open class TakePhotoBaseActivity: BaseActiviy() , TakePhoto.TakeResultListener, 
     fun getTakePhoto(): TakePhoto {
         if (takePhot == null) {
             takePhot = TakePhotoInvocationHandler.of(this).bind(TakePhotoImpl(this, this)) as TakePhoto
-            //默认配置
-            val takePhotoOptions = TakePhotoOptions.Builder()
-                    .setCorrectImage(true)//是否纠正旋转
-                    .setWithOwnGallery(false)//当从相册选择时onPickFromGallery 可以设置是否从自定义的选择界面进行选择
-                    .create()
-            takePhot!!.setTakePhotoOptions(takePhotoOptions)
-            val config = CompressConfig.Builder()
-                    .enablePixelCompress(true)//是否开启像素压缩
-                    .enableQualityCompress(true)//质量压缩
-                    .enableReserveRaw(true)//是否保留原件
-                    .create()
-            takePhot!!.onEnableCompress(config,true)//压缩后的文件存放在了cache缓存文件夹
         }
-
+        //TODO 每次都需要调用 否则后去压缩后的照片报错
+        //默认配置
+        val takePhotoOptions = TakePhotoOptions.Builder()
+            .setCorrectImage(true)//是否纠正旋转
+            .setWithOwnGallery(false)//当从相册选择时onPickFromGallery 可以设置是否从自定义的选择界面进行选择
+            .create()
+        takePhot!!.setTakePhotoOptions(takePhotoOptions)
+        val config = CompressConfig.Builder()
+            .enablePixelCompress(true)//是否开启像素压缩
+            .enableQualityCompress(true)//质量压缩
+            .enableReserveRaw(true)//是否保留原件
+            .create()
+        takePhot!!.onEnableCompress(config,true)//压缩后的文件存放在了cache缓存文件夹
         return takePhot as TakePhoto
     }
 

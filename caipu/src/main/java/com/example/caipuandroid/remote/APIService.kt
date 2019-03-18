@@ -24,4 +24,7 @@ interface APIService {
     fun addGreens(@Body greens: Greens): Observable<BaseBean<String>>
 
 
+    @GET("/qntoken/")
+    fun getQiNiuToken(): Observable<BaseBean<String>>
+
 }
