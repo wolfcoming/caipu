@@ -21,7 +21,7 @@ class AddGreensPresenter : BasePresenter<AddGreensContract.View>(), AddGreensCon
 
     }
 
-    val imgsMap = HashMap<String, String>()
+    val imgsMap = LinkedHashMap<String, String>()
     override fun addGreens() {
 
 
@@ -36,7 +36,7 @@ class AddGreensPresenter : BasePresenter<AddGreensContract.View>(), AddGreensCon
         greens.name = name
         val tips = mRootView?.getTips()
         greens.tips = tips
-        greens.brief ="空brief"
+        greens.brief ="暂无简介"
 
         var burdenStr = ""
         val burdens: ArrayList<BurdenBean> = mRootView?.getBurdens()!!
@@ -66,10 +66,7 @@ class AddGreensPresenter : BasePresenter<AddGreensContract.View>(), AddGreensCon
 
         try {
             service.getQiNiuToken().excute().subscribe({ token ->
-                //获取完token 先上传图片到七牛
                 submitData(greens, token)
-
-//                mRootView?.onError(token)
             }, {
                 Klog.e(contents = it.message!!)
                 mRootView?.onError(it.message!!)
@@ -79,7 +76,7 @@ class AddGreensPresenter : BasePresenter<AddGreensContract.View>(), AddGreensCon
         }
     }
 
-    val uploadedImg = HashMap<String, String>()
+    val uploadedImg = LinkedHashMap<String, String>()
     private fun submitData(greens: Greens, token: String) {
         Klog.e(contents = token)
         if (imgsMap.size > 0) {

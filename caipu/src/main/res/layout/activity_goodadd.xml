@@ -4,6 +4,7 @@
               android:layout_width="match_parent"
               android:background="@color/white"
               android:focusable="true"
+              android:fitsSystemWindows="true"
               android:focusableInTouchMode="true"
               android:layout_height="match_parent">
 
@@ -14,9 +15,9 @@
                   android:gravity="center"
                   android:layout_height="wrap_content">
 
-        <ImageButton android:layout_width="30dp"
-                     android:background="@color/colorAccent"
-                     android:layout_height="30dp"/>
+        <ImageButton android:layout_width="24dp"
+                    android:background="@drawable/ic_back"
+                     android:layout_height="24dp"/>
 
         <TextView android:layout_width="wrap_content"
                   android:layout_weight="1"
@@ -41,7 +42,7 @@
             <ImageView android:layout_width="match_parent"
                        android:id="@+id/ivCover"
                        android:scaleType="center"
-                       android:src="@mipmap/ic_launcher"
+                       android:src="@drawable/ic_cover"
                        android:layout_height="280dp"/>
 
             <TextView android:layout_width="match_parent"
@@ -54,6 +55,7 @@
             <EditText android:layout_width="match_parent"
                       android:id="@+id/etName"
                       android:background="@null"
+                      android:padding="10dp"
                       android:minHeight="30dp"
                       android:layout_height="wrap_content"/>
 
@@ -67,6 +69,7 @@
             <EditText android:layout_width="match_parent"
                       android:id="@+id/etExPerience"
                       android:background="@null"
+                      android:padding="10dp"
                       android:minHeight="30dp"
                       android:layout_height="wrap_content"/>
 
@@ -123,7 +126,7 @@
                           android:layout_height="wrap_content">
                 <ImageView android:layout_width="20dp"
                            android:layout_height="20dp"
-                           android:background="@color/colorAccent"
+                           android:background="@drawable/ic_add"
                 />
                 <TextView android:layout_width="wrap_content"
                           android:text="添加食材"
@@ -152,7 +155,7 @@
                           android:layout_height="wrap_content">
                 <ImageView android:layout_width="20dp"
                            android:layout_height="20dp"
-                           android:background="@color/colorAccent"
+                           android:background="@drawable/ic_add"
                 />
                 <TextView android:layout_width="wrap_content"
                           android:text="添加步骤"

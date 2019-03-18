@@ -17,6 +17,7 @@ class MakesAdapter : BaseQuickAdapter<MakesBean, BaseViewHolder> {
 
         val etStep = helper!!.getView<EditText>(R.id.etStep)
         val ivStepImg = helper!!.getView<ImageView>(R.id.ivStepImg)
+        helper.setText(R.id.tvOrder, (helper.adapterPosition+1).toString() + ".")
         if (item!!.step.isNotEmpty()) {
             etStep.setText(item?.step)
         } else etStep.setText("")

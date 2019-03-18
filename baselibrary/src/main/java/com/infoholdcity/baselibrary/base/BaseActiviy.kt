@@ -25,7 +25,7 @@ abstract class BaseActiviy : AppCompatActivity() {
 
         //设置沉浸式状态栏
         StatusBarHelper.setStatusBar(this, false, true)
-
+        StatusBarHelper.setStatusTextColor(true,this)
     }
 
     override fun onDestroy() {

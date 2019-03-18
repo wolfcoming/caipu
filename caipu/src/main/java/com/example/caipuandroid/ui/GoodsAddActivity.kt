@@ -130,8 +130,6 @@ class GoodsAddActivity : BaseMvpActivity<AddGreensContract.Presenter>(), AddGree
         }
 
         btnUpload.setOnClickListener {
-            burdenAdapter.notifyDataSetChanged()
-            makesAdapter.notifyDataSetChanged()
             mPresenter.addGreens()
 
         }
