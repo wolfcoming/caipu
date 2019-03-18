@@ -1,7 +1,9 @@
 package com.infoholdcity.baselibrary.base
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import org.devio.takephoto.app.TakePhoto
@@ -15,6 +17,7 @@ import org.devio.takephoto.model.TakePhotoOptions
 import org.devio.takephoto.permission.InvokeListener
 import org.devio.takephoto.permission.PermissionManager
 import org.devio.takephoto.permission.TakePhotoInvocationHandler
+import java.io.File
 
 /**
  *@date     创建时间： 2018/11/2
@@ -49,7 +52,7 @@ open class TakePhotoBaseActivity: BaseActiviy() , TakePhoto.TakeResultListener, 
     }
 
     override fun takeSuccess(result: TResult?) {
-        Log.i(TAG, "takeSuccess：" + result?.getImage()?.compressPath)
+//        Log.i(TAG, "takeSuccess：" + result?.getImage()?.compressPath)
     }
 
     override fun takeFail(result: TResult?, msg: String?) {
@@ -79,14 +82,14 @@ open class TakePhotoBaseActivity: BaseActiviy() , TakePhoto.TakeResultListener, 
             takePhot = TakePhotoInvocationHandler.of(this).bind(TakePhotoImpl(this, this)) as TakePhoto
             //默认配置
             val takePhotoOptions = TakePhotoOptions.Builder()
-                    .setCorrectImage(false)//是否纠正旋转
+                    .setCorrectImage(true)//是否纠正旋转
                     .setWithOwnGallery(false)//当从相册选择时onPickFromGallery 可以设置是否从自定义的选择界面进行选择
                     .create()
             takePhot!!.setTakePhotoOptions(takePhotoOptions)
             val config = CompressConfig.Builder()
                     .enablePixelCompress(true)//是否开启像素压缩
                     .enableQualityCompress(true)//质量压缩
-                    .enableReserveRaw(false)//是否保留原件
+                    .enableReserveRaw(true)//是否保留原件
                     .create()
             takePhot!!.onEnableCompress(config,true)//压缩后的文件存放在了cache缓存文件夹
         }
@@ -94,5 +97,17 @@ open class TakePhotoBaseActivity: BaseActiviy() , TakePhoto.TakeResultListener, 
         return takePhot as TakePhoto
     }
 
+
+    /**
+     * 获取文件保存位置
+     */
+    fun getFileUri(): Uri {
+        val file = File(Environment.getExternalStorageDirectory(), "/菜谱图片/" + System.currentTimeMillis() + ".jpg")
+        if (!file.parentFile.exists()) {
+            file.parentFile.mkdirs()
+        }
+        val imageUri = Uri.fromFile(file)
+        return imageUri
+    }
 
 }

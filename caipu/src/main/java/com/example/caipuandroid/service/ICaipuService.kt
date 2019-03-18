@@ -8,6 +8,7 @@ import retrofit2.http.Body
 import retrofit2.http.PartMap
 
 interface ICaipuService {
+
     /**
      * 获取菜单分类
      */
@@ -17,6 +18,16 @@ interface ICaipuService {
      * 添加菜的做法
      */
     fun addGreens( greens: Greens):Observable<Boolean>
+
+
+    /**
+     * 获取七牛token
+     */
+    fun getQiNiuToken():Observable<String>
+
+
+
+
 
 
 

@@ -3,23 +3,168 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:background="@color/white"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
               android:layout_height="match_parent">
 
 
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:padding="10dp"
+                  android:gravity="center"
+                  android:layout_height="wrap_content">
+
+        <ImageButton android:layout_width="30dp"
+                     android:background="@color/colorAccent"
+                     android:layout_height="30dp"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_weight="1"
+                  android:gravity="center"
+                  android:text="发菜谱" android:layout_height="wrap_content"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:text="存草稿"
+                  android:layout_marginRight="10dp"
+                  android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 
+    <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+            <ImageView android:layout_width="match_parent"
+                       android:id="@+id/ivCover"
+                       android:scaleType="center"
+                       android:src="@mipmap/ic_launcher"
+                       android:layout_height="280dp"/>
+
+            <TextView android:layout_width="match_parent"
+                      android:background="@color/gray"
+                      android:text="菜谱名(必填)"
+                      android:padding="8dp"
+                      android:layout_height="wrap_content"/>
 
 
-    <Button android:layout_width="match_parent"
-            android:text="上传图片到七牛"
-            android:id="@+id/btnAddImg"
-            android:layout_height="wrap_content"/>
+            <EditText android:layout_width="match_parent"
+                      android:id="@+id/etName"
+                      android:background="@null"
+                      android:minHeight="30dp"
+                      android:layout_height="wrap_content"/>
 
-    <Button android:layout_width="match_parent"
-            android:id="@+id/btnAddGreens"
-            android:text="上传菜谱"
-            android:layout_height="wrap_content"/>
+            <TextView android:layout_width="match_parent"
+                      android:background="@color/gray"
+                      android:text="心得"
+                      android:padding="8dp"
+                      android:layout_height="wrap_content"/>
 
 
+            <EditText android:layout_width="match_parent"
+                      android:id="@+id/etExPerience"
+                      android:background="@null"
+                      android:minHeight="30dp"
+                      android:layout_height="wrap_content"/>
+
+            <TextView android:layout_width="match_parent"
+                      android:background="@color/gray"
+                      android:text="食材(至少1项)"
+                      android:padding="8dp"
+                      android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="材料名称"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="14dp"
+                        android:layout_weight="1"/>
+
+                <View android:layout_width="1dp"
+                      android:layout_height="match_parent"
+                      android:background="@color/gray">
+                </View>
+
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:hint="用量"
+                          android:textStyle="bold"
+                          android:textSize="14dp"
+                          android:id="@+id/etDosage"
+                          android:layout_margin="10dp"
+                          android:layout_weight="1"
+                          android:gravity="center" ></TextView>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent"
+                  android:background="@color/gray"
+                  android:layout_height="1dp"></View>
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvBundls"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+            <LinearLayout android:layout_width="match_parent"
+                          android:id="@+id/llAddBurdenView"
+                          android:orientation="horizontal"
+                          android:padding="10dp"
+                          android:background="@color/gray"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="20dp"
+                           android:layout_height="20dp"
+                           android:background="@color/colorAccent"
+                />
+                <TextView android:layout_width="wrap_content"
+                          android:text="添加食材"
+                          android:layout_marginLeft="10dp"
+                          android:textColor="@android:color/holo_red_dark"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+            <TextView android:layout_width="match_parent"
+                      android:background="@color/gray"
+                      android:text="步骤(至少3步)"
+                      android:padding="8dp"
+                      android:layout_height="wrap_content"/>
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvMakes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+            <LinearLayout android:layout_width="match_parent"
+                          android:id="@+id/llAddMakesView"
+                          android:orientation="horizontal"
+                          android:padding="10dp"
+                          android:background="@color/gray"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="20dp"
+                           android:layout_height="20dp"
+                           android:background="@color/colorAccent"
+                />
+                <TextView android:layout_width="wrap_content"
+                          android:text="添加步骤"
+                          android:layout_marginLeft="10dp"
+                          android:textColor="@android:color/holo_red_dark"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <Button android:layout_width="match_parent"
+                    android:id="@+id/btnUpload"
+                    android:text="发布"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

@@ -19,6 +19,9 @@ import kotlin.collections.ArrayList
  * 该层用来转换业务层需要的数据格式
  */
 class IServiceNetImpl : ICaipuService {
+    override fun getQiNiuToken(): Observable<String> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 
     override fun addGreens(greens: Greens): Observable<Boolean> {

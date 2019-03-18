@@ -3,8 +3,9 @@ package com.example.caipuandroid.base
 import android.content.Context
 import android.os.Bundle
 import com.infoholdcity.baselibrary.base.BaseActiviy
+import com.infoholdcity.baselibrary.base.TakePhotoBaseActivity
 
-abstract class BaseMvpActivity<P : IPresenter<*>> : BaseActiviy(), IBaseView {
+abstract class BaseMvpActivity<P : IPresenter<*>> : TakePhotoBaseActivity(), IBaseView {
 
     lateinit var mPresenter: P
 
