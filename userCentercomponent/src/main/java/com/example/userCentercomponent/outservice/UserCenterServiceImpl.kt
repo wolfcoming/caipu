@@ -12,6 +12,8 @@ import com.infoholdcity.baselibrary.BaseApplaction
 import com.infoholdcity.baselibrary.utils.SPUtils
 
 class UserCenterServiceImpl : IUserCenterService {
+
+
     override fun getMinFragment(
         activity: Activity,
         containerId: Int,
@@ -32,5 +34,9 @@ class UserCenterServiceImpl : IUserCenterService {
 
     override fun getUserId(): String? {
         return SPUtils.getInstance(BaseApplaction.getContext()).getObject<UserBeanVo>("userBean")?.userId
+    }
+
+    override fun getUserName(): String? {
+        return SPUtils.getInstance(BaseApplaction.getContext()).getObject<UserBeanVo>("userBean")?.name
     }
 }

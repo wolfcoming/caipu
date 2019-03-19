@@ -26,7 +26,10 @@ interface ICaipuService {
     fun getQiNiuToken():Observable<String>
 
 
-
+    /**
+     * 获取菜谱列表
+     */
+    fun getGreensList(pageSize:Int,pageNumber:Int):Observable<List<Greens>>
 
 
 

@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         btnUser.setOnClickListener {
             ARouter.getInstance().build(ARouterConfig.ACT_USER_LOGIN).navigation();
         }
+
+
         val bundle = Bundle()
         bundle.putString("args", "app传递参数")
 

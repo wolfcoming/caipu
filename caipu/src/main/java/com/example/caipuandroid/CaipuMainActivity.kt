@@ -31,6 +31,10 @@ class CaipuMainActivity : BaseActiviy() {
             } else
                 ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_ADD).navigation()
         }
+
+        btnList.setOnClickListener {
+            ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_LIST).navigation()
+        }
     }
 
     override fun onUserInteraction() {

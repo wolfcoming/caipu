@@ -7,7 +7,7 @@ package com.example.caipuandroid.remote
  *@version  
 */
 object URLConfig {
-    const val caipuBaseurl = "http://192.168.1.103:8000/"
+    const val caipuBaseurl = "http://192.168.1.147:8000/"
     //七牛云图片地址
-    const val qiniuBaseurl = "http://po5amz3y7.bkt.clouddn.com"
+    const val qiniuBaseurl = "http://po5amz3y7.bkt.clouddn.com/"
 }

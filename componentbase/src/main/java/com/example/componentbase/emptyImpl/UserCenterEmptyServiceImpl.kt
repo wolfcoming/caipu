@@ -7,6 +7,10 @@ import android.support.v4.app.FragmentManager
 import com.example.componentbase.service.IUserCenterService
 
 class UserCenterEmptyServiceImpl : IUserCenterService {
+    override fun getUserName(): String? {
+        return "测试"
+    }
+
     override fun getMinFragment(
         activity: Activity,
         containerId: Int,

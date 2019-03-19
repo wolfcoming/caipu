@@ -12,6 +12,7 @@ class ARouterConfig {
         const val ACT_CAIPU_CATEGORY = "/caipu/ACT_CAIPU_CATEGORY"//分类界面
         const val ACT_CAIPU_HOME = "/caipu/ACT_CAIPU_HOME"//菜谱首页
         const val ACT_CAIPU_ADD = "/caipu/ACT_CAIPU_ADD"//菜谱增加界面
+        const val ACT_CAIPU_LIST = "/caipu/ACT_CAIPU_LIST"//菜谱列表
 
 
         //购物模块

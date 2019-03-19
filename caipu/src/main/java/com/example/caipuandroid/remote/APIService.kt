@@ -27,4 +27,9 @@ interface APIService {
     @GET("/qntoken/")
     fun getQiNiuToken(): Observable<BaseBean<String>>
 
+
+    @GET("/getGreensList/")
+    fun getCaipuList(@Query("pageSize") pageSize:Int,
+                     @Query("pageNumber") pageNumber:Int):Observable<BaseBean<List<Greens>>>
+
 }
