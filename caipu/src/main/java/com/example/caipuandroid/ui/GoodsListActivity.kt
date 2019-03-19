@@ -12,25 +12,67 @@ import com.infoholdcity.basearchitecture.self_extends.excute
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.config.ARouterConfig.Companion.ACT_CAIPU_LIST
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import kotlinx.android.synthetic.main.activity_goodslist.*
 
 @Route(path = ACT_CAIPU_LIST)
 class GoodsListActivity : BaseActiviy() {
     val service by lazy { IServiceNetImpl() }
+    val adapter = GoodsListAdapter()
+    var pageSize = 15
+    var pageNumber = 1
+    var name = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goodslist)
-        rvGoodsList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        val adapter = GoodsListAdapter()
-        rvGoodsList.adapter = adapter
+        name = intent.getStringExtra("name")
+        etName.setText(name)
+        etName.setSelection(name.length)
+        etName.clearFocus()
 
-        service.getGreensList(10, 1)
+        rvGoodsList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rvGoodsList.adapter = adapter
+        getData(true)
+        refreshLayout.setOnLoadMoreListener { refreshLayout ->
+            getData(false)
+        }
+
+        refreshLayout.setOnRefreshListener {
+            getData(true)
+        }
+        tvSearch.setOnClickListener {
+            name = etName.text.toString()
+            getData(true)
+        }
+        ivBack.setOnClickListener { finish() }
+    }
+
+    fun getData(isFresh: Boolean) {
+        if (isFresh) {
+            pageNumber = 1
+        }
+        service.getGreensList(pageSize, pageNumber, name)
             .excute()
             .subscribe({
-                adapter.addData(it)
+                pageNumber++
+                if (isFresh) {
+                    refreshLayout.finishRefresh()
+                    adapter.setNewData(it)
+                } else {
+                    if (pageSize > it.size) {
+                        refreshLayout.finishLoadMoreWithNoMoreData()
+                    } else {
+                        refreshLayout.finishLoadMore()
+                    }
+                    adapter.addData(it)
+                }
             }, {
+                refreshLayout.finishLoadMore()
+                refreshLayout.finishRefresh()
                 toast(it.message!!)
             })
-
     }
+
+
 }

@@ -33,7 +33,9 @@ class CaipuMainActivity : BaseActiviy() {
         }
 
         btnList.setOnClickListener {
-            ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_LIST).navigation()
+            ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_LIST)
+                .withString("name","")
+                .navigation()
         }
     }
 

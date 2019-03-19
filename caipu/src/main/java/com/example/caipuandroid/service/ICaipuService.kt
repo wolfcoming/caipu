@@ -17,21 +17,19 @@ interface ICaipuService {
     /**
      * 添加菜的做法
      */
-    fun addGreens( greens: Greens):Observable<Boolean>
+    fun addGreens(greens: Greens): Observable<Boolean>
 
 
     /**
      * 获取七牛token
      */
-    fun getQiNiuToken():Observable<String>
+    fun getQiNiuToken(): Observable<String>
 
 
     /**
      * 获取菜谱列表
      */
-    fun getGreensList(pageSize:Int,pageNumber:Int):Observable<List<Greens>>
-
-
+    fun getGreensList(pageSize: Int, pageNumber: Int, name: String): Observable<List<Greens>>
 
 
 }

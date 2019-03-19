@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.caipuandroid.R
 import com.example.caipuandroid.base.BaseMvpActivity
 import com.example.caipuandroid.mvp.contract.CategoryContract
@@ -55,7 +56,10 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
         rvRight.adapter = rightAdapter
         rightAdapter!!.setOnItemClickListener { adapter, view, position ->
             val categoryVo = rightAdapter!!.getItem(position)!!
-            toast(categoryVo.categoryName!!)
+            //跳转到列表界面 传递参数
+            ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_LIST)
+                .withString("name",categoryVo.categoryName!!)
+                .navigation()
         }
     }
 

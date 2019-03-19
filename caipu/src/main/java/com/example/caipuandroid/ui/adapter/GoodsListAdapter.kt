@@ -8,6 +8,7 @@ import com.example.caipuandroid.R
 import com.example.caipuandroid.remote.URLConfig
 import com.example.caipuandroid.ui.vo.Greens
 import com.example.componentbase.ServiceFactory
+import java.lang.Exception
 
 class GoodsListAdapter : BaseQuickAdapter<Greens, BaseViewHolder> {
     override fun convert(helper: BaseViewHolder?, item: Greens) {
@@ -18,12 +19,16 @@ class GoodsListAdapter : BaseQuickAdapter<Greens, BaseViewHolder> {
             .setText(R.id.tvCollects,item.collect.toString()+"收藏")
             .setText(R.id.tvAuthor,name)
         val ivCover = helper!!.getView<ImageView>(R.id.ivCover)
-        var imgStr = item.img
-        if (imgStr!!.startsWith("http")) {
-            Glide.with(helper!!.itemView.context).load(imgStr).into(ivCover)
-        }else{
-            imgStr =  URLConfig.qiniuBaseurl +imgStr
-            Glide.with(helper!!.itemView.context).load(imgStr).into(ivCover)
+        try {
+            var imgStr = item.img
+            if (imgStr!!.startsWith("http")) {
+                Glide.with(helper!!.itemView.context).load(imgStr).into(ivCover)
+            }else{
+                imgStr =  URLConfig.qiniuBaseurl +imgStr
+                Glide.with(helper!!.itemView.context).load(imgStr).into(ivCover)
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
 
 
