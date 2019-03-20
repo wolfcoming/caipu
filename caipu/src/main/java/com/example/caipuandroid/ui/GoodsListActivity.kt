@@ -1,5 +1,6 @@
 package com.example.caipuandroid.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route

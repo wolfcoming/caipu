@@ -59,6 +59,8 @@ class MyNestedScrollView @JvmOverloads constructor(
                     downY = ev.y
                 }
             }
+        }else{
+
         }
         return super.onInterceptTouchEvent(ev)
     }
