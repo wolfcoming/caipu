@@ -3,6 +3,7 @@ package com.example.userCentercomponent
 import android.os.Bundle
 import android.view.View
 import com.infoholdcity.basearchitecture.self_extends.Klog
+import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseFragment
 import com.infoholdcity.baselibrary.utils.SPUtils
 import kotlinx.android.synthetic.main.usercenter_frgm_min.*
@@ -11,7 +12,7 @@ class MinFragment : BaseFragment() {
 
     companion object {
 
-        fun Instance(bundle: Bundle): MinFragment {
+        fun Instance(bundle: Bundle?): MinFragment {
             val fragment = MinFragment()
             fragment.arguments = bundle
             return fragment
@@ -31,5 +32,10 @@ class MinFragment : BaseFragment() {
             tvInfo.text = "：：：：暂未登录"
         } else
             tvInfo.text = arg + "：：：：" + userBeanVo.name
+
+
+        btnTest.setOnClickListener {
+            toast(userBeanVo.name!!)
+        }
     }
 }

@@ -8,38 +8,15 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-    <Button android:layout_width="match_parent"
-            android:id="@+id/btnCaipu"
-            android:text="菜谱组件"
-            android:layout_height="wrap_content"/>
-
-
-    <Button android:layout_width="match_parent"
-            android:id="@+id/btnShop"
-            android:text="电商组件"
-            android:layout_height="wrap_content"/>
-
-    <Button android:layout_width="match_parent"
-            android:id="@+id/btnUser"
-            android:text="用户中心组件"
-            android:layout_height="wrap_content"/>
-
-
-
-    <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
-                                            android:id="@+id/rv"
-                                            android:layout_height="300dp">
-
-    </android.support.v7.widget.RecyclerView>
-
-
-
-
     <FrameLayout android:layout_width="match_parent"
+                 android:id="@+id/hom_coantiner"
                  android:layout_weight="1"
-                 android:id="@+id/fl_contain"
                  android:layout_height="match_parent"></FrameLayout>
-    <EditText android:layout_width="match_parent"
-              android:layout_height="wrap_content"/>
 
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+            android:id="@+id/bottomNavBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    </com.ashokvarma.bottomnavigation.BottomNavigationBar>
 </LinearLayout>

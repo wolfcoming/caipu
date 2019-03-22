@@ -5,10 +5,20 @@
               android:layout_height="match_parent">
 
 
+
+
+
     <TextView android:layout_width="match_parent"
               android:text="用户信息fragment"
               android:gravity="center"
               android:id="@+id/tvInfo"
-              android:layout_height="match_parent"/>
+              android:layout_height="wrap_content"/>
+
+    <Button android:layout_width="match_parent"
+            android:id="@+id/btnTest"
+            android:layout_height="wrap_content"/>
+
+
+
 
 </LinearLayout>

@@ -10,15 +10,20 @@ import com.example.userCentercomponent.MinFragment
 import com.example.userCentercomponent.UserBeanVo
 import com.infoholdcity.baselibrary.BaseApplaction
 import com.infoholdcity.baselibrary.utils.SPUtils
+import kotlin.math.min
 
 class UserCenterServiceImpl : IUserCenterService {
+    override fun getMineFragment(bundle: Bundle?, tag: String): Fragment? {
+        val minFragment = MinFragment.Instance(bundle)
+        return minFragment
+    }
 
 
-    override fun getMinFragment(
+    override fun loadFragment(
         activity: Activity,
         containerId: Int,
         manager: FragmentManager,
-        bundle: Bundle,
+        bundle: Bundle?,
         tag: String
     ): Fragment? {
         val transaction: FragmentTransaction = manager.beginTransaction()

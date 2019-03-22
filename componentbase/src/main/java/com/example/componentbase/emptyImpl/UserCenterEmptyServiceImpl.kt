@@ -7,15 +7,19 @@ import android.support.v4.app.FragmentManager
 import com.example.componentbase.service.IUserCenterService
 
 class UserCenterEmptyServiceImpl : IUserCenterService {
+    override fun getMineFragment(bundle: Bundle?, tag: String): Fragment? {
+        return null
+    }
+
     override fun getUserName(): String? {
         return "测试"
     }
 
-    override fun getMinFragment(
+    override fun loadFragment(
         activity: Activity,
         containerId: Int,
         manager: FragmentManager,
-        bundle: Bundle,
+        bundle: Bundle?,
         tag: String
     ): Fragment? {
         return null

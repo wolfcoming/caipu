@@ -10,11 +10,16 @@ interface IUserCenterService {
     fun isLogin(): Boolean //是否是登录状态
     fun getUserId(): String? //获取用户id
     fun getUserName(): String? //获取用户id
-    fun getMinFragment(
+    //加载framgent
+    fun loadFragment(
         activity: Activity,
         containerId: Int,
         manager: FragmentManager,
-        bundle: Bundle,
+        bundle: Bundle?,
         tag: String
     ): Fragment?
+
+    //获取fragment
+    fun getMineFragment( bundle: Bundle?,
+                         tag: String):Fragment?
 }
