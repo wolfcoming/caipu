@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentManager
 import com.example.componentbase.service.IUserCenterService
 
 class UserCenterEmptyServiceImpl : IUserCenterService {
-    override fun getMineFragment(bundle: Bundle?, tag: String): Fragment? {
-        return null
+    override fun getMineFragment(bundle: Bundle?, tag: String): Fragment {
+        return TestFragment()
     }
 
     override fun getUserName(): String? {
@@ -21,8 +21,8 @@ class UserCenterEmptyServiceImpl : IUserCenterService {
         manager: FragmentManager,
         bundle: Bundle?,
         tag: String
-    ): Fragment? {
-        return null
+    ): Fragment {
+        return TestFragment()
     }
 
     override fun isLogin(): Boolean {

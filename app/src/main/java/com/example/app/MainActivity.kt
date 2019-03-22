@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavBar.setMode(BottomNavigationBar.MODE_FIXED)
             .setBarBackgroundColor("#FFFFFF") // 背景颜色
+            .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
             .setInActiveColor("#000000") // 未选中状态颜色
             .setActiveColor("#FF0000") // 选中状态颜色
             .addItem(

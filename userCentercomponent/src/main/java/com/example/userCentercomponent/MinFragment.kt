@@ -35,7 +35,7 @@ class MinFragment : BaseFragment() {
 
 
         btnTest.setOnClickListener {
-            toast(userBeanVo.name!!)
+            toast("测试")
         }
     }
 }

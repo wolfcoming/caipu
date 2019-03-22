@@ -17,9 +17,9 @@ interface IUserCenterService {
         manager: FragmentManager,
         bundle: Bundle?,
         tag: String
-    ): Fragment?
+    ): Fragment
 
     //获取fragment
     fun getMineFragment( bundle: Bundle?,
-                         tag: String):Fragment?
+                         tag: String):Fragment
 }
