@@ -14,6 +14,7 @@ import com.example.caipuandroid.ui.vo.CategoryVo
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.config.ARouterConfig
+import com.infoholdcity.baselibrary.view.SingleProgressDialog
 import kotlinx.android.synthetic.main.activity_category.*
 
 
@@ -58,7 +59,7 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
             val categoryVo = rightAdapter!!.getItem(position)!!
             //跳转到列表界面 传递参数
             ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_LIST)
-                .withString("name",categoryVo.categoryName!!)
+                .withString("name", categoryVo.categoryName!!)
                 .navigation()
         }
     }
@@ -69,11 +70,11 @@ class CategoryActivity : BaseMvpActivity<CategoryContract.Presenter>(), Category
     }
 
     override fun showLoading() {
-
+        SingleProgressDialog.showLoading(this,canCancel = true)
     }
 
     override fun hideLoading() {
-        Klog.e(contents = "加载结束")
+        SingleProgressDialog.hideLoading()
     }
 
     override fun onError(message: String) {

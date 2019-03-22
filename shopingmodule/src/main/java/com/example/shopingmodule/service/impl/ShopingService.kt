@@ -77,8 +77,6 @@ class ShopingService : IShopingService {
                 }
                 result
             }
-
-
     }
 
 

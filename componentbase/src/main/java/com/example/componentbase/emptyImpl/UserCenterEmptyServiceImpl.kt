@@ -22,10 +22,10 @@ class UserCenterEmptyServiceImpl : IUserCenterService {
     }
 
     override fun isLogin(): Boolean {
-        return false
+        return true
     }
 
     override fun getUserId(): String? {
-        return null
+        return "1111"
     }
 }

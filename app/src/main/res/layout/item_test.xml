@@ -21,6 +21,7 @@
                       android:layout_height="match_parent">
             <TextView android:layout_width="match_parent"
                       android:text="侧滑区域"
+                      android:id="@+id/tvDelete"
                       android:gravity="center"
                       android:layout_height="match_parent"/>
         </LinearLayout>

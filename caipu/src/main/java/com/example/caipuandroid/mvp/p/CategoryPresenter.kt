@@ -11,6 +11,7 @@ class CategoryPresenter() : BasePresenter<CategoryContract.View>(), CategoryCont
     val categoryMode: CategoryMode by lazy { CategoryMode() }
 
     override fun getCategoryData() {
+        mRootView?.showLoading()
         val subscribe = categoryMode.getCategorys()
             .excute()
             .subscribe({ it ->

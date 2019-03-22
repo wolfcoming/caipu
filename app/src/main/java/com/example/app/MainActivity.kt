@@ -3,6 +3,8 @@ package com.example.app
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.TextView
+import android.widget.Toast
 import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -47,6 +49,13 @@ class MainActivity : AppCompatActivity() {
     class MyAdapter :BaseQuickAdapter<String,BaseViewHolder>{
         constructor():super(R.layout.item_test);
         override fun convert(helper: BaseViewHolder?, item: String?) {
+            helper!!.getView<TextView>(R.id.btnTest).isClickable =true
+            helper!!.getView<TextView>(R.id.btnTest).setOnClickListener {
+                Toast.makeText(helper!!.itemView.context,"点击内容区域",Toast.LENGTH_SHORT).show()
+            }
+            helper!!.getView<TextView>(R.id.tvDelete).setOnClickListener {
+                Toast.makeText(helper!!.itemView.context,"删",Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

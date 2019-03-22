@@ -13,6 +13,7 @@ import com.infoholdcity.basearchitecture.self_extends.excute
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.config.ARouterConfig.Companion.ACT_CAIPU_LIST
+import com.infoholdcity.baselibrary.view.SingleProgressDialog
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import kotlinx.android.synthetic.main.activity_goodslist.*
@@ -53,6 +54,7 @@ class GoodsListActivity : BaseActiviy() {
         if (isFresh) {
             pageNumber = 1
         }
+        SingleProgressDialog.showLoading(this)
         service.getGreensList(pageSize, pageNumber, name)
             .excute()
             .subscribe({
@@ -72,6 +74,9 @@ class GoodsListActivity : BaseActiviy() {
                 refreshLayout.finishLoadMore()
                 refreshLayout.finishRefresh()
                 toast(it.message!!)
+                SingleProgressDialog.hideLoading()
+            }, {
+                SingleProgressDialog.hideLoading()
             })
     }
 
