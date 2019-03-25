@@ -14,6 +14,7 @@ import com.example.shopingmodule.mvp.HomePresenter
 import com.example.shopingmodule.ui.vo.ShopBannerVo
 import com.example.shopingmodule.ui.vo.ShopCategoryVo
 import com.infoholdcity.basearchitecture.self_extends.toast
+import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.config.ARouterConfig
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
@@ -22,86 +23,11 @@ import kotlinx.android.synthetic.main.common_search_title.*
 
 
 @Route(path = ARouterConfig.ACT_SHOP_HOME)
-class ShopMainActivity : BaseMvpActivity<HomeContract.Ipresenter>(), HomeContract.IHomeView {
-    var tempAdapter: HomeAdapter? = null
-
-
-    var headerHegiht: Int? = 0
-    override fun showData(datas: HashMap<String, Any>) {
-        val categorys = datas["category"] as ArrayList<ShopCategoryVo>
-        val bannerList = datas["bannerlist"] as ArrayList<ShopBannerVo>
-
-        val datas: ArrayList<ContentBean> = ArrayList()
-        datas.add(ContentBean(1, categorys = categorys))
-        datas.add(ContentBean(2, goods = bannerList))
-        tempAdapter!!.setNewDatas(datas)
-
-
-        //添加底部fragment
-        val adapter = FragmentPagerItemAdapter(
-            supportFragmentManager,
-            FragmentPagerItems.with(this)
-                .add("精选", FragmentA::class.java)
-                .add("大家喜欢", FragmentB::class.java)
-                .create()
-        )
-
-
-
-        headerHegiht = search_contain.height
-        vp_shoping.adapter = adapter
-        tablayout.setViewPager(vp_shoping)
-//        设置viewpage的高度
-        val params = vp_shoping.layoutParams
-        params.height = ScreenUtil.getScreenHeight(this) - headerHegiht!! - rl_tablayout.height
-        vp_shoping.layoutParams = params
-    }
-
-    override fun getPresenter(): HomeContract.Ipresenter {
-        return HomePresenter()
-    }
-
-    override fun attachView(presenter: HomeContract.Ipresenter) {
-        presenter.attachView(this)
-    }
-
+class ShopMainActivity : BaseActiviy() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shop_activity_main)
-
-        initLinstener()
-//        recycleView.layoutManager = LinearLayoutManager(this)
-        recycleView.layoutManager = object : LinearLayoutManager(this) {
-            override fun canScrollVertically(): Boolean {
-                return false
-            }
-        }
-
-        tempAdapter = HomeAdapter()
-        recycleView.adapter = tempAdapter
-        mPresenter.getData()
+        supportFragmentManager.beginTransaction().add(R.id.shop_frgm, Frgm_ShopMain()).commit()
     }
 
-    private fun initLinstener() {
-
-        scrollview.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener {
-            internal var lastScrollY = 0
-
-            override fun onScrollChange(
-                v: NestedScrollView,
-                scrollX: Int,
-                scrollY: Int,
-                oldScrollX: Int,
-                oldScrollY: Int
-            ) {
-
-            }
-        })
-    }
-
-
-    override fun onError(message: String) {
-        super.onError(message)
-        toast(message)
-    }
 }

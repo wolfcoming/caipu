@@ -15,16 +15,15 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.example.componentbase.ServiceFactory
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.toast
+import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.config.ARouterConfig
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActiviy() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
         initBottomNavBar()
 
     }
@@ -37,8 +36,11 @@ class MainActivity : AppCompatActivity() {
         val categoryFragment = ServiceFactory.instance.getCaipuService()
             .getCategoryFragment(null,"")
 
+
+        val shopFragment = ServiceFactory.instance.getShopService().getShopHomeFragment(null,"");
+
         val fragments = ArrayList<Fragment>()
-        fragments.add(TempFragment())
+        fragments.add(shopFragment)
         fragments.add(categoryFragment)
         fragments.add(TempFragment())
         fragments.add(minFragment!!)
@@ -65,19 +67,19 @@ class MainActivity : AppCompatActivity() {
             .addItem(
                 BottomNavigationItem(
                     R.mipmap.ic_launcher,
-                    "消息"
+                    "分类"
+                ).setInactiveIconResource(R.mipmap.ic_launcher)
+            )
+            .addItem(
+                BottomNavigationItem(
+                    R.mipmap.ic_launcher,
+                    "测试"
                 ).setInactiveIconResource(R.mipmap.ic_launcher)
             )
             .addItem(
                 BottomNavigationItem(
                     R.mipmap.ic_launcher,
                     "我的"
-                ).setInactiveIconResource(R.mipmap.ic_launcher)
-            )
-            .addItem(
-                BottomNavigationItem(
-                    R.mipmap.ic_launcher,
-                    "其他"
                 ).setInactiveIconResource(R.mipmap.ic_launcher)
             )
             .setFirstSelectedPosition(0) //设置默认选中位置

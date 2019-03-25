@@ -1,8 +1,10 @@
 package com.example.componentbase
 
 import com.example.componentbase.emptyImpl.ICaipuEmptyServiceImpl
+import com.example.componentbase.emptyImpl.IShopEmptyServiceImpl
 import com.example.componentbase.emptyImpl.UserCenterEmptyServiceImpl
 import com.example.componentbase.service.ICaipuService
+import com.example.componentbase.service.IShopService
 import com.example.componentbase.service.IUserCenterService
 
 class ServiceFactory private constructor() {
@@ -32,5 +34,14 @@ class ServiceFactory private constructor() {
         this.caipuService = caipu
     }
 
+
+    private var shopService: IShopService = IShopEmptyServiceImpl()
+    fun getShopService(): IShopService {
+        return shopService
+    }
+
+    fun setShopService(service: IShopService) {
+        this.shopService = service
+    }
 
 }

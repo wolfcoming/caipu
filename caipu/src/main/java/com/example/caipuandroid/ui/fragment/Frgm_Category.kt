@@ -69,11 +69,11 @@ class Frgm_Category :BaseMvpFragment<CategoryContract.Presenter>(),CategoryContr
     }
 
     override fun showLoading() {
-        SingleProgressDialog.showLoading(context!!,canCancel = true)
+//        SingleProgressDialog.showLoading(context!!,canCancel = true)
     }
 
     override fun hideLoading() {
-        SingleProgressDialog.hideLoading()
+//        SingleProgressDialog.hideLoading()
     }
 
     override fun onError(message: String) {
