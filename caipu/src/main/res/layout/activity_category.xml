@@ -6,17 +6,8 @@
               android:background="@color/white"
               android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvLeft"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
 
-
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvRight"
-            android:layout_weight="4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+    <FrameLayout android:layout_width="match_parent"
+                 android:id="@+id/common_fragment"
+                 android:layout_height="match_parent"></FrameLayout>
 </LinearLayout>

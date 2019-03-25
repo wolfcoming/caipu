@@ -21,7 +21,7 @@ class SingleProgressDialog : Dialog {
     }
 
     companion object {
-        private var mContext:WeakReference<Context>? = null;
+        private var mContext: WeakReference<Context>? = null;
 
         @Volatile
         var singleProgressDialog: SingleProgressDialog? = null
@@ -54,11 +54,15 @@ class SingleProgressDialog : Dialog {
         }
 
         fun hideLoading() {
+            if (mContext != null) {
+                var con = mContext!!.get()
+                con = null
+                mContext!!.clear()
+                mContext = null
+            }
             if (singleProgressDialog != null && singleProgressDialog!!.isShowing) {
                 singleProgressDialog!!.dismiss()
             }
         }
-
-
     }
 }

@@ -34,10 +34,12 @@ class MainActivity : AppCompatActivity() {
         val minFragment = ServiceFactory.instance.getUsercenterService()
             .getMineFragment(null, "")
 
+        val categoryFragment = ServiceFactory.instance.getCaipuService()
+            .getCategoryFragment(null,"")
 
         val fragments = ArrayList<Fragment>()
         fragments.add(TempFragment())
-        fragments.add(Temp2Fragment())
+        fragments.add(categoryFragment)
         fragments.add(TempFragment())
         fragments.add(minFragment!!)
 
