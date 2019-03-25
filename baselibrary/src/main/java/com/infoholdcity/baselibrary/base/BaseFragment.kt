@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import org.greenrobot.eventbus.EventBus
 
 /**
  *@date     创建时间： 2018/11/2
@@ -36,4 +37,14 @@ abstract class BaseFragment :Fragment() {
 
     protected abstract fun initView(anchor: View)
 
+
+    override fun onStart() {
+        super.onStart()
+//        EventBus.getDefault().register(this);
+    }
+
+    override fun onStop() {
+        super.onStop()
+//        EventBus.getDefault().unregister(this);
+    }
 }

@@ -2,11 +2,13 @@ package com.example.userCentercomponent
 
 import android.os.Bundle
 import android.view.View
+import com.example.componentbase.eventbus.UserEvent
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseFragment
 import com.infoholdcity.baselibrary.utils.SPUtils
 import kotlinx.android.synthetic.main.usercenter_frgm_min.*
+import org.greenrobot.eventbus.EventBus
 
 class MinFragment : BaseFragment() {
 
@@ -35,7 +37,7 @@ class MinFragment : BaseFragment() {
 
 
         btnTest.setOnClickListener {
-            toast("测试")
+            EventBus.getDefault().post(UserEvent())
         }
     }
 }

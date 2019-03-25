@@ -16,6 +16,7 @@
 
     <Button android:layout_width="match_parent"
             android:id="@+id/btnTest"
+            android:text="更新用户信息"
             android:layout_height="wrap_content"/>
 
 

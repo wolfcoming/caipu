@@ -7,6 +7,7 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.caipuandroid.base.BaseMvpActivity
 import com.example.caipuandroid.base.BaseMvpFragment
+import com.example.componentbase.eventbus.UserEvent
 import com.example.shopingmodule.R
 import com.example.shopingmodule.ScreenUtil
 import com.example.shopingmodule.adapter.home.ContentBean
@@ -22,6 +23,8 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
 import kotlinx.android.synthetic.main.common_search_title.*
 import kotlinx.android.synthetic.main.frgm_shop_main.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class Frgm_ShopMain : BaseMvpFragment<HomeContract.Ipresenter>(), HomeContract.IHomeView {
     override fun inflateView(): Any {
@@ -105,4 +108,11 @@ class Frgm_ShopMain : BaseMvpFragment<HomeContract.Ipresenter>(), HomeContract.I
         super.onError(message)
         toast(message)
     }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    open fun updateUserInfo(user: UserEvent) {
+        Klog.e(contents = "shopMain:updateUserInfo")
+    }
+
 }

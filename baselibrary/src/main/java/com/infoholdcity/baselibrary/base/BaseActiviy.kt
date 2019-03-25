@@ -8,6 +8,7 @@ import android.view.WindowManager
 import com.infoholdcity.baselibrary.utils.StatusBarHelper
 import com.noober.background.BackgroundLibrary
 import com.yq.wolfcoming.baselibrary.common.AppManage
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Author：yangqing
@@ -46,4 +47,7 @@ abstract class BaseActiviy : AppCompatActivity() {
             e.printStackTrace();
         }
     }
+
+
+
 }

@@ -10,12 +10,16 @@ import com.example.caipuandroid.mvp.contract.CategoryContract
 import com.example.caipuandroid.mvp.p.CategoryPresenter
 import com.example.caipuandroid.ui.adapter.RvLeftAdapter
 import com.example.caipuandroid.ui.vo.CategoryVo
+import com.example.componentbase.eventbus.UserEvent
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.config.ARouterConfig
 import com.infoholdcity.baselibrary.view.SingleProgressDialog
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.frgm_category.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class Frgm_Category :BaseMvpFragment<CategoryContract.Presenter>(),CategoryContract.View {
 
@@ -87,4 +91,19 @@ class Frgm_Category :BaseMvpFragment<CategoryContract.Presenter>(),CategoryContr
         leftAdapter!!.addData(it)
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun  updateUserInfo(user: UserEvent){
+        Klog.e(contents = "frgm_category:updateUserInfo")
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this);
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this);
+    }
 }
