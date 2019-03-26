@@ -39,6 +39,7 @@ class GoodsListActivity : BaseActiviy() {
         rvGoodsList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvGoodsList.adapter = adapter
 
+        //在refreshLayout 界面显示不同状态界面
         initMuiltStatusArea(refreshLayout)
         showLoadingStatus()
         getData(true)
@@ -90,4 +91,8 @@ class GoodsListActivity : BaseActiviy() {
     }
 
 
+    override fun onLoadRetry() {
+        showLoadingStatus()
+        getData(false)
+    }
 }

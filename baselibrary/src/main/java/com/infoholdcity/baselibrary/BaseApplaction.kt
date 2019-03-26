@@ -55,7 +55,7 @@ open abstract class BaseApplaction : Application() {
     private fun initFreshStyle() {
 
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
-            layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white)//全局设置主题颜色
+            layout.setPrimaryColorsId(R.color.white, android.R.color.black)//全局设置主题颜色
             ClassicsHeader(context)//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
         }
         //设置全局的Footer构建器

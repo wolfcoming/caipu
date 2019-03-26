@@ -71,7 +71,7 @@ abstract class BaseActiviy : AppCompatActivity() {
         mHolder = Gloading.getDefault().wrap(view).withRetry(Runnable { onLoadRetry() })
     }
 
-    protected fun onLoadRetry() {
+    open fun onLoadRetry() {
         // override this method in subclass to do retry task
     }
 
