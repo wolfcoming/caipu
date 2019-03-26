@@ -2,6 +2,7 @@ package com.infoholdcity.baselibrary.view.muiltview.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -45,7 +46,7 @@ public class GlobalLoadingStatusView extends LinearLayout implements View.OnClic
         mTextView = findViewById(R.id.text);
         mProgressbar = findViewById(R.id.progressbar);
         this.mRetryTask = retryTask;
-        setBackgroundColor(0xFFF0F0F0);
+        setBackgroundColor(Color.WHITE);
 
     }
 

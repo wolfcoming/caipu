@@ -40,7 +40,7 @@ class Frgm_Category : BaseMvpFragment<CategoryContract.Presenter>(), CategoryCon
     var holder: Gloading.Holder? = null
     override fun initView(anchor: View) {
         holder = Gloading.getDefault().wrap(llRootView).withRetry {
-            toast("重新请求")
+            mPresenter.getCategoryData()
         }
         initView()
         mPresenter.getCategoryData()

@@ -1,5 +1,6 @@
 package com.example.caipuandroid.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.config.ARouterConfig.Companion.ACT_CAIPU_LIST
 import com.infoholdcity.baselibrary.view.SingleProgressDialog
+import com.infoholdcity.baselibrary.view.muiltview.Gloading
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import kotlinx.android.synthetic.main.activity_goodslist.*
@@ -25,6 +27,7 @@ class GoodsListActivity : BaseActiviy() {
     var pageSize = 15
     var pageNumber = 1
     var name = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goodslist)
@@ -35,6 +38,9 @@ class GoodsListActivity : BaseActiviy() {
 
         rvGoodsList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvGoodsList.adapter = adapter
+
+        initMuiltStatusArea(refreshLayout)
+        showLoadingStatus()
         getData(true)
         refreshLayout.setOnLoadMoreListener { refreshLayout ->
             getData(false)
@@ -44,24 +50,29 @@ class GoodsListActivity : BaseActiviy() {
             getData(true)
         }
         tvSearch.setOnClickListener {
+            showLoadingStatus()
             name = etName.text.toString()
             getData(true)
         }
         ivBack.setOnClickListener { finish() }
     }
 
+    @SuppressLint("CheckResult")
     fun getData(isFresh: Boolean) {
         if (isFresh) {
             pageNumber = 1
         }
-        SingleProgressDialog.showLoading(this)
         service.getGreensList(pageSize, pageNumber, name)
             .excute()
             .subscribe({
+                showLoadSuccessStatus()
                 pageNumber++
                 if (isFresh) {
                     refreshLayout.finishRefresh()
                     adapter.setNewData(it)
+                    if (it.size == 0) {
+                        showEmptyStatus()
+                    }
                 } else {
                     if (pageSize > it.size) {
                         refreshLayout.finishLoadMoreWithNoMoreData()
@@ -73,10 +84,8 @@ class GoodsListActivity : BaseActiviy() {
             }, {
                 refreshLayout.finishLoadMore()
                 refreshLayout.finishRefresh()
+                showLoadFailedStatus()
                 toast(it.message!!)
-                SingleProgressDialog.hideLoading()
-            }, {
-                SingleProgressDialog.hideLoading()
             })
     }
 
