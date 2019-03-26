@@ -10,6 +10,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.squareup.leakcanary.LeakCanary
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import android.R.attr.colorPrimary
+import com.infoholdcity.baselibrary.view.muiltview.DefaultGloadAdapter
+import com.infoholdcity.baselibrary.view.muiltview.Gloading
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshHeader
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator
@@ -44,8 +46,9 @@ open abstract class BaseApplaction : Application() {
         LeakCanary.install(this);
         initDoraemon()//调试工具
         initArouter()
-
         initFreshStyle()
+
+        Gloading.initDefault(DefaultGloadAdapter())
 
     }
 

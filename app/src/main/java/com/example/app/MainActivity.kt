@@ -17,6 +17,7 @@ import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.config.ARouterConfig
+import com.infoholdcity.baselibrary.utils.StatusBarHelper
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActiviy() {
@@ -34,10 +35,10 @@ class MainActivity : BaseActiviy() {
             .getMineFragment(null, "")
 
         val categoryFragment = ServiceFactory.instance.getCaipuService()
-            .getCategoryFragment(null,"")
+            .getCategoryFragment(null, "")
 
 
-        val shopFragment = ServiceFactory.instance.getShopService().getShopHomeFragment(null,"");
+        val shopFragment = ServiceFactory.instance.getShopService().getShopHomeFragment(null, "");
 
         val fragments = ArrayList<Fragment>()
         fragments.add(shopFragment)
@@ -94,6 +95,11 @@ class MainActivity : BaseActiviy() {
             }
 
             override fun onTabSelected(position: Int) {
+                if (position == 0) {
+                    StatusBarHelper.setStatusBar(this@MainActivity, false, true)
+                } else {
+                    StatusBarHelper.setStatusBar(this@MainActivity, false, false)
+                }
                 val beginTransaction1 = supportFragmentManager.beginTransaction()
                 fragments.map {
                     beginTransaction1.hide(it)

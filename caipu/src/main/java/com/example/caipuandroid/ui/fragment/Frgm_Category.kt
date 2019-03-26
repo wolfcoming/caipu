@@ -3,6 +3,7 @@ package com.example.caipuandroid.ui.fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.caipuandroid.R
 import com.example.caipuandroid.base.BaseMvpFragment
@@ -15,13 +16,14 @@ import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.config.ARouterConfig
 import com.infoholdcity.baselibrary.view.SingleProgressDialog
+import com.infoholdcity.baselibrary.view.muiltview.Gloading
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.frgm_category.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class Frgm_Category :BaseMvpFragment<CategoryContract.Presenter>(),CategoryContract.View {
+class Frgm_Category : BaseMvpFragment<CategoryContract.Presenter>(), CategoryContract.View {
 
     override fun getPresenter(): CategoryContract.Presenter {
         return CategoryPresenter()
@@ -35,7 +37,11 @@ class Frgm_Category :BaseMvpFragment<CategoryContract.Presenter>(),CategoryContr
         return R.layout.frgm_category
     }
 
+    var holder: Gloading.Holder? = null
     override fun initView(anchor: View) {
+        holder = Gloading.getDefault().wrap(llRootView).withRetry {
+            toast("重新请求")
+        }
         initView()
         mPresenter.getCategoryData()
     }
@@ -73,16 +79,15 @@ class Frgm_Category :BaseMvpFragment<CategoryContract.Presenter>(),CategoryContr
     }
 
     override fun showLoading() {
-//        SingleProgressDialog.showLoading(context!!,canCancel = true)
+        holder!!.showLoading()
     }
 
     override fun hideLoading() {
-//        SingleProgressDialog.hideLoading()
+        holder!!.showLoadSuccess()
     }
 
     override fun onError(message: String) {
-        Klog.e(contents = message)
-        toast(message)
+        holder!!.showLoadFailed()
     }
 
     override fun showCategory(it: List<CategoryVo>) {
@@ -92,7 +97,7 @@ class Frgm_Category :BaseMvpFragment<CategoryContract.Presenter>(),CategoryContr
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun  updateUserInfo(user: UserEvent){
+    fun updateUserInfo(user: UserEvent) {
         Klog.e(contents = "frgm_category:updateUserInfo")
     }
 
