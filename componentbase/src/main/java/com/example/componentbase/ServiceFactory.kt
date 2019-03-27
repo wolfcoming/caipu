@@ -7,7 +7,7 @@ import com.example.componentbase.service.ICaipuService
 import com.example.componentbase.service.IShopService
 import com.example.componentbase.service.IUserCenterService
 
-class ServiceFactory private constructor() {
+open class ServiceFactory private constructor() {
     companion object {
         val instance: ServiceFactory by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             ServiceFactory()

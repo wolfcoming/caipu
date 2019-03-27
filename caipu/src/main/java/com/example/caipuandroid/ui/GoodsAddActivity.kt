@@ -25,6 +25,7 @@ import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.base.TakePhotoBaseActivity
 import com.infoholdcity.baselibrary.config.ARouterConfig
+import com.infoholdcity.baselibrary.view.SingleProgressDialog
 import kotlinx.android.synthetic.main.activity_goodadd.*
 import com.qiniu.android.common.FixedZone
 import com.qiniu.android.http.CompletionHandler
@@ -42,7 +43,8 @@ import java.time.temporal.TemporalQueries.zone
 @Route(path = ARouterConfig.ACT_CAIPU_ADD)
 class GoodsAddActivity : BaseMvpActivity<AddGreensContract.Presenter>(), AddGreensContract.View {
     override fun addSuccess() {
-        toast("添加陈宫")
+        hideLoading()
+        toast("添加成功")
         finish()
     }
 
@@ -137,6 +139,7 @@ class GoodsAddActivity : BaseMvpActivity<AddGreensContract.Presenter>(), AddGree
 
     override fun onError(message: String) {
         super.onError(message)
+        SingleProgressDialog.hideLoading()
         etExPerience.post {
             toast(message)
         }
@@ -158,5 +161,17 @@ class GoodsAddActivity : BaseMvpActivity<AddGreensContract.Presenter>(), AddGree
             Glide.with(this).load(result!!.image.compressPath).into(ivCover)
             coverImg = result!!.image.compressPath
         }
+    }
+
+
+    override fun showLoading() {
+        super.showLoading()
+        SingleProgressDialog.showLoading(this)
+    }
+
+
+    override fun hideLoading() {
+        super.hideLoading()
+        SingleProgressDialog.hideLoading()
     }
 }

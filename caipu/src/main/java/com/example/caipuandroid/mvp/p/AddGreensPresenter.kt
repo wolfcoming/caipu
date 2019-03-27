@@ -6,6 +6,7 @@ import com.example.caipuandroid.service.impl.IServiceNetImpl
 import com.example.caipuandroid.ui.vo.BurdenBean
 import com.example.caipuandroid.ui.vo.Greens
 import com.example.caipuandroid.ui.vo.MakesBean
+import com.example.componentbase.ServiceFactory
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.excute
 import com.qiniu.android.common.FixedZone
@@ -16,6 +17,8 @@ import java.lang.Exception
 
 class AddGreensPresenter : BasePresenter<AddGreensContract.View>(), AddGreensContract.Presenter {
     val service by lazy { IServiceNetImpl() }
+
+
     var uploadManager: UploadManager? = null
     override fun getQiNiuToken() {
 
@@ -24,7 +27,7 @@ class AddGreensPresenter : BasePresenter<AddGreensContract.View>(), AddGreensCon
     val imgsMap = LinkedHashMap<String, String>()
     override fun addGreens() {
 
-
+        mRootView!!.showLoading()
         initQiniu()
 
         val greens: Greens = Greens()
@@ -36,7 +39,7 @@ class AddGreensPresenter : BasePresenter<AddGreensContract.View>(), AddGreensCon
         greens.name = name
         val tips = mRootView?.getTips()
         greens.tips = tips
-        greens.brief ="暂无简介"
+        greens.brief = "暂无简介"
 
         var burdenStr = ""
         val burdens: ArrayList<BurdenBean> = mRootView?.getBurdens()!!
@@ -48,6 +51,11 @@ class AddGreensPresenter : BasePresenter<AddGreensContract.View>(), AddGreensCon
         greens.burden = burdenStr
         greens.views = 0
         greens.collect = 0
+
+
+        var userId = ServiceFactory.instance.getUsercenterService().getUserId()
+        userId = "8f1d6ffdc3d64d128bd489e8170f540a"//测试用户
+        greens.userid = userId
 
         val img = mRootView?.getCoverImg()
         if (img.isNullOrBlank()) {
@@ -123,7 +131,7 @@ class AddGreensPresenter : BasePresenter<AddGreensContract.View>(), AddGreensCon
                     } else {
                         mRootView?.onError("添加失败")
                     }
-                },{
+                }, {
                     mRootView?.onError(it.message!!)
                 })
         }
