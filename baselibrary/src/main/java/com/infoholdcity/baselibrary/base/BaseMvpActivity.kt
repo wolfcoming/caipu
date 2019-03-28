@@ -36,11 +36,10 @@ abstract class BaseMvpActivity<P : IPresenter<*>> : TakePhotoBaseActivity(), IBa
     }
 
     override fun hideLoading() {
-
     }
 
     override fun onError(message: String) {
-
+        hideLoading()
     }
 
 }

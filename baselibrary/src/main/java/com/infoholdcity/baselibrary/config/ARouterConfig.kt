@@ -21,6 +21,7 @@ class ARouterConfig {
 
         //用户中心模块
         const val ACT_USER_LOGIN = "/user/ACT_USER_LOGIN"
+        const val ACT_USER_GEGISTER = "/user/ACT_USER_GEGISTER"
 
 
     }
