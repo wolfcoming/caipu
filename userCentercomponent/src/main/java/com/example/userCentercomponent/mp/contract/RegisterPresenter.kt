@@ -14,9 +14,15 @@ class RegisterPresenter : BasePresenter<RegisterContract.RegisterView>(), Regist
         val userName = mRootView!!.getUserName()
         val userPwd = mRootView!!.getUserPwd()
         val userPwdConfirm = mRootView!!.getPwdConfirm()
+        if(userName.isBlank()||userPwd.isBlank()||userPwdConfirm.isBlank()){
+            mRootView!!.onError("请填写完整信息")
+            return
+        }
+        if(userPwd!=userPwdConfirm){
+            mRootView!!.onError("两次密码不一致")
+            return
+        }
         val mD5Str = MD5Utils.getMD5Str(userPwd)
-
-
         mRootView!!.showLoading()
         service.register(userName, mD5Str)
             .excute()
@@ -30,6 +36,4 @@ class RegisterPresenter : BasePresenter<RegisterContract.RegisterView>(), Regist
                 mRootView!!.onError(it.message!!)
             })
     }
-
-
 }

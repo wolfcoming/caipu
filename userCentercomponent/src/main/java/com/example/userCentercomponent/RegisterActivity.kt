@@ -7,6 +7,7 @@ import com.example.userCentercomponent.mp.contract.RegisterContract
 import com.example.userCentercomponent.mp.contract.RegisterPresenter
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.config.ARouterConfig
+import com.infoholdcity.baselibrary.view.SingleProgressDialog
 import kotlinx.android.synthetic.main.activity_register.*
 
 @Route(path = ARouterConfig.ACT_USER_GEGISTER)
@@ -30,10 +31,12 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterContract.
 
     override fun showLoading() {
         super.showLoading()
+        SingleProgressDialog.showLoading(this@RegisterActivity)
     }
 
     override fun hideLoading() {
         super.hideLoading()
+        SingleProgressDialog.hideLoading()
     }
 
     override fun onError(message: String) {

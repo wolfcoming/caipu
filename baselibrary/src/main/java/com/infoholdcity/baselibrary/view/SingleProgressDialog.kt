@@ -15,10 +15,7 @@ import kotlin.math.sin
 
 class SingleProgressDialog : Dialog {
 
-
-    constructor(context: Context, theme: Int) : super(context, theme) {
-
-    }
+    constructor(context: Context, theme: Int) : super(context, theme)
 
     companion object {
         private var mContext: WeakReference<Context>? = null;
@@ -27,8 +24,7 @@ class SingleProgressDialog : Dialog {
         var singleProgressDialog: SingleProgressDialog? = null
 
         fun showLoading(con: Context, message: String = "加载中", canCancel: Boolean = false) {
-
-            mContext = WeakReference<Context>(con)
+            mContext = WeakReference(con)
             if (singleProgressDialog != null && singleProgressDialog!!.isShowing) {
                 singleProgressDialog!!.dismiss()
             }
@@ -47,17 +43,13 @@ class SingleProgressDialog : Dialog {
             if (singleProgressDialog != null && !singleProgressDialog!!.isShowing && !context.isFinishing) {
                 singleProgressDialog!!.show()
             }
-
-//            val lp: WindowManager.LayoutParams = singleProgressDialog!!.window.attributes
-//            lp.gravity = Gravity.CENTER
-//            singleProgressDialog!!.window.attributes = lp
         }
 
         fun hideLoading() {
             if (mContext != null) {
+                mContext!!.clear()
                 var con = mContext!!.get()
                 con = null
-                mContext!!.clear()
                 mContext = null
             }
             if (singleProgressDialog != null && singleProgressDialog!!.isShowing) {

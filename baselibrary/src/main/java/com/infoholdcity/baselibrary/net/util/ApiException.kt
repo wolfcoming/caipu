@@ -9,5 +9,5 @@ class ApiException : RuntimeException {
         this.code = code
     }
 
-    constructor(message: String) : super(Throwable(message))
+    constructor(message: String) : super(message)
 }

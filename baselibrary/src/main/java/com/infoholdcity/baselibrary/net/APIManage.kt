@@ -172,7 +172,7 @@ class APIManage private constructor() {
     val networkStatusInterceptor = Interceptor { chain ->
         var request = chain.request()
         if (!NetWorkHelper.isNetConnected(BaseApplaction.getContext()!!)) {
-            val maxStale = 4 * 7 * 24 * 60; // 离线时缓存保存4周,单位:秒
+            val maxStale = 60; // 离线时缓存,单位:秒
             val tempCacheControl: CacheControl = CacheControl.Builder()
                 .onlyIfCached()
                 .maxStale(maxStale, TimeUnit.SECONDS)

@@ -16,6 +16,7 @@ interface APIService {
     /**
      * 首页精选
      */
+    @Headers("Cache-Control:public ,max-age=20")
     @GET("/getMenu/")
     fun getCategorys(): Observable<BaseBean<List<CategoryBean>>>
 
