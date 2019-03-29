@@ -1,22 +1,11 @@
 package com.example.app
 
-import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.widget.TextView
-import android.widget.Toast
-import com.alibaba.android.arouter.launcher.ARouter
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
 import com.example.componentbase.ServiceFactory
-import com.infoholdcity.basearchitecture.self_extends.Klog
-import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
-import com.infoholdcity.baselibrary.config.ARouterConfig
 import com.infoholdcity.baselibrary.utils.StatusBarHelper
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -61,27 +50,27 @@ class MainActivity : BaseActiviy() {
             .setActiveColor("#FF0000") // 选中状态颜色
             .addItem(
                 BottomNavigationItem(
-                    R.mipmap.ic_launcher,
+                    R.drawable.app_icon_home_press,
                     "首页"
-                ).setInactiveIconResource(R.mipmap.shouye)
+                ).setInactiveIconResource(R.drawable.app_icon_home)
             )
             .addItem(
                 BottomNavigationItem(
-                    R.mipmap.ic_launcher,
+                    R.drawable.app_icon_category_press,
                     "分类"
-                ).setInactiveIconResource(R.mipmap.ic_launcher)
+                ).setInactiveIconResource(R.drawable.app_icon_category)
             )
             .addItem(
                 BottomNavigationItem(
-                    R.mipmap.ic_launcher,
+                    R.drawable.app_icon_chat_press,
                     "测试"
-                ).setInactiveIconResource(R.mipmap.ic_launcher)
+                ).setInactiveIconResource(R.drawable.app_icon_chat)
             )
             .addItem(
                 BottomNavigationItem(
-                    R.mipmap.ic_launcher,
+                    R.drawable.app_icon_person_press,
                     "我的"
-                ).setInactiveIconResource(R.mipmap.ic_launcher)
+                ).setInactiveIconResource(R.drawable.app_icon_person)
             )
             .setFirstSelectedPosition(0) //设置默认选中位置
             .initialise()  // 提交初始化（完成配置）

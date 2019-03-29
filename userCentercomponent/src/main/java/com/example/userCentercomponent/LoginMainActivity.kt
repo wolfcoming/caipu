@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.componentbase.eventbus.UserEvent
 import com.example.userCentercomponent.service.impl.UserCenterServiceImpl
 import com.hazz.kotlinmvp.net.exception.ExceptionHandle
 import com.infoholdcity.basearchitecture.self_extends.Klog
@@ -15,6 +16,7 @@ import com.infoholdcity.baselibrary.utils.MD5Utils
 import com.infoholdcity.baselibrary.utils.SPUtils
 import com.infoholdcity.baselibrary.view.SingleProgressDialog
 import kotlinx.android.synthetic.main.usercenter_activity_main.*
+import org.greenrobot.eventbus.EventBus
 
 @Route(path = ARouterConfig.ACT_USER_LOGIN)
 class LoginMainActivity : BaseActiviy() {
@@ -43,9 +45,10 @@ class LoginMainActivity : BaseActiviy() {
                 .excute()
                 .subscribe({
                     if (it != null) {
-                        toast(it.name + "登录成功")
                         SPUtils.getInstance(this@LoginMainActivity).putObject("userBean", it)
                         SingleProgressDialog.hideLoading()
+                        EventBus.getDefault().post(UserEvent())
+                        finish()
                     }
                 }, {
                     toast(ExceptionHandle.handleException(it))

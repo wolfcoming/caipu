@@ -1,6 +1,8 @@
 package com.example.shopingmodule.remote.bean;
 
-public class ShopCategoryBean {
+import java.io.Serializable;
+
+public class ShopCategoryBean implements Serializable {
 
     /**
      * allowPartition : false

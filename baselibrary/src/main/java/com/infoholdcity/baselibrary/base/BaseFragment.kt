@@ -16,12 +16,12 @@ import org.greenrobot.eventbus.EventBus
 abstract class BaseFragment :Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val inflateView = inflateView()
-        var view:View?
-        if(inflateView is Int){
+        var view: View?
+        if (inflateView is Int) {
             view = inflater.inflate(Integer.parseInt(inflateView.toString()), container, false)
-        }else if(inflateView is View){
+        } else if (inflateView is View) {
             view = inflateView
-        }else{
+        } else {
             throw RuntimeException("unexpected view inflate :$inflateView")
         }
 
@@ -36,15 +36,4 @@ abstract class BaseFragment :Fragment() {
     protected abstract fun inflateView(): Any
 
     protected abstract fun initView(anchor: View)
-
-
-    override fun onStart() {
-        super.onStart()
-//        EventBus.getDefault().register(this);
-    }
-
-    override fun onStop() {
-        super.onStop()
-//        EventBus.getDefault().unregister(this);
-    }
 }

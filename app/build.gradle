@@ -21,9 +21,32 @@ android {
             }
         }
 
+//        只保留指定和默认资源
+        resConfigs('zh-rCN', 'ko')
+
+//      配置so库，cpu架构
+//        将指定的so库打包到apk
+        ndk{
+            abiFilters('armabi','armeabi-v7a')
+        }
+
     }
 
+//    将so库打包到apk内
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
     buildTypes {
+        debug {
+//            开启混淆
+            minifyEnabled false
+//            开启资源压缩  所有未用资源都压缩
+            shrinkResources false
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -42,13 +65,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    if(!rootProject.ext.CaipuRunAlone.toBoolean()){
+    if (!rootProject.ext.CaipuRunAlone.toBoolean()) {
         runtimeOnly project(':caipu')//runtimeOnly代码隔离
     }
-    if(!rootProject.ext.ShopRunAlone.toBoolean()){
+    if (!rootProject.ext.ShopRunAlone.toBoolean()) {
         runtimeOnly project(':shopingmodule')
     }
-    if(!rootProject.ext.UserCenterRunAlone.toBoolean()){
+    if (!rootProject.ext.UserCenterRunAlone.toBoolean()) {
         runtimeOnly project(':userCentercomponent')
     }
 
