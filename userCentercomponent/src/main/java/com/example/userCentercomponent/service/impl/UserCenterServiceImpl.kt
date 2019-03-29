@@ -17,13 +17,25 @@ class UserCenterServiceImpl : UserCenterService {
             .map {
                 dealData(it)
             }
-//        return Observable.create {
-//            it.onNext(true)
-//        }
     }
 
     override fun login(username: String, pwd: String): Observable<UserBeanVo> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return APIManage.instance.getRequest(UserApi::class.java).login(username, pwd)
+            .map {
+                var result: UserBeanVo? = null
+                if (dealData(it)) {
+                    result = UserBeanVo()
+                    val data = it.data
+                    data.let {
+                        result.userId = it!!.id
+                        result.name = it!!.name
+                        result.headimg = it!!.name
+                        result.is_vip = it!!.is_vip
+                        result.usertype = it!!.usertype
+                    }
+                }
+                result
+            }
     }
 
 

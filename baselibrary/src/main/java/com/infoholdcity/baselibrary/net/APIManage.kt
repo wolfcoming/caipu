@@ -138,8 +138,8 @@ class APIManage private constructor() {
             .writeTimeout(timeOut, TimeUnit.SECONDS)
             .addInterceptor(addQueryParameterInterceptor)
             .addInterceptor(headerInterceptor)
-            .addNetworkInterceptor(HttpCacheInterceptor())//只在有网的情况下执行
-            .addInterceptor(networkStatusInterceptor)//有网无网都执行
+//            .addNetworkInterceptor(HttpCacheInterceptor())//只在有网的情况下执行
+//            .addInterceptor(networkStatusInterceptor)//有网无网都执行
             .build()
         return client!!
     }

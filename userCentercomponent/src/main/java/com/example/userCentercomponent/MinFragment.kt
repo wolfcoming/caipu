@@ -27,17 +27,17 @@ class MinFragment : BaseFragment() {
     }
 
     override fun initView(anchor: View) {
-        val arg = arguments?.getString("args")
-        val userBeanVo = SPUtils.getInstance(context).getObject<UserBeanVo>("userBean")
-        if (userBeanVo == null) {
-
-            tvInfo.text = "：：：：暂未登录"
-        } else
-            tvInfo.text = arg + "：：：：" + userBeanVo.name
-
-
-        btnTest.setOnClickListener {
-            EventBus.getDefault().post(UserEvent())
-        }
+//        val arg = arguments?.getString("args")
+//        val userBeanVo = SPUtils.getInstance(context).getObject<UserBeanVo>("userBean")
+//        if (userBeanVo == null) {
+//
+//            tvInfo.text = "：：：：暂未登录"
+//        } else
+//            tvInfo.text = arg + "：：：：" + userBeanVo.name
+//
+//
+//        btnTest.setOnClickListener {
+//            EventBus.getDefault().post(UserEvent())
+//        }
     }
 }

@@ -6,6 +6,6 @@ class UserBean {
     var pwd: String? = null
     var heading: String? = null
     var usertype: Int? = 0
-    var is_vip: Boolean? = false
+    var is_vip: Boolean = false
 
 }

@@ -8,7 +8,7 @@ import io.reactivex.Observable
 import retrofit2.http.*
 
 @BaseUrl(URLConfig.userBaseurl)
-@TimeOut(value = 15)
+@TimeOut(value = 5)
 interface UserApi {
 
     /**
@@ -21,5 +21,20 @@ interface UserApi {
         @Field("name") name: String,
         @Field("pwd") pwd: String
     ): Observable<BaseBean<UserBean>>
+
+
+
+
+    /**
+     * 登录
+     */
+
+    @POST("/login/")
+    @FormUrlEncoded
+    fun login(
+        @Field("name") name: String,
+        @Field("pwd") pwd: String
+    ): Observable<BaseBean<UserBean>>
+
 
 }
