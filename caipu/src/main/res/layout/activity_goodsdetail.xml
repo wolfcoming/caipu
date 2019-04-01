@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                                            android:background="@color/white"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent">
+
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:layout_height="wrap_content">
+
+        <ImageView
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/ivCover"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+        <TextView
+                android:textSize="24dp"
+                android:textStyle="bold"
+                android:id="@+id/tvName"
+                android:textColor="#000"
+                android:layout_margin="10dp"
+                android:text="法式小面包"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="horizontal"
+                      android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content"
+                      android:id="@+id/tvViewsAndCollects"
+                      android:layout_marginLeft="10dp"
+                      android:text="独家~ 1.9万浏览~257收藏"
+                      android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+        <TextView android:layout_width="match_parent"
+                  android:textColor="#000"
+                  android:id="@+id/tvTips"
+                  android:layout_margin="10dp"
+                  android:textSize="16dp"
+                  android:text="内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介"
+                  android:layout_height="wrap_content"/>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:gravity="center_vertical"
+                      android:orientation="horizontal"
+                      android:layout_marginLeft="10dp"
+                      android:layout_marginRight="10dp"
+                      android:layout_height="wrap_content">
+            <ImageView android:layout_width="40dp"
+
+                       android:layout_height="40dp"
+                       android:background="@mipmap/ic_launcher"/>
+
+            <LinearLayout android:layout_width="wrap_content"
+                          android:orientation="vertical"
+                          android:layout_weight="1"
+                          android:layout_marginLeft="10dp"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+
+                          android:text="用户姓名"
+                          android:layout_height="wrap_content"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_marginTop="4dp"
+                          android:text="用户简介"
+                          android:lines="1"
+                          android:ellipsize="end"
+                          android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+            <Button android:layout_width="40dp"
+                    android:text="关注"
+                    android:padding="4dp"
+                    android:layout_height="40dp"/>
+        </LinearLayout>
+
+        <TextView android:layout_width="wrap_content"
+                  android:text="用料"
+                  android:layout_margin="10dp"
+                  android:textColor="#000"
+                  android:textSize="24dp"
+                  android:textStyle="bold"
+                  android:layout_height="wrap_content"/>
+        <View android:layout_width="match_parent"
+              android:background="@color/gray"
+              android:layout_height="1dp"></View>
+        <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
+                                                android:id="@+id/rvBundls"
+                                                android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+
+
+        <TextView android:layout_width="wrap_content"
+                  android:text="步骤"
+                  android:layout_margin="10dp"
+                  android:textColor="#000"
+                  android:textSize="24dp"
+                  android:textStyle="bold"
+                  android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
+                                                android:id="@+id/rvMakes"
+                                                android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+
+
+
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

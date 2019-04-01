@@ -30,8 +30,15 @@ interface APIService {
 
 
     @GET("/search/")
-    fun getCaipuList(@Query("pageSize") pageSize:Int,
-                     @Query("pageNumber") pageNumber:Int,
-                     @Query("name") name:String):Observable<BaseBean<List<Greens>>>
+    fun getCaipuList(
+        @Query("pageSize") pageSize: Int,
+        @Query("pageNumber") pageNumber: Int,
+        @Query("name") name: String
+    ): Observable<BaseBean<List<Greens>>>
+
+
+    @GET("/getGreensByid/")
+    fun getCaipuList(@Query("id") id: Int): Observable<BaseBean<Greens>>
+
 
 }

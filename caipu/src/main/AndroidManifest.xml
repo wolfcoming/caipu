@@ -10,6 +10,7 @@
         <activity android:name=".ui.GoodsAddActivity"
                   android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ui.GoodsListActivity"/>
+        <activity android:name=".ui.GoodsDetailActivity"/>
     </application>
 
 </manifest>

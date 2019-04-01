@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.caipuandroid.R
 import com.example.caipuandroid.service.ICaipuService
 import com.example.caipuandroid.service.impl.IServiceNetImpl
@@ -13,6 +14,7 @@ import com.example.caipuandroid.ui.vo.Greens
 import com.infoholdcity.basearchitecture.self_extends.excute
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
+import com.infoholdcity.baselibrary.config.ARouterConfig
 import com.infoholdcity.baselibrary.config.ARouterConfig.Companion.ACT_CAIPU_LIST
 import com.infoholdcity.baselibrary.view.SingleProgressDialog
 import com.infoholdcity.baselibrary.view.muiltview.Gloading
@@ -56,6 +58,16 @@ class GoodsListActivity : BaseActiviy() {
             getData(true)
         }
         ivBack.setOnClickListener { finish() }
+
+
+        adapter.setOnItemClickListener { adapter, view, position ->
+            val greens = adapter.getItem(position) as Greens
+            val bundle = Bundle()
+            bundle.putSerializable("Greens",greens)
+            ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_DETAIL)
+                .with(bundle)
+                .navigation()
+        }
     }
 
     @SuppressLint("CheckResult")

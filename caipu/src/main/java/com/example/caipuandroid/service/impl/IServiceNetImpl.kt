@@ -19,6 +19,21 @@ import kotlin.collections.ArrayList
  * 该层用来转换业务层需要的数据格式
  */
 class IServiceNetImpl : ICaipuService {
+
+    override fun getGreensById(id: Int): Observable<Greens> {
+        return APIManage.instance.getRequest(APIService::class.java)
+            .getCaipuList(id)
+            .map {
+                var greens: Greens? = null
+                if (it.code == 1) {
+                    greens = it.data!!
+                } else {
+                    throw ApiException("${it.message}")
+                }
+                greens
+            }
+    }
+
     override fun getGreensList(pageSize: Int, pageNumber: Int, name: String): Observable<List<Greens>> {
         return APIManage.instance.getRequest(APIService::class.java)
             .getCaipuList(pageSize, pageNumber, name)

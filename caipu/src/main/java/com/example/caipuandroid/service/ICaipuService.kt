@@ -32,4 +32,9 @@ interface ICaipuService {
     fun getGreensList(pageSize: Int, pageNumber: Int, name: String): Observable<List<Greens>>
 
 
+    /**
+     * 获取菜谱详情
+     */
+    fun getGreensById(id: Int): Observable<Greens>
+
 }

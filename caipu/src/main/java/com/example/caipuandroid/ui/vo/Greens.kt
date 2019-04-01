@@ -3,6 +3,7 @@ package com.example.caipuandroid.ui.vo
 import java.io.Serializable
 
 class Greens : Serializable {
+    var id: Int = 0
     var name: String? = null
     var brief: String? = null
     var tips: String? = null

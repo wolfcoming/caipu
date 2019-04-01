@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/white"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:padding="10dp"
+                  android:background="@color/white"
+                  android:orientation="horizontal"
+                  android:layout_height="wrap_content">
+        <TextView android:layout_width="wrap_content"
+                  android:text="1."
+                  android:id="@+id/tvOrder"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="match_parent"
+                  android:id="@+id/tvStep"
+                  android:textSize="12dp"
+                  android:background="@null"
+                  android:hint="不需要填写步骤序号"
+                  android:layout_marginLeft="4dp"
+                  android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+    <ImageView android:layout_width="wrap_content"
+               android:scaleType="centerCrop"
+               android:id="@+id/ivStepImg"
+               android:layout_margin="10dp"
+               android:layout_height="300dp"/>
+</LinearLayout>
