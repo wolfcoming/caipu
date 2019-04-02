@@ -54,7 +54,6 @@ class AddGreensPresenter : BasePresenter<AddGreensContract.View>(), AddGreensCon
 
 
         var userId = ServiceFactory.instance.getUsercenterService().getUserId()
-        userId = "8f1d6ffdc3d64d128bd489e8170f540a"//测试用户
         greens.userid = userId
 
         val img = mRootView?.getCoverImg()
@@ -119,7 +118,7 @@ class AddGreensPresenter : BasePresenter<AddGreensContract.View>(), AddGreensCon
             var maksStr = ""
             uploadedImg.iterator().forEach { it ->
                 if (!it.key.equals("coverImg")) {
-                    maksStr += it.key + "$$" + it.value + "||"
+                    maksStr += it.key + "&&" + it.value + "||"
                 }
             }
 

@@ -1,19 +1,16 @@
 package com.example.userCentercomponent
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.componentbase.eventbus.UserEvent
 import com.example.userCentercomponent.service.impl.UserCenterServiceImpl
 import com.hazz.kotlinmvp.net.exception.ExceptionHandle
-import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.excute
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.config.ARouterConfig
 import com.infoholdcity.baselibrary.utils.MD5Utils
-import com.infoholdcity.baselibrary.utils.SPUtils
 import com.infoholdcity.baselibrary.view.SingleProgressDialog
 import kotlinx.android.synthetic.main.usercenter_activity_main.*
 import org.greenrobot.eventbus.EventBus
@@ -45,9 +42,8 @@ class LoginMainActivity : BaseActiviy() {
                 .excute()
                 .subscribe({
                     if (it != null) {
-                        SPUtils.getInstance(this@LoginMainActivity).putObject("userBean", it)
+                        UserOperation.userLoginSuccess(this@LoginMainActivity,it)
                         SingleProgressDialog.hideLoading()
-                        EventBus.getDefault().post(UserEvent())
                         finish()
                     }
                 }, {

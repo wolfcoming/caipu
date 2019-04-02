@@ -3,6 +3,7 @@ package com.example.caipuandroid.ui
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.Glide
 import com.example.caipuandroid.R
@@ -45,6 +46,18 @@ class GoodsDetailActivity : BaseActiviy() {
     }
 
     private fun dealData(it: Greens) {
+        if (it.user != null) {
+            llUserInfo.visibility = View.VISIBLE
+            it.user!!.let {
+                tvUserBrief.text = it.brief
+                tvUserName.text = it.name
+                if (it.heading.isNotEmpty())
+                    Glide.with(this@GoodsDetailActivity).load(it.heading).into(ivUserHead)
+            }
+        } else {
+            llUserInfo.visibility = View.GONE
+        }
+
         var imagUrl = it.img
         if (!imagUrl!!.startsWith("http")) {
             imagUrl = URLConfig.qiniuBaseurl + imagUrl

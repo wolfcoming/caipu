@@ -44,4 +44,6 @@ class UserCenterServiceImpl : IUserCenterService {
     override fun getUserName(): String? {
         return SPUtils.getInstance(BaseApplaction.getContext()).getObject<UserBeanVo>("userBean")?.name
     }
+
+
 }

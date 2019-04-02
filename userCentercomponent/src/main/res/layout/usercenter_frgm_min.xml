@@ -5,18 +5,23 @@
               android:layout_height="match_parent">
 
 
-
-
-
     <TextView android:layout_width="match_parent"
-              android:text=""
+              android:text="暂未登录"
               android:gravity="center"
               android:id="@+id/tvInfo"
               android:layout_height="wrap_content"/>
 
 
+    <Button android:layout_width="match_parent"
+            android:text="登录"
+            android:id="@+id/btnLogin"
+            android:layout_height="wrap_content"/>
 
-
-
+    <Button android:layout_width="match_parent"
+            android:text="退出"
+            android:id="@+id/btnLoginOut"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>
+
+

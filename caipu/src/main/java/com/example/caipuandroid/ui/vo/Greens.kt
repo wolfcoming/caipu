@@ -12,5 +12,9 @@ class Greens : Serializable {
     var makes: String? = null
     var burden: String? = null
     var img: String? = null
+    var user: User? = null
     var userid: String? = null
 }
+
+
+data class User(val id: String, val name: String, val heading: String, val brief: String)
