@@ -2,33 +2,33 @@ package com.infoholdcity.baselibrary.view
 
 import android.app.Activity
 import android.app.Dialog
-import android.app.ProgressDialog
 import android.content.Context
-import android.content.res.Resources
-import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.WindowManager
 import android.widget.TextView
 import com.infoholdcity.baselibrary.R
 import java.lang.ref.WeakReference
-import kotlin.math.sin
 
 class SingleProgressDialog : Dialog {
 
     constructor(context: Context, theme: Int) : super(context, theme)
 
     companion object {
-        private var mContext: WeakReference<Context>? = null;
+        private var weakReference: WeakReference<Context>? = null;
 
         @Volatile
         var singleProgressDialog: SingleProgressDialog? = null
 
         fun showLoading(con: Context, message: String = "加载中", canCancel: Boolean = false) {
-            mContext = WeakReference(con)
-            if (singleProgressDialog != null && singleProgressDialog!!.isShowing) {
-                singleProgressDialog!!.dismiss()
+            var context: Context? = null
+            if (weakReference != null) {
+                context = weakReference!!.get()
+            }else{
+                weakReference = WeakReference(con)
             }
-            val context = mContext!!.get()
+            if (singleProgressDialog != null && singleProgressDialog!!.isShowing) {
+//                singleProgressDialog!!.dismiss()
+                return
+            }
             if (context == null || !(context is Activity)) {
                 return
             }
@@ -46,14 +46,12 @@ class SingleProgressDialog : Dialog {
         }
 
         fun hideLoading() {
-            if (mContext != null) {
-                mContext!!.clear()
-                var con = mContext!!.get()
-                con = null
-                mContext = null
-            }
+
             if (singleProgressDialog != null && singleProgressDialog!!.isShowing) {
                 singleProgressDialog!!.dismiss()
+            }
+            if (weakReference != null) {
+                weakReference = null
             }
         }
     }

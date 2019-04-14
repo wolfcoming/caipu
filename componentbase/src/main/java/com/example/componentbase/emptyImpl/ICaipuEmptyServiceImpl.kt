@@ -8,6 +8,10 @@ import com.example.componentbase.service.ICaipuService
 import com.example.componentbase.service.IUserCenterService
 
 class ICaipuEmptyServiceImpl : ICaipuService {
+    override fun getCaipuHomeFragment(bundle: Bundle?, tag: String): Fragment {
+        return TestFragment()
+    }
+
     override fun getCategoryFragment(bundle: Bundle?, tag: String): Fragment {
         return TestFragment()
     }

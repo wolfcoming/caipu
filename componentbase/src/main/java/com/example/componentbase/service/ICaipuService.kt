@@ -11,4 +11,7 @@ interface ICaipuService {
     //获取菜谱分类fragment
     fun getCategoryFragment( bundle: Bundle?,
                              tag: String):Fragment
+
+    //获取菜谱首页界面
+    fun getCaipuHomeFragment(bundle: Bundle?,tag: String):Fragment
 }

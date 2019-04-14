@@ -26,9 +26,9 @@ android {
 
 //      配置so库，cpu架构
 //        将指定的so库打包到apk
-        ndk{
-            abiFilters('armabi','armeabi-v7a')
-        }
+//        ndk{
+//            abiFilters('armabi','armeabi-v7a')
+//        }
 
     }
 
@@ -77,6 +77,8 @@ dependencies {
 
     api "com.alibaba:arouter-api:1.4.1"
     annotationProcessor "com.alibaba:arouter-compiler:1.2.2"
+
+    api 'com.yarolegovich:sliding-root-nav:1.1.0'
 
 }
 

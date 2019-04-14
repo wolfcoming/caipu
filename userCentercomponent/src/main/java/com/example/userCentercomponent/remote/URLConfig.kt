@@ -1,7 +1,7 @@
 package com.example.userCentercomponent.remote
 
 object URLConfig {
-    const val userBaseurl =  "http://192.168.43.224:8000/"
+    const val userBaseurl =  "http://192.168.1.108:8000/"
     //七牛云图片地址
     const val qiniuBaseurl = "http://po5amz3y7.bkt.clouddn.com/"
 }

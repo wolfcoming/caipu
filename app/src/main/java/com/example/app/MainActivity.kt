@@ -1,22 +1,79 @@
 package com.example.app
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.example.componentbase.ServiceFactory
+import com.example.componentbase.eventbus.SlideMenuEvent
 import com.infoholdcity.baselibrary.base.BaseActiviy
+import com.infoholdcity.baselibrary.utils.ColorUtils
 import com.infoholdcity.baselibrary.utils.StatusBarHelper
+import com.yarolegovich.slidingrootnav.SlidingRootNav
+import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder
+import com.yarolegovich.slidingrootnav.callback.DragListener
 import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : BaseActiviy() {
-
+    private var slidingRootNav: SlidingRootNav? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initSlidingNav(savedInstanceState)
         initBottomNavBar()
 
     }
+
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun openOrCloseSlideMenu(slideMenuEvent: SlideMenuEvent){
+        if(slideMenuEvent.type==1){
+            slidingRootNav?.openMenu()
+        }else{
+            slidingRootNav?.closeMenu()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    private fun initSlidingNav(savedInstanceState: Bundle?) {
+
+        //        好处：入侵 不需要处理布局 缺点：逻辑需要在MainActivity处理
+        slidingRootNav = SlidingRootNavBuilder(this)
+//            .withToolbarMenuToggle(toolbar)
+            .withMenuOpened(false)
+            .withContentClickableWhenMenuOpened(true)
+            .withSavedState(savedInstanceState)
+            .withMenuLayout(R.layout.menu_left_drawer)
+            .addDragListener(myDragListener())
+            .inject()
+
+
+
+
+
+    }
+
+    inner class myDragListener : DragListener {
+        override fun onDrag(progress: Float) {
+            //动态改变状态栏颜色
+            val color = ColorUtils.getColor(progress, "#00574B", "#FFFFFF")
+            changeStateBarColor(Color.parseColor(color))
+        }
+    }
+
 
     private fun initBottomNavBar() {
 
@@ -29,8 +86,11 @@ class MainActivity : BaseActiviy() {
 
         val shopFragment = ServiceFactory.instance.getShopService().getShopHomeFragment(null, "");
 
+        val caipuHome = ServiceFactory.instance.getCaipuService().getCaipuHomeFragment(null,"caipuHome")
+
+
         val fragments = ArrayList<Fragment>()
-        fragments.add(shopFragment)
+        fragments.add(caipuHome)
         fragments.add(categoryFragment)
         fragments.add(TempFragment())
         fragments.add(minFragment!!)

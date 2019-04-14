@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BaseToolBar">
+        <!--显示右侧加号-->
+        <attr name="showadd" format="boolean"></attr>
+        <!--显示返回按钮 否则显示侧滑菜单按钮-->
+        <attr name="showback" format="boolean"></attr>
+        <attr name="commontitle" format="string"></attr>
+    </declare-styleable>
+</resources>
