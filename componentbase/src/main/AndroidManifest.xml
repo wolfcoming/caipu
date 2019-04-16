@@ -1,2 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.componentbase"/>
+          package="com.example.componentbase">
+
+    <application>
+        <activity android:name=".common.CommonFrgmActivity"/>
+    </application>
+</manifest>

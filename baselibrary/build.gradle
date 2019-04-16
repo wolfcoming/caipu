@@ -58,7 +58,7 @@ dependencies {
     api 'top.zibin:Luban:1.1.8'
     //选择图片拍照依赖库（源码依赖）
     api project(':takephoto_library')
-    api 'com.github.bumptech.glide:glide:3.7.0'
+    api 'com.github.bumptech.glide:glide:4.6.1'
 
 //   二维码扫描
     api 'cn.yipianfengye.android:zxing-library:2.2'
@@ -85,7 +85,7 @@ dependencies {
 
 
 
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:multidex:1.0.2'
 
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5'
@@ -109,6 +109,9 @@ dependencies {
 
 
     api 'org.greenrobot:eventbus:3.1.1'
+
+
+    api 'com.youth.banner:banner:1.4.10'
 
 
 }

@@ -27,4 +27,12 @@
             android:text="进入列表"
             android:id="@+id/btnList"
             android:layout_height="wrap_content"/>
+
+
+
+
+    <Button android:layout_width="match_parent"
+            android:text="进入首页"
+            android:id="@+id/btnHome"
+            android:layout_height="wrap_content"/>
 </LinearLayout>

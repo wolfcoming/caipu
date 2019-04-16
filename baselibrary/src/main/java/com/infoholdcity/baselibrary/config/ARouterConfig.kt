@@ -25,6 +25,10 @@ class ARouterConfig {
         const val ACT_USER_GEGISTER = "/user/ACT_USER_GEGISTER"
 
 
+        //通用actvity  嵌套fragment
+        const val  ACT_COMMON = "/base/ACT_COMMON"
+
+
     }
 
 }

@@ -14,12 +14,39 @@
     </com.infoholdcity.baselibrary.view.BaseToolBar>
 
 
-    <TextView android:layout_width="match_parent"
-              android:text="首页"
-              android:layout_margin="100dp"
-              android:id="@+id/tv"
-              android:gravity="center"
-              android:layout_height="wrap_content"/>
+    <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.youth.banner.Banner
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+            <View
+                    android:layout_marginTop="4dp"
+                    android:background="@color/grgray"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"></View>
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvGoods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 
 </LinearLayout>

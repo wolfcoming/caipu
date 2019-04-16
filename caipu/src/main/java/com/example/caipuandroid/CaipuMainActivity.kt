@@ -4,7 +4,9 @@ import android.graphics.Color
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.caipuandroid.ui.fragment.Caipu_Frgm_Home
 import com.example.componentbase.ServiceFactory
+import com.example.componentbase.common.CommonFrgmActivity
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import kotlinx.android.synthetic.main.caipu_activity_main.*
 import com.infoholdcity.basearchitecture.self_extends.toast
@@ -34,8 +36,12 @@ class CaipuMainActivity : BaseActiviy() {
 
         btnList.setOnClickListener {
             ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_LIST)
-                .withString("name","")
+                .withString("name", "")
                 .navigation()
+        }
+
+        btnHome.setOnClickListener {
+            CommonFrgmActivity.startCommonFrgmActivity(this, "", Caipu_Frgm_Home::class.java.name)
         }
     }
 
