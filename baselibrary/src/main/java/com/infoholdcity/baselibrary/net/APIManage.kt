@@ -109,7 +109,7 @@ class APIManage private constructor() {
                         "\n" +
                         "==================================================================" +
                         ""
-            )
+            ) as Throwable
     }
 
 
@@ -133,13 +133,14 @@ class APIManage private constructor() {
         )
         val client = builder
             .cache(cache)
+//            .sslSocketFactory()
             .connectTimeout(timeOut, TimeUnit.SECONDS)
             .readTimeout(timeOut, TimeUnit.SECONDS)
             .writeTimeout(timeOut, TimeUnit.SECONDS)
             .addInterceptor(addQueryParameterInterceptor)
             .addInterceptor(headerInterceptor)
-//            .addNetworkInterceptor(HttpCacheInterceptor())//只在有网的情况下执行
-//            .addInterceptor(networkStatusInterceptor)//有网无网都执行
+            .addNetworkInterceptor(HttpCacheInterceptor())//只在有网的情况下执行
+            .addInterceptor(networkStatusInterceptor)//有网无网都执行
             .build()
         return client!!
     }
