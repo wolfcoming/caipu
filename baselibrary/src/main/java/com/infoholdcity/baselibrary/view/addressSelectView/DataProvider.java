@@ -12,6 +12,6 @@ public interface DataProvider {
 
 
     interface DataReceiver {
-        void send(List<ISelectAble> data);
+        void send(List<Area> data);
     }
 }

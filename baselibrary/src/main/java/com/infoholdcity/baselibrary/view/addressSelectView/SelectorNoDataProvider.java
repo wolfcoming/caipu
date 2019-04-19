@@ -14,7 +14,7 @@ import com.infoholdcity.baselibrary.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectorNoDataProvider implements AdapterView.OnItemClickListener {
+public class SelectorNoDataProvider  implements AdapterView.OnItemClickListener {
 
     public static final int INDEX_INVALID = -1;
     private final Context context;
@@ -30,7 +30,7 @@ public class SelectorNoDataProvider implements AdapterView.OnItemClickListener {
     private Area initArea;//初始数据；
 
 
-    List<List<ISelectAble>> allDatas = new ArrayList<>();
+    List<List<Area>> allDatas = new ArrayList<>();
 
     /* 每个tab的adapter */
     private SelectAdapter[] adapters;
@@ -49,7 +49,7 @@ public class SelectorNoDataProvider implements AdapterView.OnItemClickListener {
         selectedIndex = new int[deep];
         this.selectDeep = deep;
         for (int i = 0; i < deep; i++) {
-            allDatas.add(new ArrayList<ISelectAble>());
+            allDatas.add(new ArrayList<Area>());
         }
         initAdapters();
         initViews();
@@ -173,7 +173,7 @@ public class SelectorNoDataProvider implements AdapterView.OnItemClickListener {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         this.selectedIndex[tabIndex - 1] = position;
 
-        ISelectAble selectAble = allDatas.get(tabIndex - 1).get(position);
+        Area selectAble = allDatas.get(tabIndex - 1).get(position);
         String name = selectAble.getName();
         if (name.contains("null")) {
             name = name.split("-")[1];
@@ -204,7 +204,7 @@ public class SelectorNoDataProvider implements AdapterView.OnItemClickListener {
      * 当前数据集合是树形结构 没有用到preid
      */
     private void getNextData(final String preId) {
-        ArrayList<ISelectAble> addressData = getAddressData(currenAre);
+        ArrayList<Area> addressData = getAddressData(currenAre);
         if (addressData.size() > 0) {
             allDatas.get(tabIndex).clear();
             allDatas.get(tabIndex).addAll(addressData);
@@ -229,9 +229,9 @@ public class SelectorNoDataProvider implements AdapterView.OnItemClickListener {
 
     private void callbackInternal(int deep) {
         if (listener != null) {
-            ArrayList<ISelectAble> result = new ArrayList<>(allDatas.size());
+            ArrayList<Area> result = new ArrayList<>(allDatas.size());
             for (int i = 0; i < deep; i++) {
-                ISelectAble resultBean = allDatas.get(i) == null
+                Area resultBean = allDatas.get(i) == null
                         || selectedIndex[i] == INDEX_INVALID ? null : allDatas.get(i).get(selectedIndex[i]);
                 result.add(resultBean);
             }
@@ -257,9 +257,9 @@ public class SelectorNoDataProvider implements AdapterView.OnItemClickListener {
     /**
      * 获取地址选择器数据
      */
-    public ArrayList<ISelectAble> getAddressData(Area areaSelect) {
+    public ArrayList<Area> getAddressData(Area areaSelect) {
 
-        ArrayList<ISelectAble> addressData = new ArrayList<ISelectAble>();
+        ArrayList<Area> addressData = new ArrayList<Area>();
         addressData.clear();
         Area area = null;
         if (areaSelect == null)//表示第一层级的地址
@@ -289,7 +289,7 @@ public class SelectorNoDataProvider implements AdapterView.OnItemClickListener {
     }
 
 
-    private void setDataToAddressList(String parentBgCode, String parentName, List<Area> subAreas, ArrayList<ISelectAble> addressList) {
+    private void setDataToAddressList(String parentBgCode, String parentName, List<Area> subAreas, ArrayList<Area> addressList) {
         final ArrayList<Area> areas = new ArrayList<>();
         areas.clear();
         areas.addAll(subAreas);
@@ -307,7 +307,7 @@ public class SelectorNoDataProvider implements AdapterView.OnItemClickListener {
             final Area a = areas.get(i);
             //向该目录下添加选取按钮
             final int finalI = i;
-            addressList.add(new ISelectAble() {
+            addressList.add(new Area() {
                 @Override
                 public String getName() {
                     return areas.get(finalI).getName();

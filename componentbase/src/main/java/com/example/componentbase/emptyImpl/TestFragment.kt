@@ -39,7 +39,7 @@ class TestFragment:BaseFragment() {
             val dialog =  BottomDialog(context)
             dialog.init(context,  SelectorNoDataProvider(context,rootArea,4))
             dialog.setOnAddressSelectedListener(object:SelectedListener{
-                override fun onAddressSelected(selectAbles: java.util.ArrayList<ISelectAble>?) {
+                override fun onAddressSelected(selectAbles: java.util.ArrayList<Area>?) {
                     toast("hhhh")
                 }
             })
@@ -51,7 +51,7 @@ class TestFragment:BaseFragment() {
             val slector = Selector(context,"",4)
             slector.setDataProvider(object : DataProvider {
                 override fun provideData(currentId: Int, preId: String?, receiver: DataProvider.DataReceiver?) {
-                    val list = ArrayList<ISelectAble>()
+                    val list = ArrayList<Area>()
                     rootArea.sublistArea.forEach { area->
                         list.add(area)
                     }
@@ -60,7 +60,7 @@ class TestFragment:BaseFragment() {
             })
             dialog2.init(context, slector)
             dialog2.setOnAddressSelectedListener(object:SelectedListener{
-                override fun onAddressSelected(selectAbles: java.util.ArrayList<ISelectAble>?) {
+                override fun onAddressSelected(selectAbles: java.util.ArrayList<Area>?) {
                     toast("hhhh")
                 }
             })

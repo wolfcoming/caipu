@@ -32,7 +32,7 @@ public class Selector implements AdapterView.OnItemClickListener {
     private int tabIndex = 0;
 
 
-    List<List<ISelectAble>> allDatas = new ArrayList<>();
+    List<List<Area>> allDatas = new ArrayList<>();
 
     /* 每个tab的adapter */
     private SelectAdapter[] adapters;
@@ -57,7 +57,7 @@ public class Selector implements AdapterView.OnItemClickListener {
         selectedIndex = new int[deep];
         this.selectDeep = deep;
         for (int i = 0; i < deep; i++) {
-            allDatas.add(new ArrayList<ISelectAble>());
+            allDatas.add(new ArrayList<Area>());
         }
         initAdapters();
         initViews();
@@ -177,7 +177,7 @@ public class Selector implements AdapterView.OnItemClickListener {
         this.selectedIndex[tabIndex - 1] = position;
 
 
-        ISelectAble selectAble = allDatas.get(tabIndex - 1).get(position);
+        Area selectAble = allDatas.get(tabIndex - 1).get(position);
         tabs[tabIndex - 1].setText(selectAble.getName());
         for (int i = tabIndex; i < this.allDatas.size(); i++) {
             tabs[i].setText("请选择");
@@ -213,7 +213,7 @@ public class Selector implements AdapterView.OnItemClickListener {
         progressBar.setVisibility(View.VISIBLE);
         dataProvider.provideData(tabIndex, preId, new DataProvider.DataReceiver() {
             @Override
-            public void send(List<ISelectAble> data) {
+            public void send(List<Area> data) {
 
 
                 if (data.size() > 0) {
@@ -244,9 +244,9 @@ public class Selector implements AdapterView.OnItemClickListener {
     private void callbackInternal(int deep) {
         if (listener != null) {
 //            selectDeep = deep;
-            ArrayList<ISelectAble> result = new ArrayList<>(allDatas.size());
+            ArrayList<Area> result = new ArrayList<>(allDatas.size());
             for (int i = 0; i < deep; i++) {
-                ISelectAble resultBean = allDatas.get(i) == null
+                Area resultBean = allDatas.get(i) == null
                         || selectedIndex[i] == INDEX_INVALID ? null : allDatas.get(i).get(selectedIndex[i]);
                 result.add(resultBean);
             }

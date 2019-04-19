@@ -16,10 +16,10 @@ import java.util.List;
  */
 
 public class SelectAdapter extends BaseAdapter {
-    List<ISelectAble> datas;
+    List<Area> datas;
     int selectedIndex = Selector.INDEX_INVALID;
 
-    public SelectAdapter(List<ISelectAble> datas) {
+    public SelectAdapter(List<Area> datas) {
         this.datas = datas;
     }
 
@@ -58,7 +58,7 @@ public class SelectAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
 
-        ISelectAble item = (ISelectAble) getItem(position);
+        Area item = (Area) getItem(position);
         //item.getname结果：昌邑区-全部 只显示全部
         String name = item.getName();
 
