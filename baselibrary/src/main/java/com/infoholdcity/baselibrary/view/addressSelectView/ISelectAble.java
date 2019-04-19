@@ -13,7 +13,7 @@ public interface ISelectAble {
     /**
      * 用户设定的id，根据这个id，可以获取级栏目或者指定为最终栏目的id
      * */
-    public int getId();
+    public String getId();
 
 
     /**

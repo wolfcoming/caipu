@@ -45,7 +45,7 @@ public class BottomDialog2 extends Dialog {
         return (int) (dpValue * scale + 0.5f);
     }
 
-    public void setOnAddressSelectedListener(SelectedListener2 listener) {
+    public void setOnAddressSelectedListener(SelectedListener listener) {
         this.selector.setSelectedListener(listener);
     }
 
@@ -58,7 +58,7 @@ public class BottomDialog2 extends Dialog {
         return show(context, null);
     }
 
-    public static BottomDialog2 show(Context context, SelectedListener2 listener) {
+    public static BottomDialog2 show(Context context, SelectedListener listener) {
         BottomDialog2 dialog = new BottomDialog2(context, R.style.bottom_dialog);
         dialog.selector.setSelectedListener(listener);
         dialog.show();

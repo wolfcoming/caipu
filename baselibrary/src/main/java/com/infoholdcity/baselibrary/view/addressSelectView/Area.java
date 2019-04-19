@@ -8,7 +8,7 @@ import java.util.List;
  * Created by DELL on 2017/9/5.
  */
 
-public class Area implements Serializable {
+public class Area implements Serializable,ISelectAble {
     private String id;
     private String type;
     private String name;
@@ -18,6 +18,11 @@ public class Area implements Serializable {
 
     public String getId() {
         return id;
+    }
+
+    @Override
+    public Object getArg() {
+        return this;
     }
 
     public void setId(String id) {

@@ -19,7 +19,7 @@ public class Selector implements AdapterView.OnItemClickListener {
 
     public static final int INDEX_INVALID = -1;
     private final Context context;
-    private SelectedListener2 listener;
+    private SelectedListener listener;
     private View view;
     private View indicator;
     private LinearLayout ll_tabLayout;
@@ -27,30 +27,24 @@ public class Selector implements AdapterView.OnItemClickListener {
 
     private ListView listView;
     private TextView tvCancel;
-    private Object selectItem;
 
 
     private int tabIndex = 0;
 
 
-    List<List<ISelectAble2>> allDatas = new ArrayList<>();
+    List<List<ISelectAble>> allDatas = new ArrayList<>();
 
     /* 每个tab的adapter */
-    private SelectAdapter2[] adapters;
+    private SelectAdapter[] adapters;
     /*选择的深度*/
     private int selectDeep;
     private int[] selectedIndex;
 
-    DataProvider2 dataProvider;
+    DataProvider dataProvider;
 
-    public void setDataProvider(DataProvider2 dataProvider) {
+    public void setDataProvider(DataProvider dataProvider) {
         this.dataProvider = dataProvider;
-        if (originPreId == null) {
-            getNextData("402880822f71b3fd012f71b5efbc0006");//写死职能部门数据
-        } else {
-            getNextData(originPreId);
-        }
-
+        getNextData(originPreId);
     }
 
 
@@ -63,7 +57,7 @@ public class Selector implements AdapterView.OnItemClickListener {
         selectedIndex = new int[deep];
         this.selectDeep = deep;
         for (int i = 0; i < deep; i++) {
-            allDatas.add(new ArrayList<ISelectAble2>());
+            allDatas.add(new ArrayList<ISelectAble>());
         }
         initAdapters();
         initViews();
@@ -71,9 +65,9 @@ public class Selector implements AdapterView.OnItemClickListener {
 
 
     private void initAdapters() {
-        adapters = new SelectAdapter2[allDatas.size()];
+        adapters = new SelectAdapter[allDatas.size()];
         for (int i = 0; i < selectDeep; i++) {
-            adapters[i] = new SelectAdapter2(allDatas.get(i));
+            adapters[i] = new SelectAdapter(allDatas.get(i));
         }
     }
 
@@ -183,7 +177,7 @@ public class Selector implements AdapterView.OnItemClickListener {
         this.selectedIndex[tabIndex - 1] = position;
 
 
-        ISelectAble2 selectAble = allDatas.get(tabIndex - 1).get(position);
+        ISelectAble selectAble = allDatas.get(tabIndex - 1).get(position);
         tabs[tabIndex - 1].setText(selectAble.getName());
         for (int i = tabIndex; i < this.allDatas.size(); i++) {
             tabs[i].setText("请选择");
@@ -194,8 +188,6 @@ public class Selector implements AdapterView.OnItemClickListener {
         }
         this.adapters[tabIndex - 1].setSelectedIndex(position);
         this.adapters[tabIndex - 1].notifyDataSetChanged();
-        //将点击的数据保存起来,作为下一级的数据源
-        selectItem = (Object) selectAble.getArg();
         if (tabIndex == selectDeep) {
             callbackInternal(selectDeep);
             return;
@@ -219,31 +211,14 @@ public class Selector implements AdapterView.OnItemClickListener {
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
-        dataProvider.provideData(tabIndex, preId, new DataProvider2.DataReceiver() {
+        dataProvider.provideData(tabIndex, preId, new DataProvider.DataReceiver() {
             @Override
-            public void send(List<ISelectAble2> data) {
+            public void send(List<ISelectAble> data) {
+
+
                 if (data.size() > 0) {
                     //添加全部按钮
-                    final DeptAndUserbean deptAndUserbean = (DeptAndUserbean) selectItem;
-                    if (deptAndUserbean != null) {
-                        ISelectAble2 iSelectAble2 = new ISelectAble2() {
-                            @Override
-                            public String getName() {
-                                return deptAndUserbean.getDeptName() + "-全部";
-                            }
 
-                            @Override
-                            public String getId() {
-                                return deptAndUserbean.getId();
-                            }
-
-                            @Override
-                            public Object getArg() {
-                                return deptAndUserbean;
-                            }
-                        };
-                        data.add(0, iSelectAble2);
-                    }
                     //更新当前tab下标
                     allDatas.get(tabIndex).clear();
                     allDatas.get(tabIndex).addAll(data);
@@ -269,9 +244,9 @@ public class Selector implements AdapterView.OnItemClickListener {
     private void callbackInternal(int deep) {
         if (listener != null) {
 //            selectDeep = deep;
-            ArrayList<ISelectAble2> result = new ArrayList<>(allDatas.size());
+            ArrayList<ISelectAble> result = new ArrayList<>(allDatas.size());
             for (int i = 0; i < deep; i++) {
-                ISelectAble2 resultBean = allDatas.get(i) == null
+                ISelectAble resultBean = allDatas.get(i) == null
                         || selectedIndex[i] == INDEX_INVALID ? null : allDatas.get(i).get(selectedIndex[i]);
                 result.add(resultBean);
             }
@@ -286,11 +261,11 @@ public class Selector implements AdapterView.OnItemClickListener {
     }
 
 
-    public SelectedListener2 getOnAddressSelectedListener() {
+    public SelectedListener getOnAddressSelectedListener() {
         return listener;
     }
 
-    public void setSelectedListener(SelectedListener2 listener) {
+    public void setSelectedListener(SelectedListener listener) {
         this.listener = listener;
     }
 

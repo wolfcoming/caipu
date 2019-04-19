@@ -8,7 +8,7 @@ import java.util.List;
  */
 
 public interface DataProvider {
-    void provideData(int currentId, Area area, int preId, DataReceiver receiver);
+    void provideData(int currentId, String preId, DataReceiver receiver);
 
 
     interface DataReceiver {

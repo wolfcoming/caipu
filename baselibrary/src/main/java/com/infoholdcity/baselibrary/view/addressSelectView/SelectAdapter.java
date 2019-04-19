@@ -39,7 +39,7 @@ public class SelectAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return datas.get(position).getId();
+        return position;
     }
 
     @Override

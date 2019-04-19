@@ -18,4 +18,12 @@
             android:layout_height="wrap_content"/>
 
 
+    <Button
+            android:text="地址选择器2"
+            android:id="@+id/btnAddress2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
 </LinearLayout>

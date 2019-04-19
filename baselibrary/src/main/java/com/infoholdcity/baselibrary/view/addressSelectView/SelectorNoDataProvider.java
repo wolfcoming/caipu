@@ -53,7 +53,7 @@ public class SelectorNoDataProvider implements AdapterView.OnItemClickListener {
         }
         initAdapters();
         initViews();
-        getNextData(0);
+        getNextData("0");
     }
 
 
@@ -203,7 +203,7 @@ public class SelectorNoDataProvider implements AdapterView.OnItemClickListener {
      * 根据当前集合选择的id，向用户获取下一级子集的数据
      * 当前数据集合是树形结构 没有用到preid
      */
-    private void getNextData(final int preId) {
+    private void getNextData(final String preId) {
         ArrayList<ISelectAble> addressData = getAddressData(currenAre);
         if (addressData.size() > 0) {
             allDatas.get(tabIndex).clear();
@@ -314,8 +314,8 @@ public class SelectorNoDataProvider implements AdapterView.OnItemClickListener {
                 }
 
                 @Override
-                public int getId() {
-                    return finalI;
+                public String getId() {
+                    return finalI+"";
                 }
 
                 @Override
