@@ -65,9 +65,17 @@ public class TreeData implements Serializable, ISelectAble {
         if (id == null || id == "") {
             return data;
         }
+        if (data == null) {
+            return null;
+        }
         for (TreeData treeData : data.getSublistTreeData()) {
             if (treeData.getId() != id) {
-                getAreaById(treeData, id);
+                TreeData subData = getAreaById(treeData, id);
+                if (subData == null) {
+                    continue;
+                } else {
+                    return subData;
+                }
             } else {
                 return treeData;
             }
