@@ -1,19 +1,18 @@
 package com.infoholdcity.baselibrary.view.addressSelectView;
 
+import com.infoholdcity.baselibrary.view.addressSelectView.i.ISelectAble;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by DELL on 2017/9/5.
- */
 
-public class Area implements Serializable,ISelectAble {
+public class TreeData implements Serializable, ISelectAble {
     private String id;
     private String type;
     private String name;
     private Object value;
-    private List<Area> sublistArea = new ArrayList<>();
+    private List<TreeData> sublistTreeData = new ArrayList<>();
 
 
     public String getId() {
@@ -53,11 +52,26 @@ public class Area implements Serializable,ISelectAble {
         this.value = value;
     }
 
-    public List<Area> getSublistArea() {
-        return sublistArea;
+    public List<TreeData> getSublistTreeData() {
+        return sublistTreeData;
     }
 
-    public void setSublistArea(List<Area> sublistArea) {
-        this.sublistArea = sublistArea;
+    public void setSublistTreeData(List<TreeData> sublistTreeData) {
+        this.sublistTreeData = sublistTreeData;
+    }
+
+
+    public static TreeData getAreaById(TreeData data, String id) {
+        if (id == null || id == "") {
+            return data;
+        }
+        for (TreeData treeData : data.getSublistTreeData()) {
+            if (treeData.getId() != id) {
+                getAreaById(treeData, id);
+            } else {
+                return treeData;
+            }
+        }
+        return null;
     }
 }

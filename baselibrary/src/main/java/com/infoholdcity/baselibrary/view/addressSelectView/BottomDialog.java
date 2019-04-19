@@ -2,16 +2,18 @@ package com.infoholdcity.baselibrary.view.addressSelectView;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.*;
 import com.infoholdcity.baselibrary.R;
 import cn.com.infohold.smartcity.util.DeviceUtils;
+import com.infoholdcity.baselibrary.view.addressSelectView.i.CancelListener;
+import com.infoholdcity.baselibrary.view.addressSelectView.i.ISelector;
+import com.infoholdcity.baselibrary.view.addressSelectView.i.SelectedListener;
 
 import static android.view.View.GONE;
 
 
 public class BottomDialog extends Dialog {
-    private SelectorNoDataProvider selector;
+    private ISelector selector;
 
     public BottomDialog(Context context) {
         super(context);
@@ -25,7 +27,7 @@ public class BottomDialog extends Dialog {
         super(context, cancelable, cancelListener);
     }
 
-    public void init(Context context, SelectorNoDataProvider selector) {
+    public void init(Context context, ISelector selector) {
         this.selector = selector;
         selector.getView().findViewById(R.id.selector_cancel).setVisibility(GONE);
         setContentView(selector.getView());
@@ -34,8 +36,6 @@ public class BottomDialog extends Dialog {
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
         params.height = dip2px(context, 256);
         window.setAttributes(params);
-
-//        window.setGravity(Gravity.BOTTOM);
     }
 
 

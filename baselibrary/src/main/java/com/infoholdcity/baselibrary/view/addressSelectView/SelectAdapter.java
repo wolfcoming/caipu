@@ -16,10 +16,10 @@ import java.util.List;
  */
 
 public class SelectAdapter extends BaseAdapter {
-    List<Area> datas;
+    List<TreeData> datas;
     int selectedIndex = Selector.INDEX_INVALID;
 
-    public SelectAdapter(List<Area> datas) {
+    public SelectAdapter(List<TreeData> datas) {
         this.datas = datas;
     }
 
@@ -58,7 +58,7 @@ public class SelectAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
 
-        Area item = (Area) getItem(position);
+        TreeData item = (TreeData) getItem(position);
         //item.getname结果：昌邑区-全部 只显示全部
         String name = item.getName();
 

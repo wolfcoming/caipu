@@ -1,4 +1,6 @@
-package com.infoholdcity.baselibrary.view.addressSelectView;
+package com.infoholdcity.baselibrary.view.addressSelectView.i;
+
+import com.infoholdcity.baselibrary.view.addressSelectView.TreeData;
 
 import java.util.List;
 
@@ -12,6 +14,6 @@ public interface DataProvider {
 
 
     interface DataReceiver {
-        void send(List<Area> data);
+        void send(List<TreeData> data);
     }
 }

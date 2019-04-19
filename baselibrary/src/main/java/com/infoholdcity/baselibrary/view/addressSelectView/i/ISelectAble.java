@@ -1,4 +1,4 @@
-package com.infoholdcity.baselibrary.view.addressSelectView;
+package com.infoholdcity.baselibrary.view.addressSelectView.i;
 
 /**
  * Created by dun on 17/2/9.

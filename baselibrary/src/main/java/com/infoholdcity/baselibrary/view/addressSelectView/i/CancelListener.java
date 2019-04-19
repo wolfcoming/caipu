@@ -1,4 +1,4 @@
-package com.infoholdcity.baselibrary.view.addressSelectView;
+package com.infoholdcity.baselibrary.view.addressSelectView.i;
 
 /**
  * Created by DELL on 2017/5/5.

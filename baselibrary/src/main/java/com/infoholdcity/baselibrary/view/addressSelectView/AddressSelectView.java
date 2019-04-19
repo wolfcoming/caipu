@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import com.infoholdcity.baselibrary.R;
+import com.infoholdcity.baselibrary.view.addressSelectView.i.ISelector;
 
 
 /**
@@ -25,9 +26,9 @@ public class AddressSelectView extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    private SelectorNoDataProvider selector;
+    private ISelector selector;
 
-    public void initView(SelectorNoDataProvider selector) {
+    public void initView(ISelector selector) {
         this.selector = selector;
         selector.getView().findViewById(R.id.selector_cancel).setVisibility(GONE);
         addView(selector.getView());

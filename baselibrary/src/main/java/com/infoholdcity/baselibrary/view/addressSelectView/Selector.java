@@ -10,12 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.infoholdcity.baselibrary.R;
+import com.infoholdcity.baselibrary.view.addressSelectView.i.CancelListener;
+import com.infoholdcity.baselibrary.view.addressSelectView.i.DataProvider;
+import com.infoholdcity.baselibrary.view.addressSelectView.i.ISelector;
+import com.infoholdcity.baselibrary.view.addressSelectView.i.SelectedListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Selector implements AdapterView.OnItemClickListener {
+public class Selector implements AdapterView.OnItemClickListener, ISelector {
 
     public static final int INDEX_INVALID = -1;
     private final Context context;
@@ -29,26 +33,32 @@ public class Selector implements AdapterView.OnItemClickListener {
     private TextView tvCancel;
 
 
-    private int tabIndex = 0;
+    private int tabIndex = 0;//tab栏下标
 
+    // 数据 第一层list是代表有多少层级，第二层list是代表每个层级的数据
+    List<List<TreeData>> allDatas = new ArrayList<>();
 
-    List<List<Area>> allDatas = new ArrayList<>();
-
-    /* 每个tab的adapter */
+    /* 每个tab的adapter  有多少层级就设置多少个adapter  多个adapter公用一个listview*/
     private SelectAdapter[] adapters;
     /*选择的深度*/
+    //TODO 改成动态增加 优化内存
     private int selectDeep;
-    private int[] selectedIndex;
+    private int[] selectedIndex;//每一层adapter 所选择的位置
 
     DataProvider dataProvider;
 
+    /**
+     * 该方法必须调用
+     *
+     * @param dataProvider
+     */
     public void setDataProvider(DataProvider dataProvider) {
         this.dataProvider = dataProvider;
         getNextData(originPreId);
     }
 
 
-    private String originPreId;//初始化过滤条件
+    private String originPreId = "";//初始化过滤条件
 
     public Selector(Context context, String originPreId, int deep) {
         this.originPreId = originPreId;
@@ -57,7 +67,7 @@ public class Selector implements AdapterView.OnItemClickListener {
         selectedIndex = new int[deep];
         this.selectDeep = deep;
         for (int i = 0; i < deep; i++) {
-            allDatas.add(new ArrayList<Area>());
+            allDatas.add(new ArrayList<TreeData>());
         }
         initAdapters();
         initViews();
@@ -98,8 +108,8 @@ public class Selector implements AdapterView.OnItemClickListener {
                     if (selectedIndex[finalI] != INDEX_INVALID) {
                         listView.setSelection(selectedIndex[finalI]);
                     }
-                    updateTabsVisibility(tabIndex - 1);
-                    updateIndicator(tabIndex - 1);
+                    updateTabsVisibility(finalI);
+                    updateIndicator(finalI);
                 }
             });
             tabs[i] = textView;
@@ -125,6 +135,7 @@ public class Selector implements AdapterView.OnItemClickListener {
         });
     }
 
+    @Override
     public View getView() {
         return view;
     }
@@ -177,7 +188,7 @@ public class Selector implements AdapterView.OnItemClickListener {
         this.selectedIndex[tabIndex - 1] = position;
 
 
-        Area selectAble = allDatas.get(tabIndex - 1).get(position);
+        TreeData selectAble = allDatas.get(tabIndex - 1).get(position);
         tabs[tabIndex - 1].setText(selectAble.getName());
         for (int i = tabIndex; i < this.allDatas.size(); i++) {
             tabs[i].setText("请选择");
@@ -206,17 +217,15 @@ public class Selector implements AdapterView.OnItemClickListener {
     /**
      * 根据当前集合选择的id，向用户获取下一级子集的数据
      */
-    private void getNextData(final String preId) {
+    private void getNextData(final String selectId) {
         if (dataProvider == null) {
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
-        dataProvider.provideData(tabIndex, preId, new DataProvider.DataReceiver() {
+        dataProvider.provideData(tabIndex, selectId, new DataProvider.DataReceiver() {
             @Override
-            public void send(List<Area> data) {
-
-
-                if (data.size() > 0) {
+            public void send(List<TreeData> data) {
+                if (data != null && data.size() > 0) {
                     //添加全部按钮
 
                     //更新当前tab下标
@@ -225,10 +234,9 @@ public class Selector implements AdapterView.OnItemClickListener {
                     adapters[tabIndex].notifyDataSetChanged();
                     listView.setAdapter(adapters[tabIndex]);
                 } else {
-                    updateProgressVisibility();
-                    updateTabsVisibility(tabIndex - 1);
-                    updateIndicator(tabIndex - 1);
                     //次级没有内容，直接回调
+                    updateIndicator(tabIndex - 1);
+                    updateProgressVisibility();
                     callbackInternal(tabIndex);
                     return;
                 }
@@ -244,9 +252,9 @@ public class Selector implements AdapterView.OnItemClickListener {
     private void callbackInternal(int deep) {
         if (listener != null) {
 //            selectDeep = deep;
-            ArrayList<Area> result = new ArrayList<>(allDatas.size());
+            ArrayList<TreeData> result = new ArrayList<>(allDatas.size());
             for (int i = 0; i < deep; i++) {
-                Area resultBean = allDatas.get(i) == null
+                TreeData resultBean = allDatas.get(i) == null
                         || selectedIndex[i] == INDEX_INVALID ? null : allDatas.get(i).get(selectedIndex[i]);
                 result.add(resultBean);
             }
@@ -264,13 +272,14 @@ public class Selector implements AdapterView.OnItemClickListener {
     public SelectedListener getOnAddressSelectedListener() {
         return listener;
     }
-
+    @Override
     public void setSelectedListener(SelectedListener listener) {
         this.listener = listener;
     }
 
     CancelListener cancelListener;
 
+    @Override
     public void setCancelListener(CancelListener cancelListener) {
         this.cancelListener = cancelListener;
 
