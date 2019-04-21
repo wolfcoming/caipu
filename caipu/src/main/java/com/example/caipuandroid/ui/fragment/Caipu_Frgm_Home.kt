@@ -5,17 +5,23 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.bumptech.glide.Glide
 import com.example.caipuandroid.R
+import com.example.caipuandroid.service.impl.IServiceNetImpl
 import com.example.caipuandroid.ui.adapter.GoodsListAdapter
 import com.example.caipuandroid.ui.adapter.HomeCategoryAdapter
 import com.example.caipuandroid.ui.loader.GlideImageLoader
 import com.example.caipuandroid.ui.vo.Greens
 import com.example.componentbase.eventbus.SlideMenuEvent
+import com.infoholdcity.basearchitecture.self_extends.excute
+import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseFragment
 import kotlinx.android.synthetic.main.caipu_frgm_category.*
 import org.greenrobot.eventbus.EventBus
 import java.lang.Exception
 
 class Caipu_Frgm_Home : BaseFragment() {
+
+    val service by lazy { IServiceNetImpl() }
+
     override fun inflateView(): Any {
         return R.layout.caipu_frgm_category
     }
@@ -64,12 +70,21 @@ class Caipu_Frgm_Home : BaseFragment() {
 
     private fun initBanner() {
         val imagelist = ArrayList<String>()
-        imagelist.add("http://img5.imgtn.bdimg.com/it/u=2171883686,3385272853&fm=26&gp=0.jpg")
-        imagelist.add("http://img5.imgtn.bdimg.com/it/u=2171883686,3385272853&fm=26&gp=0.jpg")
-        imagelist.add("http://img5.imgtn.bdimg.com/it/u=2171883686,3385272853&fm=26&gp=0.jpg")
-        banner.setImageLoader(GlideImageLoader())
-        banner.setImages(imagelist)
-        banner.start();
+        service.getBannerData().excute().subscribe ({it->
+            it.map {
+                imagelist.add(it.img)
+            }
+            banner.setImageLoader(GlideImageLoader())
+            banner.setImages(imagelist)
+            banner.start();
+            banner.setOnBannerListener { position ->
+                toast(it[position].name)
+            }
+        },{
+            toast(it.message!!)
+        })
+
+
 
     }
 

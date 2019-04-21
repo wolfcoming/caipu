@@ -49,6 +49,11 @@ public class DragLayout extends ViewGroup {
             }
 
             @Override
+            public int clampViewPositionHorizontal(@NonNull View child, int left, int dx) {
+                return super.clampViewPositionHorizontal(child, left, dx);
+            }
+
+            @Override
             public int clampViewPositionVertical(@NonNull View child, int top, int dy) {
                 if (mCurrentPressDragView != null) {
                     top = Math.min(mCurrentPressDragView.getmRangeBound().bottom,

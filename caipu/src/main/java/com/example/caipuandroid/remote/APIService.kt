@@ -1,5 +1,6 @@
 package com.example.caipuandroid.remote
 
+import com.example.caipuandroid.remote.bean.BannerBean
 import com.example.caipuandroid.remote.bean.BaseBean
 import com.example.caipuandroid.remote.bean.CategoryBean
 import com.example.caipuandroid.ui.vo.Greens
@@ -40,5 +41,8 @@ interface APIService {
     @GET("/getGreensByid/")
     fun getCaipuList(@Query("id") id: Int): Observable<BaseBean<Greens>>
 
+
+    @GET("/getBannerData/")
+    fun getBannerData():Observable<BaseBean<List<BannerBean>>>
 
 }

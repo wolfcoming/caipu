@@ -1,6 +1,7 @@
 package com.example.caipuandroid.service
 
 import com.example.caipuandroid.remote.bean.BaseBean
+import com.example.caipuandroid.ui.vo.BannerVo
 import com.example.caipuandroid.ui.vo.CategoryVo
 import com.example.caipuandroid.ui.vo.Greens
 import io.reactivex.Observable
@@ -36,5 +37,11 @@ interface ICaipuService {
      * 获取菜谱详情
      */
     fun getGreensById(id: Int): Observable<Greens>
+
+
+    /**
+     * 获取banner数据
+     */
+    fun getBannerData():Observable<List<BannerVo>>
 
 }

@@ -9,6 +9,7 @@ import com.example.caipuandroid.remote.bean.BaseBean
 import com.example.caipuandroid.remote.bean.CategoryBean
 import com.infoholdcity.baselibrary.net.util.ApiException
 import com.example.caipuandroid.service.ICaipuService
+import com.example.caipuandroid.ui.vo.BannerVo
 import com.example.caipuandroid.ui.vo.CategoryVo
 import com.example.caipuandroid.ui.vo.Greens
 import com.google.gson.Gson
@@ -19,6 +20,7 @@ import kotlin.collections.ArrayList
  * 该层用来转换业务层需要的数据格式
  */
 class IServiceNetImpl : ICaipuService {
+
 
     override fun getGreensById(id: Int): Observable<Greens> {
         return APIManage.instance.getRequest(APIService::class.java)
@@ -133,6 +135,27 @@ class IServiceNetImpl : ICaipuService {
         }
 
     }
+
+
+    override fun getBannerData(): Observable<List<BannerVo>> {
+
+        return APIManage.instance.getRequest(APIService::class.java)
+            .getBannerData().map {
+                if(it.code==1){
+                    val list = ArrayList<BannerVo>()
+                    it.data!!.map {
+                        val bannerVo = BannerVo(it!!.name,it!!.img,it!!.category_id)
+                        list.add(bannerVo)
+                    }
+
+                    list
+                }else{
+                    throw ApiException("${it.message}")
+                }
+
+            }
+    }
+
 
 
 }
