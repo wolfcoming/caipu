@@ -27,6 +27,8 @@
         <activity android:name=".ui.TestLeackActivity"/>
         <activity android:name=".ui.GoodsAddActivity" android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".ui.GoodsListActivity"/>
+        <activity android:name=".ui.GoodsDetailActivity"></activity>
+
     </application>
 
 </manifest>

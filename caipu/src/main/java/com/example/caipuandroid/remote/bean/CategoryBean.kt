@@ -10,4 +10,5 @@ class CategoryBean : Serializable {
     var name: String? = null
     var category_level: Int = 0
     var parent_category: Int = 0
+    var imgurl: String? = null
 }

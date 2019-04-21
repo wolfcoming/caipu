@@ -89,6 +89,7 @@ class IServiceNetImpl : ICaipuService {
                             categoryVo.categoryId = it.id
                             categoryVo.categoryLevel = it.category_level
                             categoryVo.categoryName = it.name
+                            categoryVo.imgurl = it.imgurl
                             list.add(categoryVo)
                         }
                     }
@@ -125,6 +126,7 @@ class IServiceNetImpl : ICaipuService {
                 subCategoryVo.categoryId = data.id
                 subCategoryVo.categoryLevel = data.category_level
                 subCategoryVo.categoryName = data.name
+                subCategoryVo.imgurl = data.imgurl
                 list.add(subCategoryVo)
                 //可优化的策略 ：将添加过的移除，避免多次判断
             }

@@ -30,6 +30,7 @@
                     android:layout_height="200dp"/>
 
             <android.support.v7.widget.RecyclerView
+                    android:layout_marginTop="10dp"
                     android:id="@+id/rvCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
