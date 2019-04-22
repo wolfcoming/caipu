@@ -1,8 +1,10 @@
 package com.example.userCentercomponent
 
+import android.content.Intent
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.componentbase.common.CommonFrgmActivity
 import com.example.componentbase.eventbus.UserEvent
 import com.example.userCentercomponent.service.impl.UserCenterServiceImpl
 import com.hazz.kotlinmvp.net.exception.ExceptionHandle
@@ -23,8 +25,12 @@ class LoginMainActivity : BaseActiviy() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.usercenter_activity_main)
+
+
         tvRegister.setOnClickListener {
-            ARouter.getInstance().build(ARouterConfig.ACT_USER_GEGISTER).navigation()
+            CommonFrgmActivity.startCommonFrgmActivity(this, "用户中心", MinFragment::class.java.name, null)
+
+//            ARouter.getInstance().build(ARouterConfig.ACT_USER_GEGISTER).navigation()
         }
 
 
@@ -42,7 +48,7 @@ class LoginMainActivity : BaseActiviy() {
                 .excute()
                 .subscribe({
                     if (it != null) {
-                        UserOperation.userLoginSuccess(this@LoginMainActivity,it)
+                        UserOperation.userLoginSuccess(this@LoginMainActivity, it)
                         SingleProgressDialog.hideLoading()
                         finish()
                     }
