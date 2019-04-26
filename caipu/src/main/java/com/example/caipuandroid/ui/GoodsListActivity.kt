@@ -34,9 +34,21 @@ class GoodsListActivity : BaseActiviy() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goodslist)
         name = intent.getStringExtra("name")
+        val showKeyBoard = intent.getBooleanExtra("showKeyBoard",false)
         etName.setText(name)
-        etName.setSelection(name.length)
-        etName.clearFocus()
+
+        if(!showKeyBoard){
+            etName.setSelection(name.length)
+            etName.clearFocus()
+        }else{
+            etName.isFocusable = true
+            etName.isFocusableInTouchMode = true
+            etName.requestFocus()
+
+        }
+
+
+
 
         rvGoodsList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvGoodsList.adapter = adapter

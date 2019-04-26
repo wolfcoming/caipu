@@ -135,6 +135,10 @@ class GoodsAddActivity : BaseMvpActivity<AddGreensContract.Presenter>(), AddGree
             mPresenter.addGreens()
 
         }
+
+        btnExit.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onError(message: String) {

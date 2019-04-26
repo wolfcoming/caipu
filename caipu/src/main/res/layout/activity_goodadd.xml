@@ -16,6 +16,7 @@
                   android:layout_height="wrap_content">
 
         <ImageButton android:layout_width="24dp"
+                     android:id="@+id/btnExit"
                     android:background="@drawable/ic_back"
                      android:layout_height="24dp"/>
 
@@ -26,6 +27,7 @@
 
         <TextView android:layout_width="wrap_content"
                   android:text="存草稿"
+                  android:visibility="gone"
                   android:layout_marginRight="10dp"
                   android:layout_height="wrap_content"/>
     </LinearLayout>

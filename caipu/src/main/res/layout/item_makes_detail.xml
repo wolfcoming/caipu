@@ -27,8 +27,7 @@
 
 
     <ImageView android:layout_width="wrap_content"
-               android:scaleType="centerCrop"
                android:id="@+id/ivStepImg"
                android:layout_margin="10dp"
-               android:layout_height="300dp"/>
+               android:layout_height="200dp"/>
 </LinearLayout>

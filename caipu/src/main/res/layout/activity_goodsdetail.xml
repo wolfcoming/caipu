@@ -44,6 +44,7 @@
                   android:layout_height="wrap_content"/>
 
         <LinearLayout android:layout_width="match_parent"
+                      android:visibility="invisible"
                       android:gravity="center_vertical"
                       android:id="@+id/llUserInfo"
                       android:orientation="horizontal"

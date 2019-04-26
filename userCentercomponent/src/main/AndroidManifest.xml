@@ -6,6 +6,13 @@
         <activity android:name="com.example.userCentercomponent.LoginMainActivity">
         </activity>
         <activity android:name=".RegisterActivity"/>
+
+        <service
+                android:process=":other"
+                android:name=".test.AIDLService"
+                android:enabled="true"
+                android:exported="true">
+        </service>
     </application>
 
 </manifest>

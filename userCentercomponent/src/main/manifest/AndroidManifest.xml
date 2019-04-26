@@ -18,6 +18,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity"></activity>
+        <service
+                android:process=":other"
+                android:name=".test.AIDLService"
+                android:enabled="true"
+                android:exported="true">
+        </service>
     </application>
 
 </manifest>

@@ -1,11 +1,11 @@
 package com.example.caipuandroid.ui.fragment
 
+import android.graphics.PorterDuffXfermode
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
-import com.bumptech.glide.Glide
 import com.example.caipuandroid.R
 import com.example.caipuandroid.service.impl.IServiceNetImpl
 import com.example.caipuandroid.ui.adapter.GoodsListAdapter
@@ -13,15 +13,11 @@ import com.example.caipuandroid.ui.adapter.HomeCategoryAdapter
 import com.example.caipuandroid.ui.loader.GlideImageLoader
 import com.example.caipuandroid.ui.vo.CategoryVo
 import com.example.caipuandroid.ui.vo.Greens
-import com.example.componentbase.eventbus.SlideMenuEvent
-import com.hazz.kotlinmvp.net.exception.ExceptionHandle
 import com.infoholdcity.basearchitecture.self_extends.excute
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseFragment
 import com.infoholdcity.baselibrary.config.ARouterConfig
 import kotlinx.android.synthetic.main.caipu_frgm_category.*
-import org.greenrobot.eventbus.EventBus
-import java.lang.Exception
 
 class Caipu_Frgm_Home : BaseFragment() {
 
@@ -32,6 +28,12 @@ class Caipu_Frgm_Home : BaseFragment() {
     }
 
     override fun initView(anchor: View) {
+        llSearch.setOnClickListener {
+            ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_LIST)
+                .withString("name", "")
+                .withBoolean("showKeyBoard",true)
+                .navigation()
+        }
         initBanner()
         initCategory()
         initGoodsList()
@@ -41,15 +43,17 @@ class Caipu_Frgm_Home : BaseFragment() {
         val goodsListAdapter = GoodsListAdapter()
         rvGoods.layoutManager = LinearLayoutManager(context)
         rvGoods.adapter = goodsListAdapter
-        service.getGreensList(20,1,"")
+        service.getGreensList(20, 1, "")
             .excute()
-            .subscribe {
+            .subscribe({
                 goodsListAdapter.setNewData(it)
-            }
+            }, {
+                toast(it.message!!)
+            })
 
         goodsListAdapter.setOnItemClickListener { adapter, view, position ->
             val bundle = Bundle()
-            bundle.putSerializable("Greens",adapter.data[position] as Greens)
+            bundle.putSerializable("Greens", adapter.data[position] as Greens)
             ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_DETAIL)
                 .with(bundle)
                 .navigation()
@@ -66,7 +70,10 @@ class Caipu_Frgm_Home : BaseFragment() {
         service.getCategorys()
             .excute()
             .map {
-                it.subList(0,10)
+                if (it.size > 10) {
+                    it.subList(0, 10)
+                } else
+                    it
             }
             .subscribe({ it ->
                 adapter.setNewData(it)
@@ -95,7 +102,7 @@ class Caipu_Frgm_Home : BaseFragment() {
             banner.setOnBannerListener { position ->
                 //跳转到列表界面 传递参数
                 ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_LIST)
-                    .withString("name",it[position].name)
+                    .withString("name", it[position].name)
                     .navigation()
             }
         }, {

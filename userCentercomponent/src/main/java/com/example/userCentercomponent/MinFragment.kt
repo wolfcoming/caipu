@@ -1,6 +1,7 @@
 package com.example.userCentercomponent
 
 import android.graphics.*
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
@@ -15,10 +16,6 @@ import kotlinx.android.synthetic.main.usercenter_frgm_min.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
-
 
 class MinFragment : BaseFragment() {
 
@@ -41,55 +38,37 @@ class MinFragment : BaseFragment() {
 
         changeUserState()
 
-        btnLogin.setOnClickListener {
-            //跳转到登录界面
-            ARouter.getInstance().build(ARouterConfig.ACT_USER_LOGIN).navigation()
+        llLogin.setOnClickListener {
+            if(ServiceFactory.instance.getUsercenterService().isLogin()){
+                //跳转到登录界面
+                ARouter.getInstance().build(ARouterConfig.ACT_USER_LOGIN).navigation()
+            }
         }
 
         btnLoginOut.setOnClickListener {
             UserOperation.userLoginOut(context!!)
         }
 
+        btnUpload.setOnClickListener {
+            if(ServiceFactory.instance.getUsercenterService().isLogin()){
+                ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_ADD).navigation()
+            }else{
+                toast("请先登录")
+            }
+
+        }
+
 
     }
 
-    fun getOvalBitmap(bitmap: Bitmap): Bitmap {
-
-        val output = Bitmap.createBitmap(
-            bitmap.getWidth(), bitmap
-                .getHeight(), Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(output)
-
-        val color = -0xbdbdbe
-        val paint = Paint()
-        val rect = Rect(0, 0, bitmap.getWidth(), bitmap.getHeight())
-
-        val rectF = RectF(rect)
-
-        paint.setAntiAlias(true)
-        canvas.drawARGB(0, 0, 0, 0)
-        paint.setColor(color)
-
-        canvas.drawCircle(
-            rectF.top / 2 + rectF.bottom / 2, rectF.top / 2 + rectF.bottom / 2,
-            rectF.top / 2 + rectF.bottom / 2, paint
-        )
-
-        paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
-        canvas.drawBitmap(bitmap, rect, rect, paint)
-        return output
-    }
 
     private fun changeUserState() {
         if (ServiceFactory.instance.getUsercenterService().isLogin()) {
-            btnLogin.visibility = View.GONE
             btnLoginOut.visibility = View.VISIBLE
             val name = ServiceFactory.instance.getUsercenterService().getUserName()
             tvName.text = name
         } else {
-            tvName.text = ""
-            btnLogin.visibility = View.VISIBLE
+            tvName.text = "未登录"
             btnLoginOut.visibility = View.GONE
         }
 

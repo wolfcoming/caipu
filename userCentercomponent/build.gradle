@@ -59,4 +59,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':componentbase')
     kapt 'com.alibaba:arouter-compiler:1.2.2'
+    compile "org.java-websocket:Java-WebSocket:1.4.0"
 }
