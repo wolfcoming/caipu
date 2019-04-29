@@ -12,7 +12,7 @@ import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseFragment
 import com.infoholdcity.baselibrary.config.ARouterConfig
 import com.infoholdcity.baselibrary.utils.SPUtils
-import kotlinx.android.synthetic.main.usercenter_frgm_min.*
+import kotlinx.android.synthetic.main.usercenter_frgm_min2.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -30,7 +30,7 @@ class MinFragment : BaseFragment() {
     }
 
     override fun inflateView(): Any {
-        return R.layout.usercenter_frgm_min
+        return R.layout.usercenter_frgm_min2
     }
 
     override fun initView(anchor: View) {
@@ -38,8 +38,8 @@ class MinFragment : BaseFragment() {
 
         changeUserState()
 
-        llLogin.setOnClickListener {
-            if(ServiceFactory.instance.getUsercenterService().isLogin()){
+        tvName.setOnClickListener {
+            if(!ServiceFactory.instance.getUsercenterService().isLogin()){
                 //跳转到登录界面
                 ARouter.getInstance().build(ARouterConfig.ACT_USER_LOGIN).navigation()
             }

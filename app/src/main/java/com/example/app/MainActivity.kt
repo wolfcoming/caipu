@@ -2,11 +2,13 @@ package com.example.app
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.example.componentbase.ServiceFactory
 import com.example.componentbase.eventbus.SlideMenuEvent
+import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.utils.ColorUtils
 import com.infoholdcity.baselibrary.utils.StatusBarHelper
@@ -20,14 +22,34 @@ import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : BaseActiviy() {
     private var slidingRootNav: SlidingRootNav? = null
+    private var minFragment: Fragment? = null
+    private var categoryFragment: Fragment? = null
+    private var shopFragment: Fragment? = null
+    private var caipuHome: Fragment? = null
+    private var tempFragment: Fragment? = null
+    val fragments = ArrayList<Fragment>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initSlidingNav(savedInstanceState)
-        initBottomNavBar()
+        if (savedInstanceState != null) {
+            isonSaveInstanceState = true
+            caipuHome = supportFragmentManager.findFragmentByTag("CaipuHome")
+            categoryFragment = supportFragmentManager.findFragmentByTag("CategoryFragment")
+            tempFragment = supportFragmentManager.findFragmentByTag("TempFragment")
+            shopFragment = supportFragmentManager.findFragmentByTag("ShopFragment")
+            minFragment = supportFragmentManager.findFragmentByTag("MinFragment")
 
+        }
+
+
+        initBottomNavBar()
     }
 
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+    }
 
     override fun onStart() {
         super.onStart()
@@ -35,10 +57,10 @@ class MainActivity : BaseActiviy() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun openOrCloseSlideMenu(slideMenuEvent: SlideMenuEvent){
-        if(slideMenuEvent.type==1){
+    fun openOrCloseSlideMenu(slideMenuEvent: SlideMenuEvent) {
+        if (slideMenuEvent.type == 1) {
             slidingRootNav?.openMenu()
-        }else{
+        } else {
             slidingRootNav?.closeMenu()
         }
     }
@@ -61,9 +83,6 @@ class MainActivity : BaseActiviy() {
             .inject()
 
 
-
-
-
     }
 
     inner class myDragListener : DragListener {
@@ -74,34 +93,56 @@ class MainActivity : BaseActiviy() {
         }
     }
 
-
+    var isonSaveInstanceState = false
     private fun initBottomNavBar() {
 
-        val minFragment = ServiceFactory.instance.getUsercenterService()
-            .getMineFragment(null, "")
-
-        val categoryFragment = ServiceFactory.instance.getCaipuService()
-            .getCategoryFragment(null, "")
+        if (caipuHome == null) {
+            caipuHome = ServiceFactory.instance.getCaipuService().getCaipuHomeFragment(null, "caipuHome")
+        }
 
 
-        val shopFragment = ServiceFactory.instance.getShopService().getShopHomeFragment(null, "");
 
-        val caipuHome = ServiceFactory.instance.getCaipuService().getCaipuHomeFragment(null,"caipuHome")
+        if (categoryFragment == null) {
+            categoryFragment = ServiceFactory.instance.getCaipuService()
+                .getCategoryFragment(null, "")
 
+        }
 
-        val fragments = ArrayList<Fragment>()
-        fragments.add(caipuHome)
-        fragments.add(categoryFragment)
-        fragments.add(TempFragment())
+        if (shopFragment == null) {
+            shopFragment = ServiceFactory.instance.getShopService().getShopHomeFragment(null, "");
+        }
+
+        if (tempFragment == null) {
+            tempFragment = TempFragment()
+
+        }
+
+        if (minFragment == null) {
+            minFragment = ServiceFactory.instance.getUsercenterService()
+                .getMineFragment(null, "")
+        }
+
+        fragments.add(caipuHome!!)
+        fragments.add(categoryFragment!!)
+        fragments.add(tempFragment!!)
         fragments.add(minFragment!!)
 
-        val beginTransaction = supportFragmentManager.beginTransaction()
-        fragments.map {
-            beginTransaction.add(R.id.hom_coantiner, it).hide(it)
-        }
-        beginTransaction.show(fragments[0])
-        beginTransaction.commit()
 
+        if (!isonSaveInstanceState) {
+            val beginTransaction = supportFragmentManager.beginTransaction()
+            fragments.forEachIndexed { i, f ->
+                var tag = ""
+                when (i) {
+                    0 -> tag = "CaipuHome"
+                    1 -> tag = "CategoryFragment"
+                    2 -> tag = "TempFragment"
+                    3 -> tag = "MinFragment"
+                }
+                beginTransaction.add(R.id.hom_coantiner, f, tag).hide(f)
+            }
+            beginTransaction.show(fragments[0])
+            beginTransaction.commit()
+        }
 
         bottomNavBar.setMode(BottomNavigationBar.MODE_FIXED)
             .setBarBackgroundColor("#FFFFFF") // 背景颜色
@@ -134,7 +175,6 @@ class MainActivity : BaseActiviy() {
             )
             .setFirstSelectedPosition(0) //设置默认选中位置
             .initialise()  // 提交初始化（完成配置）
-
 
         bottomNavBar.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
             override fun onTabReselected(position: Int) {
