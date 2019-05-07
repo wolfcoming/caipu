@@ -19,4 +19,15 @@
             android:id="@+id/btnUser"
             android:text="用户中心组件"
             android:layout_height="wrap_content"/>
+
+    <ImageView
+            android:background="#f00"
+            android:layout_width="@dimen/qb_px_360"
+            android:layout_height="180dp"/>
+
+    <TextView
+            android:text="@dimen/qb_px_360"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 </LinearLayout>

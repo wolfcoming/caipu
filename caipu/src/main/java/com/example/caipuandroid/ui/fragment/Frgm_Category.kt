@@ -1,5 +1,6 @@
 package com.example.caipuandroid.ui.fragment
 
+import android.os.AsyncTask
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -84,6 +85,7 @@ class Frgm_Category : BaseMvpFragment<CategoryContract.Presenter>(), CategoryCon
 
     override fun hideLoading() {
         holder!!.showLoadSuccess()
+
     }
 
     override fun onError(message: String) {

@@ -1,6 +1,7 @@
 package com.example.app
 
 import android.graphics.Color
+import android.os.AsyncTask
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v4.app.Fragment
@@ -54,6 +55,15 @@ class MainActivity : BaseActiviy() {
     override fun onStart() {
         super.onStart()
         EventBus.getDefault().register(this)
+        MyTask().execute()
+
+    }
+
+    class  MyTask :AsyncTask<Void,Int,String>(){
+        override fun doInBackground(vararg params: Void?): String {
+            return  "reult"
+        }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -68,6 +78,7 @@ class MainActivity : BaseActiviy() {
     override fun onStop() {
         super.onStop()
         EventBus.getDefault().unregister(this)
+        EventBus.getDefault().post(SlideMenuEvent(1))
     }
 
     private fun initSlidingNav(savedInstanceState: Bundle?) {

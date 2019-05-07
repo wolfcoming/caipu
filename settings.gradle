@@ -1,4 +1,4 @@
-include ':caipu',
+include ':caipu', ':webrtccomponent',
         ':baselibrary',
         ':takephoto_library',
         ':shopingmodule',
