@@ -29,7 +29,6 @@ class LoginMainActivity : BaseActiviy() {
 
         tvRegister.setOnClickListener {
 //            CommonFrgmActivity.startCommonFrgmActivity(this, "用户中心", MinFragment::class.java.name, null)
-
             ARouter.getInstance().build(ARouterConfig.ACT_USER_GEGISTER).navigation()
         }
 
@@ -60,4 +59,5 @@ class LoginMainActivity : BaseActiviy() {
 
         }
     }
+
 }

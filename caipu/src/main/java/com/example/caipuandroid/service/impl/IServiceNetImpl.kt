@@ -61,6 +61,8 @@ class IServiceNetImpl : ICaipuService {
 
 
     override fun addGreens(greens: Greens): Observable<Boolean> {
+
+
         return APIManage.instance.getRequest(APIService::class.java)
             .addGreens(greens)
             .map { result ->

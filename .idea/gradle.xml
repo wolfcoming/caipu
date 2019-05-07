@@ -13,10 +13,10 @@
             <option value="$PROJECT_DIR$/brva_library" />
             <option value="$PROJECT_DIR$/caipu" />
             <option value="$PROJECT_DIR$/componentbase" />
+            <option value="$PROJECT_DIR$/learncomponent" />
             <option value="$PROJECT_DIR$/shopingmodule" />
             <option value="$PROJECT_DIR$/takephoto_library" />
             <option value="$PROJECT_DIR$/userCentercomponent" />
-            <option value="$PROJECT_DIR$/webrtccomponent" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
