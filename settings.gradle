@@ -6,4 +6,4 @@ include ':caipu', ':learncomponent',
         ':brva_library',
         ':app',
         ':componentbase',
-        ':userCentercomponent'
+        ':userCentercomponent', ':baidu_yuyin_core'
