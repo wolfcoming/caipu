@@ -3,6 +3,8 @@ package com.example.componentbase.common
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DialogTitle
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -23,6 +25,13 @@ class CommonFrgmActivity : BaseActiviy() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_common_fragment)
         getData()
+        val handler = MyHandler()
+        handler.sendMessage(Message.obtain())
+    }
+    class  MyHandler :Handler(){
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+        }
     }
 
     companion object {

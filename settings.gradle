@@ -1,4 +1,5 @@
 include ':caipu', ':learncomponent',
+        ':webrtccomponent',
         ':baselibrary',
         ':takephoto_library',
         ':shopingmodule',
