@@ -1,4 +1,4 @@
-include ':caipu', ':learncomponent',
+include ':caipu', ':learncomponent', ':kaiyan',
         ':webrtccomponent',
         ':baselibrary',
         ':takephoto_library',
@@ -6,4 +6,5 @@ include ':caipu', ':learncomponent',
         ':brva_library',
         ':app',
         ':componentbase',
-        ':userCentercomponent', ':baidu_yuyin_core'
+        ':userCentercomponent',
+        ':baidu_yuyin_core'
