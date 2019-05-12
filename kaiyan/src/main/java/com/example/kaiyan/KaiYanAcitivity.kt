@@ -53,24 +53,11 @@ class KaiYanAcitivity : AppCompatActivity() {
                         for (i in first..last) {
                             val view = linearLayoutManager.findViewByPosition(i)
                             if (view != null) {
-                                if (ifCenter(view)) {
-                                    //相关的逻辑操作
-                                    (adapter?.data!![i] as ItemBean).isSelect = true
-                                    Toast.makeText(this@KaiYanAcitivity, i.toString(), Toast.LENGTH_LONG).show()
-                                } else {
-                                    (adapter?.data!![i] as ItemBean).isSelect = false
-                                }
+                                (adapter?.data!![i] as ItemBean).isSelect = ifCenter(view)
                             }
                         }
-
 //                        adapter?.notifyItemRangeChanged(first, last - first + 1)
                         adapter?.notifyDataSetChanged()
-                    }
-                    SCROLL_STATE_DRAGGING //手指拖动
-                    -> {
-                    }
-                    SCROLL_STATE_SETTLING //惯性滚动
-                    -> {
                     }
                 }
             }
