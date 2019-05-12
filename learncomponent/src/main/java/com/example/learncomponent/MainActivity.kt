@@ -9,6 +9,9 @@ import android.os.SystemClock
 import android.provider.MediaStore.Video.VideoColumns.LANGUAGE
 import android.util.Log
 import android.widget.Toast
+import com.example.learncomponent.proxy.Subject
+import com.example.learncomponent.proxy.WoMen
+import com.example.learncomponent.proxy.WoMenProxy
 import com.googlecode.tesseract.android.TessBaseAPI
 import com.googlecode.tesseract.android.TessBaseAPI.OEM_CUBE_ONLY
 import com.infoholdcity.basearchitecture.self_extends.Klog
@@ -19,6 +22,7 @@ import org.devio.takephoto.model.TResult
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.Exception
+import java.lang.reflect.Proxy
 
 class MainActivity : TakePhotoBaseActivity() {
     val baseApi = TessBaseAPI()
@@ -29,8 +33,16 @@ class MainActivity : TakePhotoBaseActivity() {
         tvContent.text = text
 
         btnTest.setOnClickListener {
-            initTessBaseApi()
-            getTakePhoto().onPickFromCapture(getFileUri())
+//            initTessBaseApi()
+//            getTakePhoto().onPickFromCapture(getFileUri())
+
+
+            val women = WoMen()
+            val proxy = WoMenProxy(women)
+            val subject = proxy.proxyObject as Subject
+            subject.shopping()
+
+
         }
     }
 

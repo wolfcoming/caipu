@@ -1,7 +1,7 @@
 package com.example.kaiyan.service
 
 import com.example.kaiyan.remote.GuanzhuListBean
-import com.example.kaiyan.remote.GuanzhuListBean.ItemListBean.DataBeanX.ContentBean.ItemBean
+import com.example.kaiyan.remote.ItemBean
 import com.example.kaiyan.remote.KaiyanService
 import com.infoholdcity.baselibrary.net.APIManage
 import io.reactivex.Observable

@@ -11,12 +11,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-           button.setOnClickListener {
+        button.setOnClickListener {
             play()
         }
+
+        button2.setOnClickListener {
+            root.requestLayout()
+        }
+
+
+
     }
 
-    fun play(){
-        startActivity(Intent(this@MainActivity,KaiYanAcitivity::class.java))
+    fun play() {
+        startActivity(Intent(this@MainActivity, KaiYanAcitivity::class.java))
+//        button.layout(button.left, button.top - 100, button.right, button.bottom - 100)
     }
 }

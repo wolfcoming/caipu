@@ -1,9 +1,8 @@
 package com.example.kaiyan.service
 
-import com.example.kaiyan.remote.GuanzhuListBean
-import com.example.kaiyan.remote.GuanzhuListBean.ItemListBean.DataBeanX.ContentBean
+import com.example.kaiyan.remote.ItemBean
 import io.reactivex.Observable
 
 interface IKaiyanService {
-    fun getGuanzhuList(): Observable<List<ContentBean.ItemBean>>
+    fun getGuanzhuList(): Observable<List<ItemBean>>
 }

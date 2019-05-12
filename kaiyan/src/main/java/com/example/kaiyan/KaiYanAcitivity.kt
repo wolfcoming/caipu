@@ -1,6 +1,9 @@
 package com.example.kaiyan
 
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.support.constraint.ConstraintLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -11,11 +14,13 @@ import com.example.kaiyan.service.KaiyanServiceImpl
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.excute
 import com.infoholdcity.basearchitecture.self_extends.toast
-import com.infoholdcity.baselibrary.base.BaseActiviy
 import tv.danmaku.ijk.media.player.IjkMediaPlayer
 import android.support.v7.widget.RecyclerView.*
 import android.view.View
+import android.view.ViewTreeObserver
+import android.widget.RelativeLayout
 import android.widget.Toast
+import com.example.kaiyan.remote.ItemBean
 import kotlinx.android.synthetic.main.activity_kaiyan.*
 
 
@@ -50,11 +55,16 @@ class KaiYanAcitivity : AppCompatActivity() {
                             if (view != null) {
                                 if (ifCenter(view)) {
                                     //相关的逻辑操作
-                                    adapter?.startVide(i)
+                                    (adapter?.data!![i] as ItemBean).isSelect = true
                                     Toast.makeText(this@KaiYanAcitivity, i.toString(), Toast.LENGTH_LONG).show()
+                                } else {
+                                    (adapter?.data!![i] as ItemBean).isSelect = false
                                 }
                             }
                         }
+
+//                        adapter?.notifyItemRangeChanged(first, last - first + 1)
+                        adapter?.notifyDataSetChanged()
                     }
                     SCROLL_STATE_DRAGGING //手指拖动
                     -> {
@@ -64,19 +74,18 @@ class KaiYanAcitivity : AppCompatActivity() {
                     }
                 }
             }
+        })
 
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                Klog.e(contents = "onScrolled: " + recyclerView.scrollY.toString())
-
-
-
+        recycleView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                addCenterLine()
+                recycleView.viewTreeObserver.removeOnGlobalLayoutListener(this)
             }
-
 
         })
 
     }
+
 
     val service: IKaiyanService by lazy { KaiyanServiceImpl() }
 
@@ -87,17 +96,36 @@ class KaiYanAcitivity : AppCompatActivity() {
                 toast(it.size.toString())
                 Klog.e(contents = it)
                 adapter!!.setNewData(it)
+
+
             }
     }
 
     private fun ifCenter(view: View): Boolean {
-        //获取中间线到顶部的距离，我这里的recyclerview长宽都是等于屏幕宽度，所以可以直接这样计算
-        val half_screen = resources.displayMetrics.heightPixels / 2
-        //获取中间线到顶部的距离减去它本身高度的大小
-        val top_center = half_screen - view.getHeight()
-        //获取该item到顶部的距离
-        val ruler = view.getTop()
-        //直接判断，如果在其中，则返回true，否则false
-        return half_screen > ruler && ruler >= top_center
+        //基准线
+        val rvCenterLine = (recycleView.top + recycleView.bottom) * 1 / 3
+
+        val viewTop = view.top
+        if (viewTop < rvCenterLine) {
+            val viewBottom = view.bottom
+            return viewBottom > rvCenterLine
+        } else return false
+    }
+
+    private fun addCenterLine() {
+        val rvCenterLine = (recycleView.top + recycleView.bottom) * 1 / 3
+        Klog.e(contents = rvCenterLine.toString())
+        val viewGroup = recycleView.parent as RelativeLayout
+        val viewLine = View(this)
+        viewLine.setBackgroundColor(Color.RED)
+        viewLine.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 4)
+        viewGroup.addView(viewLine)
+        Handler().postDelayed({
+            //            viewLine.layout(viewLine.left, viewLine.top+rvCenterLine, viewLine.right, viewLine.bottom+rvCenterLine)
+            val layoutParams: RelativeLayout.LayoutParams = viewLine.layoutParams as RelativeLayout.LayoutParams
+            layoutParams.topMargin = rvCenterLine
+            viewLine.layoutParams = layoutParams
+        }, 300)
+
     }
 }
