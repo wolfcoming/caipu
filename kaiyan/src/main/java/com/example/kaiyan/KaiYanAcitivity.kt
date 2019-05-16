@@ -6,6 +6,7 @@ import android.os.Handler
 import android.support.constraint.ConstraintLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.example.kaiyan.adapter.GuanzhuAdapter
@@ -71,6 +72,7 @@ class KaiYanAcitivity : AppCompatActivity() {
 
         })
 
+        LinearSnapHelper().attachToRecyclerView(recycleView)
     }
 
 

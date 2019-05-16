@@ -1,11 +1,8 @@
 package com.example.learncomponent
 
 import android.graphics.BitmapFactory
-import android.os.AsyncTask
+import android.os.*
 import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.os.Environment
-import android.os.SystemClock
 import android.provider.MediaStore.Video.VideoColumns.LANGUAGE
 import android.util.Log
 import android.widget.Toast
@@ -25,69 +22,49 @@ import java.lang.Exception
 import java.lang.reflect.Proxy
 
 class MainActivity : TakePhotoBaseActivity() {
-    val baseApi = TessBaseAPI()
+
+    var threadHandler: Handler? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val text = NDKTools.getStringFromNDK()
         tvContent.text = text
-
+        val mainHandler = MainHanlder()
         btnTest.setOnClickListener {
-//            initTessBaseApi()
-//            getTakePhoto().onPickFromCapture(getFileUri())
+            Thread(Runnable {
+//                // 子线程发送handler 给主线程
+//                mainHandler.sendEmptyMessage(1)
+//                Looper.prepare()
+//                threadHandler = object : Handler() {
+//                    override fun handleMessage(msg: Message) {
+//                        super.handleMessage(msg)
+//                        Klog.e(contents = "what 主线程 向我发送了一条信息！！！")
+//
+//                    }
+//                }
+//                Looper.loop()
+//                Klog.e(contents = "线程到这儿就死了。。")
 
 
-            val women = WoMen()
-            val proxy = WoMenProxy(women)
-            val subject = proxy.proxyObject as Subject
-            subject.shopping()
-
-
-        }
-    }
-
-    fun initTessBaseApi(){
-        try {
-
-            val dataPath = Environment.getExternalStorageDirectory().toString()+"/tesseract/"
-            val dir:File = File(dataPath+"tessdata/")
-            if(!dir.exists()){
-                dir.mkdirs()
-                val input = resources.openRawResource(R.raw.eng)
-                val file = File(dir,"eng.traineddata")
-                val outPut = FileOutputStream(file)
-                val buff = ByteArray(1024)
-                var len = 0
-
-                while (len!=-1){
-                    if(len!=0){
-                        outPut.write(buff, 0, len)
+                val handler = object :Handler(Looper.getMainLooper()){
+                    override fun handleMessage(msg: Message?) {
+                        super.handleMessage(msg)
+                       toast("shit")
                     }
-                    len = input.read(buff)
                 }
-                input.close()
-                outPut.close()
-            }
-            val init = baseApi.init(dataPath, "eng")
-            if(init){
-                Klog.e(contents = "陈宫")
-            }else{
-                Klog.e(contents = "失败")
-            }
 
-        }catch (e:Exception){
-            e.printStackTrace()
+                handler.sendEmptyMessage(1)
+            }).start()
         }
     }
-    override fun takeSuccess(result: TResult?) {
-        Klog.e(contents = result!!.image.originalPath)
-        val bitmap = BitmapFactory.decodeFile(result.image.originalPath)
-        imageview.setImageBitmap(bitmap)
-        baseApi.setImage(bitmap)
-        btnTest.text = baseApi.utF8Text
+
+    inner class MainHanlder : Handler() {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            if (msg.what == 1) {
+                Klog.e(contents = "1111")
+                threadHandler?.sendEmptyMessage(2)
+            }
+        }
     }
-
-
-
-
 }

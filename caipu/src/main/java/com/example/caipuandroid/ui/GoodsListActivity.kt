@@ -15,7 +15,11 @@ import com.baidu.aip.asrwakeup3.core.mini.AutoCheck
 import com.baidu.aip.asrwakeup3.core.recog.MyRecognizer
 import com.baidu.aip.asrwakeup3.core.recog.listener.ChainRecogListener
 import com.baidu.aip.asrwakeup3.core.recog.listener.MessageStatusRecogListener
+import com.baidu.aip.asrwakeup3.core.ui.BaiduASRDigitalDialog
+import com.baidu.aip.asrwakeup3.core.ui.DigitalDialogInput
 import com.baidu.aip.asrwakeup3.core.util.FileUtil
+import com.baidu.aip.asrwakeup3.core.util.MyLogger
+import com.baidu.speech.asr.SpeechConstant
 import com.example.caipuandroid.R
 import com.example.caipuandroid.service.impl.IServiceNetImpl
 import com.example.caipuandroid.ui.adapter.GoodsListAdapter
@@ -29,6 +33,8 @@ import com.infoholdcity.baselibrary.config.ARouterConfig.Companion.ACT_CAIPU_LIS
 import com.infoholdcity.baselibrary.utils.FileUtils
 import kotlinx.android.synthetic.main.activity_goodslist.*
 import org.devio.takephoto.uitl.TFileUtils
+import org.json.JSONObject
+import java.lang.Exception
 
 @Route(path = ACT_CAIPU_LIST)
 class GoodsListActivity : BaseActiviy() {
@@ -101,13 +107,10 @@ class GoodsListActivity : BaseActiviy() {
     object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-            Klog.e(contents = msg.obj.toString() + "\n")
-            FileUtils.writeFileToSDCardAppend(msg.obj.toString(),"菜谱","yuyin.txt")
-
-
         }
 
     }
+
     protected var myRecognizer: MyRecognizer? = null
     /*
      * 本Activity中是否需要调用离线命令词功能。根据此参数，判断是否需要调用SDK的ASR_KWS_LOAD_ENGINE事件
@@ -116,30 +119,16 @@ class GoodsListActivity : BaseActiviy() {
     private var chainRecogListener: ChainRecogListener? = null
     private fun initYuyin() {
 
-        // DEMO集成步骤 1.2 新建一个回调类，识别引擎会回调这个类告知重要状态和识别结果
         val listener = MessageStatusRecogListener(handler)
-        // DEMO集成步骤 1.1 1.3 初始化：new一个IRecogListener示例 & new 一个 MyRecognizer 示例,并注册输出事件
         myRecognizer = MyRecognizer(this, listener)
-//        if (enableOffline) {
-//            // 基于DEMO集成1.4 加载离线资源步骤(离线时使用)。offlineParams是固定值，复制到您的代码里即可
-//            val offlineParams = OfflineRecogParams.fetchOfflineParams()
-//            myRecognizer?.loadOfflineEngine(offlineParams)
-//        }
-
-
-//        /**
-//         * 有2个listner，一个是用户自己的业务逻辑，如MessageStatusRecogListener。另一个是UI对话框的。
-//         * 使用这个ChainRecogListener把两个listener和并在一起
-//         */
-//        chainRecogListener = ChainRecogListener()
-//        // DigitalDialogInput 输入 ，MessageStatusRecogListener可替换为用户自己业务逻辑的listener
-//        chainRecogListener?.addListener(MessageStatusRecogListener(handler))
-//        myRecognizer?.setEventListener(chainRecogListener) // 替换掉原来的listener
+        // DigitalDialogInput 输入 ，MessageStatusRecogListener可替换为用户自己业务逻辑的listener
+        chainRecogListener = ChainRecogListener()
+        chainRecogListener?.addListener(MessageStatusRecogListener(handler))
+        myRecognizer?.setEventListener(chainRecogListener) // 替换掉原来的listener
     }
 
-
+    private var input: DigitalDialogInput? = null
     private fun showYuyin() {
-        toast("hahha")
 
         // 此处params可以打印出来，直接写到你的代码里去，最终的json一致即可。
         val params: HashMap<String, Any> = HashMap()
@@ -161,9 +150,29 @@ class GoodsListActivity : BaseActiviy() {
             }, enableOffline
         ).checkAsr(params)
 
+        input = DigitalDialogInput(myRecognizer, chainRecogListener, params)
+
+        BaiduASRDigitalDialog.setInput(input) // 传递input信息，在BaiduASRDialog中读取,
+        val intent = Intent(this, BaiduASRDigitalDialog::class.java)
+
+        startActivityForResult(intent, 2)
         // DEMO集成步骤2.2 开始识别
-        myRecognizer?.start(params)
+//        myRecognizer?.start(params)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 2) {
+            var message = ""
+            if (resultCode == RESULT_OK) {
+                val results = data?.getStringArrayListExtra("results")
+                if (results != null && results.size > 0) {
+                    message += results[0]
+                }
+            }
+            etName.setText(message)
+        }
+    }
+
 
     protected fun stop() {
         myRecognizer?.stop()

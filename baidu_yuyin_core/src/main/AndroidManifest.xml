@@ -15,5 +15,12 @@
         <meta-data
                 android:name="com.baidu.speech.SECRET_KEY"
                 android:value="y7S7hAI894BB3LF1yHYmvQEus1B6wPvj"/>
+
+        <activity android:name="com.baidu.aip.asrwakeup3.core.ui.BaiduASRDigitalDialog"
+                  android:configChanges="orientation|keyboardHidden|screenLayout"
+                  android:theme="@android:style/Theme.Dialog"
+                  android:exported="false"
+                  android:screenOrientation="portrait"
+                />
     </application>
 </manifest>

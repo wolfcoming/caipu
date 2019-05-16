@@ -19,6 +19,7 @@ import com.infoholdcity.baselibrary.config.ARouterConfig
 import com.infoholdcity.baselibrary.view.SingleProgressDialog
 import com.infoholdcity.baselibrary.view.muiltview.Gloading
 import kotlinx.android.synthetic.main.activity_category.*
+import kotlinx.android.synthetic.main.caipu_frgm_category.*
 import kotlinx.android.synthetic.main.frgm_category.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -45,6 +46,12 @@ class Frgm_Category : BaseMvpFragment<CategoryContract.Presenter>(), CategoryCon
         }
         initView()
         mPresenter.getCategoryData()
+        llSearchBar.setOnClickListener {
+            ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_LIST)
+                .withString("name", "")
+                .withBoolean("showKeyBoard",true)
+                .navigation()
+        }
     }
 
     var leftAdapter: RvLeftAdapter? = null

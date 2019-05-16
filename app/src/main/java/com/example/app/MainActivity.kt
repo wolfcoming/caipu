@@ -99,7 +99,7 @@ class MainActivity : BaseActiviy() {
     inner class myDragListener : DragListener {
         override fun onDrag(progress: Float) {
             //动态改变状态栏颜色
-            val color = ColorUtils.getColor(progress, "#00574B", "#FFFFFF")
+            val color = ColorUtils.getColor(progress, "#FFFFFF", "#FFFFFF")
             changeStateBarColor(Color.parseColor(color))
         }
     }
@@ -196,7 +196,7 @@ class MainActivity : BaseActiviy() {
 
             override fun onTabSelected(position: Int) {
                 if (position == 0) {
-                    StatusBarHelper.setStatusBar(this@MainActivity, false, true)
+                    StatusBarHelper.setStatusBar(this@MainActivity, false, false)
                 } else {
                     StatusBarHelper.setStatusBar(this@MainActivity, false, false)
                 }
