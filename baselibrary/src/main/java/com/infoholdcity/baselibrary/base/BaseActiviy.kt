@@ -22,7 +22,7 @@ abstract class BaseActiviy : AppCompatActivity() {
         BackgroundLibrary.inject(this)
         super.onCreate(savedInstanceState)
         //   解决共享元素闪屏问题
-        getWindow().setBackgroundDrawableResource(android.R.color.transparent)
+//        getWindow().setBackgroundDrawableResource(android.R.color.transparent)
         AppManage.getSingleInstance().addActivity(this)
 
 

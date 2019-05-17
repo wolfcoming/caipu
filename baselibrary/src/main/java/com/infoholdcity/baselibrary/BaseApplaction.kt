@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
-import com.didichuxing.doraemonkit.DoraemonKit
+//import com.didichuxing.doraemonkit.DoraemonKit
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.squareup.leakcanary.LeakCanary
@@ -61,7 +61,7 @@ open abstract class BaseApplaction : Application() {
     }
 
     private fun initDoraemon() {
-        DoraemonKit.install(this)
+//        DoraemonKit.install(this)
     }
 
 

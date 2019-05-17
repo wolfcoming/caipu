@@ -93,8 +93,8 @@ dependencies {
     testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
 
-    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:1.1.2'
-    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:1.1.2'
+//    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:1.1.2'
+//    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:1.1.2'
 
 
     api "com.alibaba:arouter-api:1.4.1"
