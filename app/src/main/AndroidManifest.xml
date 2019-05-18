@@ -20,15 +20,15 @@
             android:supportsRtl="true"
             android:theme="@style/MyAppTheme">
         <activity android:name=".MainActivity"  android:windowSoftInputMode="adjustPan" >
-
-        </activity>
-        <activity android:name=".test.TcpClient"/>
-        <activity android:name=".test.bluetooth.BluetoothActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".test.TcpClient"/>
+        <activity android:name=".test.bluetooth.BluetoothActivity">
+
         </activity>
         <activity android:name=".test.bluetooth.BluetoothChat"/>
     </application>

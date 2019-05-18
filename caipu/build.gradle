@@ -59,7 +59,7 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
     // optional - RxJava support for Room
     implementation "android.arch.persistence.room:rxjava2:$room_version"
-    kapt 'com.alibaba:arouter-compiler:1.2.2'
+    kapt rootProject.ext.dependencies.arouter_compiler
     implementation project(':baidu_yuyin_core')
 }
 repositories {

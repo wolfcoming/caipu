@@ -1,5 +1,5 @@
-include ':caipu', ':kaiyan',
-        ':webrtccomponent',
+include ':caipu',
+        ':kaiyan',
         ':baselibrary',
         ':takephoto_library',
         ':shopingmodule',

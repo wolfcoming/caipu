@@ -22,8 +22,8 @@ class TempFragment : BaseFragment() {
             ARouter.getInstance().build(ARouterConfig.ACT_SHOP_HOME).navigation();
         }
         btnUser.setOnClickListener {
-            //            ARouter.getInstance().build(ARouterConfig.ACT_USER_LOGIN).navigation();
-            startActivity(Intent(context, TcpClient::class.java))
+                        ARouter.getInstance().build(ARouterConfig.ACT_USER_LOGIN).navigation();
+//            startActivity(Intent(context, TcpClient::class.java))
         }
 
 

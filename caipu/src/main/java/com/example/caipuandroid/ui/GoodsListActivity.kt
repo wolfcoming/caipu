@@ -103,13 +103,7 @@ class GoodsListActivity : BaseActiviy() {
     }
 
 
-    val handler = @SuppressLint("HandlerLeak")
-    object : Handler() {
-        override fun handleMessage(msg: Message) {
-            super.handleMessage(msg)
-        }
-
-    }
+    val handler =  Handler()
 
     protected var myRecognizer: MyRecognizer? = null
     /*
@@ -129,7 +123,6 @@ class GoodsListActivity : BaseActiviy() {
 
     private var input: DigitalDialogInput? = null
     private fun showYuyin() {
-
         // 此处params可以打印出来，直接写到你的代码里去，最终的json一致即可。
         val params: HashMap<String, Any> = HashMap()
         params.put("accept-audio-volume", false)
@@ -149,15 +142,10 @@ class GoodsListActivity : BaseActiviy() {
                 }
             }, enableOffline
         ).checkAsr(params)
-
         input = DigitalDialogInput(myRecognizer, chainRecogListener, params)
-
         BaiduASRDigitalDialog.setInput(input) // 传递input信息，在BaiduASRDialog中读取,
         val intent = Intent(this, BaiduASRDigitalDialog::class.java)
-
         startActivityForResult(intent, 2)
-        // DEMO集成步骤2.2 开始识别
-//        myRecognizer?.start(params)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -170,22 +158,10 @@ class GoodsListActivity : BaseActiviy() {
                 }
             }
             etName.setText(message)
+            etName.setSelection(message.length)
         }
     }
 
-
-    protected fun stop() {
-        myRecognizer?.stop()
-    }
-
-    /**
-     * 开始录音后，手动点击“取消”按钮。
-     * SDK会取消本次识别，回到原始状态。
-     * 基于DEMO集成4.2 发送取消事件 取消本次识别
-     */
-    protected fun cancel() {
-        myRecognizer?.cancel()
-    }
 
     override fun onDestroy() {
         // 如果之前调用过myRecognizer.loadOfflineEngine()， release()里会自动调用释放离线资源
