@@ -156,14 +156,14 @@ class GoodsAddActivity : BaseMvpActivity<AddGreensContract.Presenter>(), AddGree
             try {
                 if (stepView != null) {
                     makesSteps[mPostion].stepImg = result!!.image.compressPath
-                    Glide.with(this).load(result!!.image.compressPath).into(stepView!!)
+                    Glide.with(this).load(result.image.compressPath).into(stepView!!)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         } else {
             Glide.with(this).load(result!!.image.compressPath).into(ivCover)
-            coverImg = result!!.image.compressPath
+            coverImg = result.image.compressPath
         }
     }
 

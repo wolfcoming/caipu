@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
 
 
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 28
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
         multiDexEnabled = true
@@ -29,95 +29,61 @@ android {
     }
 
 
-
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    api 'com.android.support:design:28.0.0-rc02'
+    api rootProject.ext.dependencies.design
     api rootProject.ext.dependencies.appcompat_v7
     api rootProject.ext.dependencies.constraint_layout
-
-    //权限管理
-    api 'com.github.tbruyelle:rxpermissions:0.10.2'
-
-    //本地数据查看帮助库 D/DebugDB: Open http://192.168.1.31:8080 in your browser
-    api 'com.amitshekhar.android:debug-db:1.0.4'
-    //xml配置圆角背景帮助库
-    api 'com.noober.background:core:1.3.4'
-
-    api 'com.android.support:recyclerview-v7:28.0.0-rc02'
-    //recycleview帮助库
-//    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
-    api project(':brva_library')
-
-    //图片压缩
-    api 'top.zibin:Luban:1.1.8'
-    //选择图片拍照依赖库（源码依赖）
-    api project(':takephoto_library')
-    api 'com.github.bumptech.glide:glide:4.6.1'
-
-//   二维码扫描
-    api 'cn.yipianfengye.android:zxing-library:2.2'
-
-
-
-    api 'com.ogaclejapan.smarttablayout:library:1.7.0@aar'
-    //Optional: see how to use the utility.
-    api 'com.ogaclejapan.smarttablayout:utils-v4:1.7.0@aar'
-    //Deprecated since 1.7.0
-//    api 'com.ogaclejapan.smarttablayout:utils-v13:1.7.0@aar'
-
-
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
-    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-18'//没有使用特殊Header，可以不加这行
-
-    api "io.reactivex.rxjava2:rxjava:2.2.8"
-
-
-    api 'com.squareup.retrofit2:retrofit:2.4.0'
-    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    api 'com.squareup.retrofit2:converter-gson:2.0.2'
-    api "com.squareup.okhttp3:logging-interceptor:3.4.1"
-    api 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-    api 'com.squareup.retrofit2:converter-scalars:2.0.0'
-
-
-
-
-    implementation 'com.android.support:multidex:1.0.2'
-
-
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-
-
-//    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:1.1.2'
-//    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:1.1.2'
-
-
+    api rootProject.ext.dependencies.recyclerview_v7
+    api rootProject.ext.dependencies.glide
+    api rootProject.ext.dependencies.eventbus
     api rootProject.ext.dependencies.arouter_api
     annotationProcessor rootProject.ext.dependencies.arouter_compiler
 
+    //权限管理
+    api rootProject.ext.dependencies.rxpermissions
+    //本地数据查看帮助库 D/DebugDB: Open http://192.168.1.31:8080 in your browser
+    api rootProject.ext.dependencies.debug_db
+    //xml配置圆角背景帮助库
+    api rootProject.ext.dependencies.background
+    //recycleview帮助库 改成源码依赖
+    //api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
+    api project(':brva_library')
+    //图片压缩
+    api rootProject.ext.dependencies.Luban
+    //选择图片拍照依赖库（源码依赖）
+    api project(':takephoto_library')
+    //二维码扫描
+    api rootProject.ext.dependencies.zxing_library
+    // 刷新
+    api rootProject.ext.dependencies.smarttablayout
+    api rootProject.ext.dependencies.smarttablayout_utils
+    api rootProject.ext.dependencies.SmartRefreshLayout
+    api rootProject.ext.dependencies.SmartRefreshHeader
+    //rxjava+retrofit
+    api rootProject.ext.dependencies.rxjava2
+    api rootProject.ext.dependencies.retrofit2
+    api rootProject.ext.dependencies.rxandroid
+    api rootProject.ext.dependencies.retrofit2_converter_gson
+    api rootProject.ext.dependencies.logging_interceptor
+    api rootProject.ext.dependencies.adapter_rxjava2
+    api rootProject.ext.dependencies.converter_scalars
 
+    implementation rootProject.ext.dependencies.multidex
+    debugImplementation rootProject.ext.dependencies.leakcanary_android_debug
+    releaseImplementation rootProject.ext.dependencies.leakcanary_android_release
+    testImplementation rootProject.ext.dependencies.leakcanary_android_release
+
+    //帮助开发工具类
+    debugImplementation rootProject.ext.dependencies.doraemonkit_debug
+    releaseImplementation rootProject.ext.dependencies.doraemonkit_release
 //    七牛图片上传
-    api 'com.qiniu:qiniu-android-sdk:7.3.15'
-
-//    google底部导航
-    api 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
-
-
-//    api 'org.greenrobot:eventbus:3.1.1'
-    api 'org.greenrobot:eventbus:3.0.0'
-
-
-    api 'com.youth.banner:banner:1.4.10'
-
-
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0"
+    api rootProject.ext.dependencies.qiniu_android
+    //kotlin携程
+    api rootProject.ext.dependencies.kotlinx_coroutines_android
 
 
 }

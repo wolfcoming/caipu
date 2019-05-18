@@ -81,6 +81,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation rootProject.ext.dependencies.appcompat_v7
     implementation rootProject.ext.dependencies.sliding_root_nav
+//    google底部导航
+    api rootProject.ext.dependencies.bottom_navigation_bar
 
 }
 

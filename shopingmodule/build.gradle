@@ -8,9 +8,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 android {
-    compileSdkVersion 28
-
-
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
         if (rootProject.ext.ShopRunAlone.toBoolean()) {
@@ -18,8 +16,8 @@ android {
             applicationId "com.example.shopingmodule"
         }
 
-        minSdkVersion 19
-        targetSdkVersion 28
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -57,12 +55,13 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation rootProject.ext.dependencies.appcompat_v7
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation rootProject.ext.dependencies.appcompat_v7
     implementation project(':componentbase')
     kapt rootProject.ext.dependencies.arouter_compiler
 }

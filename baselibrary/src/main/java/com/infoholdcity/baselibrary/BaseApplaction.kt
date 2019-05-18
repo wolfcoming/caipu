@@ -15,7 +15,7 @@ import com.infoholdcity.baselibrary.view.muiltview.Gloading
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 
 
-open abstract class BaseApplaction : Application() {
+abstract class BaseApplaction : Application() {
     companion object {
         private var mContext: Context? = null
         fun getContext(): Context? {
