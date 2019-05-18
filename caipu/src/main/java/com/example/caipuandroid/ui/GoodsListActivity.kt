@@ -169,6 +169,9 @@ class GoodsListActivity : BaseActiviy() {
         // 基于DEMO的5.2 退出事件管理器
         myRecognizer?.release()
         super.onDestroy()
+
+
+
     }
 
     @SuppressLint("CheckResult")
@@ -176,7 +179,7 @@ class GoodsListActivity : BaseActiviy() {
         if (isFresh) {
             pageNumber = 1
         }
-        service.getGreensList(pageSize, pageNumber, name)
+       service.getGreensList(pageSize, pageNumber, name)
             .excute()
             .subscribe({
                 showLoadSuccessStatus()
@@ -208,4 +211,6 @@ class GoodsListActivity : BaseActiviy() {
         showLoadingStatus()
         getData(false)
     }
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.app
 
+import android.Manifest
 import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
@@ -10,9 +11,11 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.example.componentbase.ServiceFactory
 import com.example.componentbase.eventbus.SlideMenuEvent
 import com.infoholdcity.basearchitecture.self_extends.Klog
+import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.utils.ColorUtils
 import com.infoholdcity.baselibrary.utils.StatusBarHelper
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yarolegovich.slidingrootnav.SlidingRootNav
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder
 import com.yarolegovich.slidingrootnav.callback.DragListener
@@ -42,9 +45,22 @@ class MainActivity : BaseActiviy() {
             minFragment = supportFragmentManager.findFragmentByTag("MinFragment")
 
         }
-
-
         initBottomNavBar()
+
+        permissions()
+    }
+
+    private fun permissions() {
+        RxPermissions(this).request(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+        ).subscribe {
+            if(it){
+
+            }else{
+                toast("未授权权限，部分功能不能使用")
+            }
+        }
     }
 
 
@@ -59,9 +75,9 @@ class MainActivity : BaseActiviy() {
 
     }
 
-    class  MyTask :AsyncTask<Void,Int,String>(){
+    class MyTask : AsyncTask<Void, Int, String>() {
         override fun doInBackground(vararg params: Void?): String {
-            return  "reult"
+            return "reult"
         }
 
     }

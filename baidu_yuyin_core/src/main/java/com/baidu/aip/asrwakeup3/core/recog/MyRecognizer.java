@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import com.baidu.aip.asrwakeup3.core.recog.listener.IRecogListener;
 import com.baidu.aip.asrwakeup3.core.recog.listener.RecogEventAdapter;
 
+import java.lang.ref.SoftReference;
 import java.util.Map;
 
 /**
@@ -41,7 +42,7 @@ public class MyRecognizer {
      * @param recogListener 将EventListener结果做解析的DEMO回调。使用RecogEventAdapter 适配EventListener
      */
     public MyRecognizer(Context context, IRecogListener recogListener) {
-        this(context, new RecogEventAdapter(recogListener));
+        this(new SoftReference<Context>(context), new RecogEventAdapter(recogListener));
     }
 
     /**
@@ -50,7 +51,11 @@ public class MyRecognizer {
      * @param context
      * @param eventListener 识别状态和结果回调
      */
-    public MyRecognizer(Context context, EventListener eventListener) {
+    public MyRecognizer(SoftReference<Context> softContext, EventListener eventListener) {
+        Context context = softContext.get();
+        if (context == null) {
+            return;
+        }
         if (isInited) {
             MyLogger.error(TAG, "还未调用release()，请勿新建一个新类");
             throw new RuntimeException("还未调用release()，请勿新建一个新类");

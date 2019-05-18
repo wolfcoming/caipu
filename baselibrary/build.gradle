@@ -78,8 +78,8 @@ dependencies {
     testImplementation rootProject.ext.dependencies.leakcanary_android_release
 
     //帮助开发工具类
-    debugImplementation rootProject.ext.dependencies.doraemonkit_debug
-    releaseImplementation rootProject.ext.dependencies.doraemonkit_release
+//    debugImplementation rootProject.ext.dependencies.doraemonkit_debug
+//    releaseImplementation rootProject.ext.dependencies.doraemonkit_release
 //    七牛图片上传
     api rootProject.ext.dependencies.qiniu_android
     //kotlin携程
