@@ -35,9 +35,13 @@ import kotlinx.android.synthetic.main.activity_goodslist.*
 import org.devio.takephoto.uitl.TFileUtils
 import org.json.JSONObject
 import java.lang.Exception
+import java.lang.ref.SoftReference
 
 @Route(path = ACT_CAIPU_LIST)
 class GoodsListActivity : BaseActiviy() {
+    companion object{
+        val handler =  Handler()
+    }
     val service by lazy { IServiceNetImpl() }
     val adapter = GoodsListAdapter()
     var pageSize = 15
@@ -46,7 +50,7 @@ class GoodsListActivity : BaseActiviy() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        InFileStream.setContext(this)
+        InFileStream.setContext(SoftReference(this))
         setContentView(R.layout.activity_goodslist)
 
         initYuyin()
@@ -103,7 +107,7 @@ class GoodsListActivity : BaseActiviy() {
     }
 
 
-    val handler =  Handler()
+
 
     protected var myRecognizer: MyRecognizer? = null
     /*
@@ -167,6 +171,7 @@ class GoodsListActivity : BaseActiviy() {
         // 如果之前调用过myRecognizer.loadOfflineEngine()， release()里会自动调用释放离线资源
         // 基于DEMO5.1 卸载离线资源(离线时使用) release()方法中封装了卸载离线资源的过程
         // 基于DEMO的5.2 退出事件管理器
+        myRecognizer?.cancel()
         myRecognizer?.release()
         super.onDestroy()
 
