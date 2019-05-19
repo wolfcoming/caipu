@@ -87,7 +87,7 @@ class DetailBurdenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             myViewHolder.tvDosage?.text = this.datas?.get(p1)?.dosage
         } else if (p0 is SimpleHolder) {
             val simpleHolder = p0
-            simpleHolder.tvName?.text = if (simpleHolder.open) "收起" else "打开"
+            simpleHolder.tvName?.text = if (simpleHolder.open) "收起" else "更多"
             simpleHolder.tvName?.setOnClickListener {
                 if (simpleHolder.open) {
                     mOpen = false

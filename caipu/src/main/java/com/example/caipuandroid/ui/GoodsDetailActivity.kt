@@ -68,8 +68,6 @@ class GoodsDetailActivity : BaseActiviy() {
                         toobar.alpha = 1f
                     }
                 }
-
-                Klog.e(contents = scrollY.toString() + "----" + oldScrollY.toString() + "__" + tvName.y.toString())
             }
         })
 
