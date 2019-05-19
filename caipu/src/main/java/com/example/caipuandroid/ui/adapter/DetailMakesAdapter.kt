@@ -18,6 +18,9 @@ import kotlinx.android.synthetic.main.activity_goodsdetail.*
 
 class DetailMakesAdapter : BaseQuickAdapter<MakesBean, BaseViewHolder> {
 
+
+
+
     override fun convert(helper: BaseViewHolder?, item: MakesBean?) {
 
         val tvStep = helper!!.getView<TextView>(R.id.tvStep)

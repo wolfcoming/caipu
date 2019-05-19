@@ -2,6 +2,7 @@ package com.example.caipuandroid.ui
 
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -15,7 +16,9 @@ import com.example.caipuandroid.ui.adapter.DetailMakesAdapter
 import com.example.caipuandroid.ui.vo.BurdenBean
 import com.example.caipuandroid.ui.vo.Greens
 import com.example.caipuandroid.ui.vo.MakesBean
+import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.excute
+import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.config.ARouterConfig
 import kotlinx.android.synthetic.main.activity_goodsdetail.*
@@ -23,7 +26,8 @@ import kotlinx.android.synthetic.main.activity_goodsdetail.*
 
 @Route(path = ARouterConfig.ACT_CAIPU_DETAIL)
 class GoodsDetailActivity : BaseActiviy() {
-    val adapter = DetailBurdenAdapter()
+    val burdenData = ArrayList<BurdenBean>()
+    val adapter = DetailBurdenAdapter(burdenData)
     val makeAdapter = DetailMakesAdapter()
     val service: ICaipuService by lazy { IServiceNetImpl() }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,16 +38,43 @@ class GoodsDetailActivity : BaseActiviy() {
         rvBundls.layoutManager = LinearLayoutManager(this)
         rvMakes.adapter = makeAdapter
         rvMakes.layoutManager = LinearLayoutManager(this)
-
         val greens = intent.getSerializableExtra("Greens") as Greens
         service.getGreensById(greens.id)
             .excute()
             .subscribe({
                 dealData(it)
-            }, {})
+            }, {
+                toast(it.message!!)
+            })
 
+
+
+
+
+        toobar.alpha = 0f
+        scrollview.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener {
+            override fun onScrollChange(
+                v: NestedScrollView,
+                scrollX: Int,
+                scrollY: Int,
+                oldScrollX: Int,
+                oldScrollY: Int
+            ) {
+                if (scrollY <= tvName.y) {
+                    val rate: Float = scrollY / tvName.y
+                    toobar.alpha = rate
+                } else {
+                    if (toobar.alpha != 1f) {
+                        toobar.alpha = 1f
+                    }
+                }
+
+                Klog.e(contents = scrollY.toString() + "----" + oldScrollY.toString() + "__" + tvName.y.toString())
+            }
+        })
 
     }
+
 
     private fun dealData(it: Greens) {
         if (it.user != null) {
@@ -64,6 +95,7 @@ class GoodsDetailActivity : BaseActiviy() {
         }
         Glide.with(this).load(Uri.parse(imagUrl)).into(ivCover)
         tvName.text = it.name
+        toobar.setTitle(it.name!!)
         tvTips.text = it.tips
         val viewsAndCollect = "独家~${it.views}浏览~${it.collect}收藏"
         tvViewsAndCollects.text = viewsAndCollect
@@ -77,7 +109,10 @@ class GoodsDetailActivity : BaseActiviy() {
                 burdenList.add(burdenBean)
             }
         }
-        adapter.setNewData(burdenList)
+        burdenData.clear()
+        burdenData.addAll(burdenList)
+        adapter.notifyDataSetChanged()
+//        adapter.setNewData(burdenList)
         var makesList: ArrayList<MakesBean> = ArrayList()
         for (item in it.makes!!.split("||")) {
             if (item.isNotBlank() and item.isNotEmpty()) {
@@ -86,7 +121,6 @@ class GoodsDetailActivity : BaseActiviy() {
                 makesList.add(makesBean)
             }
         }
-
         makeAdapter.setNewData(makesList)
 
     }

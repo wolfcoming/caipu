@@ -43,6 +43,9 @@ class BaseToolBar @JvmOverloads constructor(
 
         contentView.setBackgroundColor(bgColor)
         tvTitle?.setTextColor(textColor)
+
+
+
         addView(contentView)
 
         if (showAdd) {
@@ -52,6 +55,8 @@ class BaseToolBar @JvmOverloads constructor(
 
         if (showBack) {
             ibLeft?.setBackgroundResource(R.drawable.ic_back)
+            ibLeft?.setColorFilter(Color.BLACK)
+
         } else ibLeft?.setBackgroundResource(R.drawable.ic_menu)
 
         if (title.isNotEmpty()) {

@@ -16,13 +16,13 @@
             android:id="@+id/content"
             android:layout_below="@id/statusbar"
             android:layout_width="match_parent"
-            android:layout_height="56dp">
+            android:layout_height="?attr/actionBarSize">
 
 
         <ImageButton
                 android:id="@+id/ib_left"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"

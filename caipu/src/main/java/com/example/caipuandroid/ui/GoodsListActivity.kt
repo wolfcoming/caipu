@@ -1,5 +1,6 @@
 package com.example.caipuandroid.ui
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -31,6 +32,7 @@ import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.config.ARouterConfig
 import com.infoholdcity.baselibrary.config.ARouterConfig.Companion.ACT_CAIPU_LIST
 import com.infoholdcity.baselibrary.utils.FileUtils
+import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_goodslist.*
 import org.devio.takephoto.uitl.TFileUtils
 import org.json.JSONObject
@@ -101,8 +103,15 @@ class GoodsListActivity : BaseActiviy() {
         }
 
         iv_audio.setOnClickListener {
+            RxPermissions(this).request(Manifest.permission.RECORD_AUDIO)
+                .subscribe {
+                    if(it){
+                        showYuyin()
+                    }else{
+                        toast("请开启语音权限否则无法使用")
+                    }
+                }
 
-            showYuyin()
         }
     }
 
