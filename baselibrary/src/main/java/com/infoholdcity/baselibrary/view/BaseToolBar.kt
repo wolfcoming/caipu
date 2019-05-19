@@ -2,6 +2,7 @@ package com.infoholdcity.baselibrary.view
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -30,10 +31,18 @@ class BaseToolBar @JvmOverloads constructor(
         val showBack = typeArray.getBoolean(R.styleable.BaseToolBar_showback, true)
         val title = typeArray.getString(R.styleable.BaseToolBar_commontitle)
 
+        val bgColor = typeArray.getColor(R.styleable.BaseToolBar_backgroundcolor,resources.getColor(R.color.colorPrimary))
+        val textColor = typeArray.getColor(R.styleable.BaseToolBar_textcolor, Color.WHITE)
+
+
+
         val contentView: View = LayoutInflater.from(getContext()).inflate(R.layout.view_base_toolbar, null)
         ibLeft = contentView.findViewById<ImageButton>(R.id.ib_left)
         ibRight = contentView.findViewById<ImageButton>(R.id.ib_right)
         tvTitle = contentView.findViewById<TextView>(R.id.tv_title)
+
+        contentView.setBackgroundColor(bgColor)
+        tvTitle?.setTextColor(textColor)
         addView(contentView)
 
         if (showAdd) {

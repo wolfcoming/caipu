@@ -1,6 +1,7 @@
 package com.example.app
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
@@ -35,6 +36,7 @@ class MainActivity : BaseActiviy() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        StatusBarHelper.setStatusBar(this@MainActivity, false, false)
         initSlidingNav(savedInstanceState)
         if (savedInstanceState != null) {
             isonSaveInstanceState = true
@@ -50,6 +52,7 @@ class MainActivity : BaseActiviy() {
         permissions()
     }
 
+    @SuppressLint("CheckResult")
     private fun permissions() {
         RxPermissions(this).request(
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -211,11 +214,6 @@ class MainActivity : BaseActiviy() {
             }
 
             override fun onTabSelected(position: Int) {
-                if (position == 0) {
-                    StatusBarHelper.setStatusBar(this@MainActivity, false, false)
-                } else {
-                    StatusBarHelper.setStatusBar(this@MainActivity, false, false)
-                }
                 val beginTransaction1 = supportFragmentManager.beginTransaction()
                 fragments.map {
                     beginTransaction1.hide(it)

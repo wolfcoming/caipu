@@ -46,12 +46,7 @@ class Frgm_Category : BaseMvpFragment<CategoryContract.Presenter>(), CategoryCon
         }
         initView()
         mPresenter.getCategoryData()
-        llSearchBar.setOnClickListener {
-            ARouter.getInstance().build(ARouterConfig.ACT_CAIPU_LIST)
-                .withString("name", "")
-                .withBoolean("showKeyBoard",true)
-                .navigation()
-        }
+
     }
 
     var leftAdapter: RvLeftAdapter? = null

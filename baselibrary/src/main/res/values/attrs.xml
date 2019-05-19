@@ -6,5 +6,7 @@
         <!--显示返回按钮 否则显示侧滑菜单按钮-->
         <attr name="showback" format="boolean"></attr>
         <attr name="commontitle" format="string"></attr>
+        <attr name="backgroundcolor" format="color"></attr>
+        <attr name="textcolor" format="color"></attr>
     </declare-styleable>
 </resources>
