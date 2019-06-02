@@ -17,9 +17,10 @@
 
     <com.example.learncomponent.fresh.SimpleRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="400dp">
 
         <LinearLayout
+                android:gravity="center"
                 android:id="@+id/head"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -43,12 +44,15 @@
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
         <LinearLayout
+                android:background="#f00"
                 android:id="@+id/footer"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <TextView
-                    android:text="底部"
+                    android:padding="20dp"
+                    android:gravity="center"
+                    android:text="加载更多"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
         </LinearLayout>
