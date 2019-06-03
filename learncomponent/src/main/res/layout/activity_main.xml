@@ -16,26 +16,15 @@
     <!--</com.example.learncomponent.viewlearn.HorizontalScrollViewEx>-->
 
     <com.example.learncomponent.fresh.SimpleRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="400dp">
 
-        <LinearLayout
-                android:gravity="center"
-                android:id="@+id/head"
-                android:orientation="horizontal"
+        <com.example.learncomponent.fresh.SimpleHeaderView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <ImageView
-                    android:background="@mipmap/ic_launcher"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
-
-            <TextView
-                    android:text="下拉刷新"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-        </LinearLayout>
+        </com.example.learncomponent.fresh.SimpleHeaderView>
 
 
         <android.support.v7.widget.RecyclerView

@@ -11,28 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Scroller;
 import com.infoholdcity.basearchitecture.self_extends.Klog;
 
+import static com.example.learncomponent.fresh.SimpleRefreshState.*;
+
 public class SimpleRefreshLayout extends ViewGroup {
 
     private View contentView;
-    private View headView;
+    private SimpleHeaderView headView;
     private View footerView;
 
-    //    正常状态
-    private int STATUS_None = 0;
-    //    下拉去刷新状态
-    private int STATUS_PullDownToRefresh = 1;
-    //    松开去刷新状态
-    private int STATUS_ReleaseToRefresh = 2;
-    //    刷新中
-    private int STATUS_Refreshing = 3;
-//    上拉去加载状态
-    private int STATUS_PullUpToLoad = 4;
-//    松开去加载
-    private int STATUS_ReleaseToLoad = 5;
-//    加载中
-    private int STATUS_Loading = 6;
-    //    当前状态
-    private int STATUS_Current = STATUS_None;
 
     Scroller mScroller;
 
@@ -86,7 +72,7 @@ public class SimpleRefreshLayout extends ViewGroup {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
         int childCount = getChildCount();
-        headView = getChildAt(0);
+        headView = (SimpleHeaderView) getChildAt(0);
         contentView = getChildAt(1);
         footerView = getChildAt(2);
 
@@ -181,6 +167,7 @@ public class SimpleRefreshLayout extends ViewGroup {
         return false;
     }
 
+
     //最后滑动的坐标
     private float mLastY = 0;
 
@@ -200,22 +187,24 @@ public class SimpleRefreshLayout extends ViewGroup {
                 scrollBy(0, (int) -deltaY);
                 //限制可拖动的范围
                 limitRange();
-                if(isTopIntercept){
+                if (isTopIntercept) {
 //                如果headview 全部显示 则更改刷新状态
-                    int mtotalDistance = getScrollY();
-                    if (Math.abs(mtotalDistance) >= headView.getMeasuredHeight()) {
-                        STATUS_Current = STATUS_ReleaseToRefresh;
-                        Klog.Companion.e("YYYYY1", "松开刷新");
+                    if (Math.abs(getScrollY()) >= headView.getMeasuredHeight()) {
+                        if (STATUS_Current != STATUS_ReleaseToRefresh) {
+                            STATUS_Current = STATUS_ReleaseToRefresh;
+                            headView.changeStatus(STATUS_Current);
+                        }
                     } else {
-                        STATUS_Current = STATUS_PullDownToRefresh;
-                        Klog.Companion.e("YYYYY1", "下拉刷新");
+                        if (STATUS_Current != STATUS_PullDownToRefresh) {
+                            STATUS_Current = STATUS_PullDownToRefresh;
+                            headView.changeStatus(STATUS_Current);
+                        }
                     }
-                } else if(isBottomIntercept){
+
+                } else if (isBottomIntercept) {
                     if (Math.abs(getScrollY()) >= footerView.getMeasuredHeight()) {
-                        Klog.Companion.e("YYYYY1", "松开去加载");
                         STATUS_Current = STATUS_ReleaseToLoad;
-                    }else {
-                        Klog.Companion.e("YYYYY1", "上拉去加载");
+                    } else {
                         STATUS_Current = STATUS_PullUpToLoad;
                     }
                 }
@@ -225,28 +214,18 @@ public class SimpleRefreshLayout extends ViewGroup {
 
             case MotionEvent.ACTION_UP:
 
-                if (STATUS_Current == STATUS_PullDownToRefresh || STATUS_Current == STATUS_PullUpToLoad ) {
+                if (STATUS_Current == STATUS_PullDownToRefresh || STATUS_Current == STATUS_PullUpToLoad) {
                     //滚动到原来位置
                     smoothScrollTo(0, 0);
                 } else if (STATUS_Current == STATUS_ReleaseToRefresh) {
                     STATUS_Current = STATUS_Refreshing;
-                    Klog.Companion.e("YYYYY1", "正在刷新中");
-                    getHandler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Klog.Companion.e("YYYYY1", "刷新完成");
-                            smoothScrollTo(0, 0);
-                        }
-                    }, 2000);
-                }else if (STATUS_Current == STATUS_ReleaseToLoad){
+                    headView.changeStatus(STATUS_Current);
+                    if (mRefreshCallback != null) {
+                        mRefreshCallback.onRefresh(this);
+                    }
+                } else if (STATUS_Current == STATUS_ReleaseToLoad) {
                     STATUS_Current = STATUS_Loading;
-                    getHandler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Klog.Companion.e("YYYYY1", "加载完成");
-                            smoothScrollTo(0, 0);
-                        }
-                    }, 2000);
+
                 }
 
 
@@ -254,12 +233,23 @@ public class SimpleRefreshLayout extends ViewGroup {
 
         }
         mLastY = y;
-
         return true;
     }
 
-
-    public void stopFreshing(){
+    /**
+     * 刷新完成
+     */
+    public void freshFinished() {
+        STATUS_Current = STATUS_RefreshFinish;
+        if (headView != null) {
+            headView.changeStatus(STATUS_Current);
+        }
+        this.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                smoothScrollTo(0, 0);
+            }
+        }, 400);
 
     }
 
@@ -319,4 +309,14 @@ public class SimpleRefreshLayout extends ViewGroup {
             postInvalidate();
         }
     }
+
+    public RefreshCallback mRefreshCallback;
+
+    public void setRefreshCallbackListener(RefreshCallback refreshCallbackListener) {
+        this.mRefreshCallback = refreshCallbackListener;
+    }
+
+
+
+
 }

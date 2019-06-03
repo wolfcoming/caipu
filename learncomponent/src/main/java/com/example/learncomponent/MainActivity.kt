@@ -34,6 +34,8 @@ import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
+import com.example.learncomponent.fresh.RefreshCallback
+import com.example.learncomponent.fresh.SimpleRefreshLayout
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -49,12 +51,18 @@ class MainActivity : AppCompatActivity() {
         val myAdapter = SimpleAdapter()
         rv.adapter = myAdapter
 
-        for(i in 0..40){
+        for (i in 0..40) {
             myAdapter.addData(i.toString())
         }
         myAdapter.notifyDataSetChanged()
 
-
+        refreshLayout.setRefreshCallbackListener(object : RefreshCallback {
+            override fun onRefresh(refreshLayout: SimpleRefreshLayout?) {
+                Handler().postDelayed({
+                    refreshLayout?.freshFinished()
+                }, 2000)
+            }
+        })
 
     }
 
