@@ -218,6 +218,7 @@ public class SimpleRefreshLayout extends ViewGroup {
                     //滚动到原来位置
                     smoothScrollTo(0, 0);
                 } else if (STATUS_Current == STATUS_ReleaseToRefresh) {
+                    smoothScrollTo(0, -headView.getMeasuredHeight(), 100);
                     STATUS_Current = STATUS_Refreshing;
                     headView.changeStatus(STATUS_Current);
                     if (mRefreshCallback != null) {
@@ -225,10 +226,7 @@ public class SimpleRefreshLayout extends ViewGroup {
                     }
                 } else if (STATUS_Current == STATUS_ReleaseToLoad) {
                     STATUS_Current = STATUS_Loading;
-
                 }
-
-
                 break;
 
         }
@@ -315,8 +313,6 @@ public class SimpleRefreshLayout extends ViewGroup {
     public void setRefreshCallbackListener(RefreshCallback refreshCallbackListener) {
         this.mRefreshCallback = refreshCallbackListener;
     }
-
-
 
 
 }
