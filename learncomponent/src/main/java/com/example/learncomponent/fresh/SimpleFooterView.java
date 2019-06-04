@@ -13,7 +13,7 @@ import com.example.learncomponent.R;
 
 import static com.example.learncomponent.fresh.SimpleRefreshState.*;
 
-public class SimpleFooterView extends LinearLayout {
+public class SimpleFooterView extends BaseFooterView {
 
     private TextView tvContent;
     private ImageView ivArrow;
@@ -45,6 +45,7 @@ public class SimpleFooterView extends LinearLayout {
      *
      * @param status
      */
+    @Override
     public void changeStatus(int status) {
         if (status == STATUS_Loading) {
             animator.cancel();

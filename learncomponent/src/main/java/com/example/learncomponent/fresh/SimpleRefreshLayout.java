@@ -16,8 +16,8 @@ import static com.example.learncomponent.fresh.SimpleRefreshState.*;
 public class SimpleRefreshLayout extends ViewGroup {
 
     private View contentView;
-    private SimpleHeaderView headView;
-    private SimpleFooterView footerView;
+    private BaseHeaderView headView;
+    private BaseFooterView footerView;
 
 
     Scroller mScroller;
@@ -51,6 +51,7 @@ public class SimpleRefreshLayout extends ViewGroup {
 
         for (int i = 0; i < childCount; i++) {
             View childAt = getChildAt(i);
+            MarginLayoutParams layoutParams = (MarginLayoutParams) childAt.getLayoutParams();
             measureChild(childAt, widthMeasureSpec, heightMeasureSpec);
         }
 
@@ -71,10 +72,9 @@ public class SimpleRefreshLayout extends ViewGroup {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
-        int childCount = getChildCount();
-        headView = (SimpleHeaderView) getChildAt(0);
+        headView = (BaseHeaderView) getChildAt(0);
         contentView = getChildAt(1);
-        footerView = (SimpleFooterView) getChildAt(2);
+        footerView = (BaseFooterView) getChildAt(2);
 
         headView.layout(l, t - headView.getMeasuredHeight(), r, t);
         contentView.layout(l, t, r, b);

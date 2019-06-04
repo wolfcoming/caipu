@@ -14,7 +14,7 @@ import com.example.learncomponent.R;
 
 import static com.example.learncomponent.fresh.SimpleRefreshState.*;
 
-public class SimpleHeaderView extends LinearLayout {
+public class SimpleHeaderView extends BaseHeaderView {
 
     private ImageView ivArrow;
     private TextView tvContent;
@@ -51,6 +51,7 @@ public class SimpleHeaderView extends LinearLayout {
      *
      * @param status
      */
+    @Override
     public void changeStatus(int status) {
         if (status == STATUS_Refreshing) {
             animator.cancel();
