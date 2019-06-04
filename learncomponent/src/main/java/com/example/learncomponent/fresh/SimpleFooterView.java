@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,34 +13,29 @@ import com.example.learncomponent.R;
 
 import static com.example.learncomponent.fresh.SimpleRefreshState.*;
 
-public class SimpleHeaderView extends LinearLayout {
+public class SimpleFooterView extends LinearLayout {
 
-    private ImageView ivArrow;
     private TextView tvContent;
+    private ImageView ivArrow;
     private ValueAnimator animator;
     private ValueAnimator loadingAnimator;
 
-    public SimpleHeaderView(Context context) {
+    public SimpleFooterView(Context context) {
         this(context, null);
     }
 
-    public SimpleHeaderView(Context context, AttributeSet attrs) {
-        this(context, null, 0);
+    public SimpleFooterView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
-    public SimpleHeaderView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SimpleFooterView(Context context,  AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
-    }
-
-    private void init(Context context) {
         animator = new ValueAnimator();
         loadingAnimator = new ValueAnimator();
-        View view = LayoutInflater.from(context).inflate(R.layout.simplerefreshlayout_headview, this, false);
-        ivArrow = view.findViewById(R.id.refresh_iv_arrow);
-        tvContent = view.findViewById(R.id.fresh_tv_content);
+        View view = LayoutInflater.from(context).inflate(R.layout.simplerefreshlayout_footerview, this, false);
+        tvContent = view.findViewById(R.id.refresh_tv_footer_content);
+        ivArrow = view.findViewById(R.id.refresh_iv_footer_arrow);
         addView(view);
-        changeStatus(STATUS_PullDownToRefresh);
     }
 
 
@@ -52,38 +46,37 @@ public class SimpleHeaderView extends LinearLayout {
      * @param status
      */
     public void changeStatus(int status) {
-        if (status == STATUS_Refreshing) {
+        if (status == STATUS_Loading) {
             animator.cancel();
             //更改成刷新加载图片
             ivArrow.setBackgroundResource(R.drawable.ic_refresh_loading);
-            tvContent.setText(STATUS_RefreshingStr);
+            tvContent.setText(STATUS_LoadingdStr);
             loadingAnimal();
-        } else if (status == STATUS_PullDownToRefresh || status == STATUS_ReleaseToRefresh) {
+        } else if (status == STATUS_PullUpToLoad || status == STATUS_ReleaseToLoad) {
             if (loadingAnimator.isRunning()) {
                 loadingAnimator.cancel();
             }
             ivArrow.setBackgroundResource(R.drawable.ic_refresh_arrow);
-            if (status == STATUS_PullDownToRefresh) {
-                tvContent.setText(STATUS_PullDownToRefreshStr);
+            if (status == STATUS_ReleaseToLoad) {
+                tvContent.setText(STATUS_ReleaseToLoadStr);
                 //旋转箭头向下
                 roateIv(1);
-            } else if (status == STATUS_ReleaseToRefresh) {
-                tvContent.setText(STATUS_ReleaseToRefreshStr);
+            } else if (status == STATUS_PullUpToLoad) {
+                tvContent.setText(STATUS_ReleaseToLoadStr);
                 //旋转箭头向上
                 roateIv(0);
             }
-        } else if (status == STATUS_RefreshFinish) {
+        } else if (status == STATUS_LoadingFinish) {
             if (loadingAnimator.isRunning()) {
                 loadingAnimator.cancel();
             }
             ivArrow.setRotation(0);
             ivArrow.setBackgroundResource(R.drawable.ic_refresh_finished);
-            tvContent.setText(STATUS_RefreshFinishStr);
+            tvContent.setText(STATUS_LoadingFinishStr);
         }
 
 
     }
-
 
     /**
      * 旋转图片

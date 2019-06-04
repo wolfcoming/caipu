@@ -17,7 +17,7 @@ public class SimpleRefreshLayout extends ViewGroup {
 
     private View contentView;
     private SimpleHeaderView headView;
-    private View footerView;
+    private SimpleFooterView footerView;
 
 
     Scroller mScroller;
@@ -74,7 +74,7 @@ public class SimpleRefreshLayout extends ViewGroup {
         int childCount = getChildCount();
         headView = (SimpleHeaderView) getChildAt(0);
         contentView = getChildAt(1);
-        footerView = getChildAt(2);
+        footerView = (SimpleFooterView) getChildAt(2);
 
         headView.layout(l, t - headView.getMeasuredHeight(), r, t);
         contentView.layout(l, t, r, b);
@@ -203,9 +203,16 @@ public class SimpleRefreshLayout extends ViewGroup {
 
                 } else if (isBottomIntercept) {
                     if (Math.abs(getScrollY()) >= footerView.getMeasuredHeight()) {
-                        STATUS_Current = STATUS_ReleaseToLoad;
+                        if (STATUS_Current != STATUS_ReleaseToLoad) {
+                            STATUS_Current = STATUS_ReleaseToLoad;
+                            footerView.changeStatus(STATUS_Current);
+                        }
                     } else {
-                        STATUS_Current = STATUS_PullUpToLoad;
+                        if (STATUS_Current != STATUS_PullUpToLoad) {
+                            STATUS_Current = STATUS_PullUpToLoad;
+                            footerView.changeStatus(STATUS_Current);
+                        }
+
                     }
                 }
 
@@ -218,6 +225,7 @@ public class SimpleRefreshLayout extends ViewGroup {
                     //滚动到原来位置
                     smoothScrollTo(0, 0);
                 } else if (STATUS_Current == STATUS_ReleaseToRefresh) {
+//                    让刷新状态在顶部刷新
                     smoothScrollTo(0, -headView.getMeasuredHeight(), 100);
                     STATUS_Current = STATUS_Refreshing;
                     headView.changeStatus(STATUS_Current);
@@ -226,6 +234,11 @@ public class SimpleRefreshLayout extends ViewGroup {
                     }
                 } else if (STATUS_Current == STATUS_ReleaseToLoad) {
                     STATUS_Current = STATUS_Loading;
+                    footerView.changeStatus(STATUS_Current);
+                    smoothScrollTo(0, footerView.getMeasuredHeight()+20, 100);
+                     if(mLoadCallback!=null){
+                         mLoadCallback.onLoad(this);
+                     }
                 }
                 break;
 
@@ -250,6 +263,24 @@ public class SimpleRefreshLayout extends ViewGroup {
         }, 400);
 
     }
+
+    /**
+     * 加载完成
+     */
+    public void loadFinished(){
+        STATUS_Current = STATUS_LoadingFinish;
+        if (headView != null) {
+            footerView.changeStatus(STATUS_Current);
+        }
+        this.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                smoothScrollTo(0, 0);
+            }
+        }, 400);
+
+    }
+
 
 
     /**
@@ -308,7 +339,12 @@ public class SimpleRefreshLayout extends ViewGroup {
         }
     }
 
-    public RefreshCallback mRefreshCallback;
+    private RefreshCallback mRefreshCallback;
+    private LoadCallback mLoadCallback;
+
+    public void setLoadCallbackListener(LoadCallback loadCallback){
+        this.mLoadCallback = loadCallback;
+    }
 
     public void setRefreshCallbackListener(RefreshCallback refreshCallbackListener) {
         this.mRefreshCallback = refreshCallbackListener;

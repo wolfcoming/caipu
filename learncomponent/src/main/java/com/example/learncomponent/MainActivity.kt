@@ -23,6 +23,7 @@ import java.io.FileOutputStream
 import java.lang.Exception
 import java.lang.reflect.Proxy
 import android.content.Context.WINDOW_SERVICE
+import android.content.res.Configuration
 import android.graphics.Color
 import android.support.v4.content.ContextCompat.getSystemService
 import android.support.v7.widget.LinearLayoutManager
@@ -56,46 +57,38 @@ class MainActivity : AppCompatActivity() {
         }
         myAdapter.notifyDataSetChanged()
 
-        refreshLayout.setRefreshCallbackListener(object : RefreshCallback {
-            override fun onRefresh(refreshLayout: SimpleRefreshLayout?) {
-                Handler().postDelayed({
-                    refreshLayout?.freshFinished()
-                }, 2000)
-            }
-        })
+        refreshLayout.setRefreshCallbackListener { refreshLayout ->
+            Handler().postDelayed({
+
+                val datas = ArrayList<String>()
+                for (i in 0..30) {
+                    datas.add("当前元素" + i)
+                }
+                myAdapter.setNewData(datas)
+                myAdapter.notifyDataSetChanged()
+                refreshLayout?.freshFinished()
+            }, 2000)
+        }
+
+        refreshLayout.setLoadCallbackListener { refreshLayout ->
+            Handler().postDelayed({
+                val datas = ArrayList<String>()
+                for (i in 0..5) {
+                    datas.add("新加元素" + i)
+                }
+                myAdapter.addData(datas)
+                myAdapter.notifyDataSetChanged()
+                refreshLayout?.loadFinished()
+            }, 1000)
+
+        }
 
     }
 
-//    private fun initview() {
-//
-//
-//        val wm = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-//        val dm = DisplayMetrics()
-//        wm.defaultDisplay.getMetrics(dm)
-//        val width = dm.widthPixels         // 屏幕宽度（像素）
-//        val height = dm.heightPixels       // 屏幕高度（像素）
-//        val colors = Arrays.asList("#f00", "#0f0", "#00f")
-//
-//        for (i in 0 until 3) {
-//            val layout = LayoutInflater.from(this).inflate(R.layout.hs_content, hscontainer, false)
-//            layout.layoutParams.width = width
-//            val tvPage = layout.findViewById<TextView>(R.id.page)
-//            tvPage.text = "page${i}"
-////            layout.setBackgroundColor(Color.parseColor(colors[i]))
-//            createListView(layout)
-//            hscontainer.addView(layout)
-//        }
-//    }
-//
-//    private fun createListView(layout: View) {
-//        val listView = layout.findViewById<ListView>(R.id.listview)
-//        val datas = ArrayList<String>()
-//        for (i in 0..50) {
-//            datas.add("item: " + i.toString())
-//        }
-//        val adapter = ArrayAdapter<String>(this, R.layout.content_list_item, R.id.name, datas)
-//        listView.adapter = adapter
-//    }
 
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        toast("onConfigurationChanged")
+    }
 
 }
