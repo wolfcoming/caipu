@@ -45,10 +45,22 @@ public class SimpleRefreshLayout extends ViewGroup {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         int childCount = getChildCount();
+
+        if (childCount == 0) {
+            throw new IllegalArgumentException("子布局数量不能为0");
+        }
+
+
         if (childCount > 3) {
             throw new IllegalArgumentException("子布局数量不能超过三个");
         }
 
+        View contentView = null;
+        if (childCount == 1) {
+            contentView = getChildAt(0);
+        } else if (childCount == 3) {
+            contentView = getChildAt(1);
+        }
         for (int i = 0; i < childCount; i++) {
             View childAt = getChildAt(i);
             MarginLayoutParams layoutParams = (MarginLayoutParams) childAt.getLayoutParams();
@@ -56,11 +68,8 @@ public class SimpleRefreshLayout extends ViewGroup {
         }
 
         //获取中间内容控件的宽高作为刷新控件的宽高
-        View contentView = getChildAt(1);
         MarginLayoutParams layoutParams = (MarginLayoutParams) contentView.getLayoutParams();
-
         setMeasuredDimension(contentView.getMeasuredWidth(), contentView.getMeasuredHeight());
-
     }
 
 
@@ -71,15 +80,18 @@ public class SimpleRefreshLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-
-        headView = (BaseHeaderView) getChildAt(0);
-        contentView = getChildAt(1);
-        footerView = (BaseFooterView) getChildAt(2);
-
+        if (getChildCount() == 3) {
+            headView = (BaseHeaderView) getChildAt(0);
+            contentView = getChildAt(1);
+            footerView = (BaseFooterView) getChildAt(2);
+        } else if (getChildCount() == 1) {
+            headView = new SimpleHeaderView(getContext());
+            contentView = getChildAt(0);
+            footerView = new SimpleFooterView(getContext());
+        }
         headView.layout(l, t - headView.getMeasuredHeight(), r, t);
         contentView.layout(l, t, r, b);
         footerView.layout(l, b, r, b + footerView.getMeasuredHeight());
-        showLog(footerView.getMeasuredHeight());
 
     }
 
@@ -235,10 +247,10 @@ public class SimpleRefreshLayout extends ViewGroup {
                 } else if (STATUS_Current == STATUS_ReleaseToLoad) {
                     STATUS_Current = STATUS_Loading;
                     footerView.changeStatus(STATUS_Current);
-                    smoothScrollTo(0, footerView.getMeasuredHeight()+20, 100);
-                     if(mLoadCallback!=null){
-                         mLoadCallback.onLoad(this);
-                     }
+                    smoothScrollTo(0, footerView.getMeasuredHeight() + 20, 100);
+                    if (mLoadCallback != null) {
+                        mLoadCallback.onLoad(this);
+                    }
                 }
                 break;
 
@@ -267,7 +279,7 @@ public class SimpleRefreshLayout extends ViewGroup {
     /**
      * 加载完成
      */
-    public void loadFinished(){
+    public void loadFinished() {
         STATUS_Current = STATUS_LoadingFinish;
         if (headView != null) {
             footerView.changeStatus(STATUS_Current);
@@ -280,7 +292,6 @@ public class SimpleRefreshLayout extends ViewGroup {
         }, 400);
 
     }
-
 
 
     /**
@@ -342,7 +353,7 @@ public class SimpleRefreshLayout extends ViewGroup {
     private RefreshCallback mRefreshCallback;
     private LoadCallback mLoadCallback;
 
-    public void setLoadCallbackListener(LoadCallback loadCallback){
+    public void setLoadCallbackListener(LoadCallback loadCallback) {
         this.mLoadCallback = loadCallback;
     }
 
