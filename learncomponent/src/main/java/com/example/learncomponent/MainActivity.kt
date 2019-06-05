@@ -23,6 +23,7 @@ import java.io.FileOutputStream
 import java.lang.Exception
 import java.lang.reflect.Proxy
 import android.content.Context.WINDOW_SERVICE
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.support.v4.content.ContextCompat.getSystemService
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        startActivity(Intent(this,LearnServiceActivity::class.java))
         rv.layoutManager = LinearLayoutManager(this)
         val myAdapter = SimpleAdapter()
         rv.adapter = myAdapter
@@ -83,12 +85,6 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-    }
-
-
-    override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig)
-        toast("onConfigurationChanged")
     }
 
 }

@@ -39,11 +39,36 @@ public class SimpleRefreshLayout extends ViewGroup {
         init(context);
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        int childCount = getChildCount();
+        if (childCount == 1) {
+            if (headView != null) {
+                removeView(headView);
+            }
+            headView = new SimpleHeaderView(getContext());
+            addView(headView, 0, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+
+            if (footerView != null) {
+                removeView(footerView);
+            }
+            footerView = new SimpleFooterView(getContext());
+            addView(footerView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        }
+        Klog.Companion.e("YYYY11", "onFinishInflate");
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        Klog.Companion.e("YYYY11", "onAttachedToWindow");
+    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
+        Klog.Companion.e("YYYY11", "onMeasure");
         int childCount = getChildCount();
 
         if (childCount == 0) {
@@ -57,18 +82,21 @@ public class SimpleRefreshLayout extends ViewGroup {
 
         View contentView = null;
         if (childCount == 1) {
+
             contentView = getChildAt(0);
+
+
         } else if (childCount == 3) {
             contentView = getChildAt(1);
         }
         for (int i = 0; i < childCount; i++) {
             View childAt = getChildAt(i);
-            MarginLayoutParams layoutParams = (MarginLayoutParams) childAt.getLayoutParams();
+//            MarginLayoutParams layoutParams = (MarginLayoutParams) childAt.getLayoutParams();
             measureChild(childAt, widthMeasureSpec, heightMeasureSpec);
         }
 
         //获取中间内容控件的宽高作为刷新控件的宽高
-        MarginLayoutParams layoutParams = (MarginLayoutParams) contentView.getLayoutParams();
+//        MarginLayoutParams layoutParams = (MarginLayoutParams) contentView.getLayoutParams();
         setMeasuredDimension(contentView.getMeasuredWidth(), contentView.getMeasuredHeight());
     }
 
@@ -85,10 +113,12 @@ public class SimpleRefreshLayout extends ViewGroup {
             contentView = getChildAt(1);
             footerView = (BaseFooterView) getChildAt(2);
         } else if (getChildCount() == 1) {
-            headView = new SimpleHeaderView(getContext());
+
             contentView = getChildAt(0);
-            footerView = new SimpleFooterView(getContext());
+
         }
+        int measuredHeight = headView.getMeasuredHeight();
+        Klog.Companion.e("YYYY", measuredHeight + "");
         headView.layout(l, t - headView.getMeasuredHeight(), r, t);
         contentView.layout(l, t, r, b);
         footerView.layout(l, b, r, b + footerView.getMeasuredHeight());

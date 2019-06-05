@@ -20,11 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <com.example.learncomponent.fresh.SimpleHeaderView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-        </com.example.learncomponent.fresh.SimpleHeaderView>
 
 
         <android.support.v7.widget.RecyclerView
@@ -33,9 +28,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
-        <com.example.learncomponent.fresh.SimpleFooterView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.example.learncomponent.fresh.SimpleFooterView>
-    </com.example.learncomponent.fresh.SimpleRefreshLayout>
+         </com.example.learncomponent.fresh.SimpleRefreshLayout>
 
 </RelativeLayout>
