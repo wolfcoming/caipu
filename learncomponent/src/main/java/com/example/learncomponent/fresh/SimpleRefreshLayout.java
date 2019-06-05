@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,20 +14,28 @@ import com.infoholdcity.basearchitecture.self_extends.Klog;
 
 import static com.example.learncomponent.fresh.SimpleRefreshState.*;
 
+/**
+ *
+ * @author yangqing
+ * @time   2019/6/5 10:07 AM
+ * @describe 刷新控件容器
+ */
 public class SimpleRefreshLayout extends ViewGroup {
 
+    //<editor-fold desc="属性变量 property and variable">
     private View contentView;
     private BaseHeaderView headView;
     private BaseFooterView footerView;
-
-
     Scroller mScroller;
+    //</editor-fold>
 
+
+
+   // <editor-fold defaultstate="collapsed" desc="构造函数">
     public SimpleRefreshLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
-
 
     public SimpleRefreshLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -38,6 +47,7 @@ public class SimpleRefreshLayout extends ViewGroup {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
+   // </editor-fold>
 
     @Override
     protected void onFinishInflate() {
@@ -153,10 +163,16 @@ public class SimpleRefreshLayout extends ViewGroup {
     //    是否是触发底部拦截
     boolean isBottomIntercept = false;
 
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        return super.dispatchKeyEvent(event);
+    }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         float y = 0;
-
+        Klog.Companion.e("YYYY", "触发onInterceptTouchEvent  " );
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 lastInterceptY = ev.getY();
