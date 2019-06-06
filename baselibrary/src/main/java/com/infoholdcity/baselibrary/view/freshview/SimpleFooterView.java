@@ -1,18 +1,16 @@
-package com.example.learncomponent.fresh;
+package com.infoholdcity.baselibrary.view.freshview;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.example.learncomponent.R;
+import com.infoholdcity.baselibrary.R;
 
-import static com.example.learncomponent.fresh.SimpleRefreshState.*;
+import static com.infoholdcity.baselibrary.view.freshview.SimpleRefreshState.*;
 
 public class SimpleFooterView extends BaseFooterView {
 

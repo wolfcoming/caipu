@@ -1,4 +1,4 @@
-package com.example.learncomponent.fresh;
+package com.infoholdcity.baselibrary.view.freshview;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -6,13 +6,9 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.example.learncomponent.R;
-
-import static com.example.learncomponent.fresh.SimpleRefreshState.*;
+import com.infoholdcity.baselibrary.R;
 
 public class SimpleHeaderView extends BaseHeaderView {
 
@@ -41,7 +37,7 @@ public class SimpleHeaderView extends BaseHeaderView {
         ivArrow = view.findViewById(R.id.refresh_iv_arrow);
         tvContent = view.findViewById(R.id.fresh_tv_content);
         addView(view);
-        changeStatus(STATUS_PullDownToRefresh);
+        changeStatus(SimpleRefreshState.STATUS_PullDownToRefresh);
     }
 
 
@@ -53,33 +49,33 @@ public class SimpleHeaderView extends BaseHeaderView {
      */
     @Override
     public void changeStatus(int status) {
-        if (status == STATUS_Refreshing) {
+        if (status == SimpleRefreshState.STATUS_Refreshing) {
             animator.cancel();
             //更改成刷新加载图片
             ivArrow.setBackgroundResource(R.drawable.ic_refresh_loading);
-            tvContent.setText(STATUS_RefreshingStr);
+            tvContent.setText(SimpleRefreshState.STATUS_RefreshingStr);
             loadingAnimal();
-        } else if (status == STATUS_PullDownToRefresh || status == STATUS_ReleaseToRefresh) {
+        } else if (status == SimpleRefreshState.STATUS_PullDownToRefresh || status == SimpleRefreshState.STATUS_ReleaseToRefresh) {
             if (loadingAnimator.isRunning()) {
                 loadingAnimator.cancel();
             }
             ivArrow.setBackgroundResource(R.drawable.ic_refresh_arrow);
-            if (status == STATUS_PullDownToRefresh) {
-                tvContent.setText(STATUS_PullDownToRefreshStr);
+            if (status == SimpleRefreshState.STATUS_PullDownToRefresh) {
+                tvContent.setText(SimpleRefreshState.STATUS_PullDownToRefreshStr);
                 //旋转箭头向下
                 roateIv(1);
-            } else if (status == STATUS_ReleaseToRefresh) {
-                tvContent.setText(STATUS_ReleaseToRefreshStr);
+            } else if (status == SimpleRefreshState.STATUS_ReleaseToRefresh) {
+                tvContent.setText(SimpleRefreshState.STATUS_ReleaseToRefreshStr);
                 //旋转箭头向上
                 roateIv(0);
             }
-        } else if (status == STATUS_RefreshFinish) {
+        } else if (status == SimpleRefreshState.STATUS_RefreshFinish) {
             if (loadingAnimator.isRunning()) {
                 loadingAnimator.cancel();
             }
             ivArrow.setRotation(0);
             ivArrow.setBackgroundResource(R.drawable.ic_refresh_finished);
-            tvContent.setText(STATUS_RefreshFinishStr);
+            tvContent.setText(SimpleRefreshState.STATUS_RefreshFinishStr);
         }
 
 

@@ -1,4 +1,4 @@
-package com.example.learncomponent.fresh;
+package com.infoholdcity.baselibrary.view.freshview;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -1,20 +1,16 @@
-package com.example.learncomponent.fresh;
+package com.infoholdcity.baselibrary.view.freshview;
 
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Scroller;
 import com.infoholdcity.basearchitecture.self_extends.Klog;
-
-import static com.example.learncomponent.fresh.SimpleRefreshState.*;
 
 /**
  * @author yangqing
@@ -269,7 +265,7 @@ public class SimpleRefreshLayout extends ViewGroup {
     public boolean onTouchEvent(MotionEvent event) {
 
 //        在加载中和刷新中的时候不去处理
-        if (STATUS_Current == STATUS_Loading || STATUS_Current == STATUS_Refreshing) {
+        if (SimpleRefreshState.STATUS_Current == SimpleRefreshState.STATUS_Loading || SimpleRefreshState.STATUS_Current == SimpleRefreshState.STATUS_Refreshing) {
             return true;
         }
 
@@ -289,27 +285,27 @@ public class SimpleRefreshLayout extends ViewGroup {
                 if (isTopIntercept) {
 //                如果headview 全部显示 则更改刷新状态
                     if (Math.abs(getScrollY()) >= headView.getMeasuredHeight()) {
-                        if (STATUS_Current != STATUS_ReleaseToRefresh) {
-                            STATUS_Current = STATUS_ReleaseToRefresh;
-                            headView.changeStatus(STATUS_Current);
+                        if (SimpleRefreshState.STATUS_Current != SimpleRefreshState.STATUS_ReleaseToRefresh) {
+                            SimpleRefreshState.STATUS_Current = SimpleRefreshState.STATUS_ReleaseToRefresh;
+                            headView.changeStatus(SimpleRefreshState.STATUS_Current);
                         }
                     } else {
-                        if (STATUS_Current != STATUS_PullDownToRefresh) {
-                            STATUS_Current = STATUS_PullDownToRefresh;
-                            headView.changeStatus(STATUS_Current);
+                        if (SimpleRefreshState.STATUS_Current != SimpleRefreshState.STATUS_PullDownToRefresh) {
+                            SimpleRefreshState.STATUS_Current = SimpleRefreshState.STATUS_PullDownToRefresh;
+                            headView.changeStatus(SimpleRefreshState.STATUS_Current);
                         }
                     }
 
                 } else if (isBottomIntercept) {
                     if (Math.abs(getScrollY()) >= footerView.getMeasuredHeight()) {
-                        if (STATUS_Current != STATUS_ReleaseToLoad) {
-                            STATUS_Current = STATUS_ReleaseToLoad;
-                            footerView.changeStatus(STATUS_Current);
+                        if (SimpleRefreshState.STATUS_Current != SimpleRefreshState.STATUS_ReleaseToLoad) {
+                            SimpleRefreshState.STATUS_Current = SimpleRefreshState.STATUS_ReleaseToLoad;
+                            footerView.changeStatus(SimpleRefreshState.STATUS_Current);
                         }
                     } else {
-                        if (STATUS_Current != STATUS_PullUpToLoad) {
-                            STATUS_Current = STATUS_PullUpToLoad;
-                            footerView.changeStatus(STATUS_Current);
+                        if (SimpleRefreshState.STATUS_Current != SimpleRefreshState.STATUS_PullUpToLoad) {
+                            SimpleRefreshState.STATUS_Current = SimpleRefreshState.STATUS_PullUpToLoad;
+                            footerView.changeStatus(SimpleRefreshState.STATUS_Current);
                         }
 
                     }
@@ -320,20 +316,20 @@ public class SimpleRefreshLayout extends ViewGroup {
 
             case MotionEvent.ACTION_UP:
 
-                if (STATUS_Current == STATUS_PullDownToRefresh || STATUS_Current == STATUS_PullUpToLoad) {
+                if (SimpleRefreshState.STATUS_Current == SimpleRefreshState.STATUS_PullDownToRefresh || SimpleRefreshState.STATUS_Current == SimpleRefreshState.STATUS_PullUpToLoad) {
                     //滚动到原来位置
                     smoothScrollTo(0, 0);
-                } else if (STATUS_Current == STATUS_ReleaseToRefresh) {
+                } else if (SimpleRefreshState.STATUS_Current == SimpleRefreshState.STATUS_ReleaseToRefresh) {
 //                    让刷新状态在顶部刷新
                     smoothScrollTo(0, -headView.getMeasuredHeight(), 100);
-                    STATUS_Current = STATUS_Refreshing;
-                    headView.changeStatus(STATUS_Current);
+                    SimpleRefreshState.STATUS_Current = SimpleRefreshState.STATUS_Refreshing;
+                    headView.changeStatus(SimpleRefreshState.STATUS_Current);
                     if (mRefreshCallback != null) {
                         mRefreshCallback.onRefresh(this);
                     }
-                } else if (STATUS_Current == STATUS_ReleaseToLoad) {
-                    STATUS_Current = STATUS_Loading;
-                    footerView.changeStatus(STATUS_Current);
+                } else if (SimpleRefreshState.STATUS_Current == SimpleRefreshState.STATUS_ReleaseToLoad) {
+                    SimpleRefreshState.STATUS_Current = SimpleRefreshState.STATUS_Loading;
+                    footerView.changeStatus(SimpleRefreshState.STATUS_Current);
                     smoothScrollTo(0, footerView.getMeasuredHeight() + 20, 100);
                     if (mLoadCallback != null) {
                         mLoadCallback.onLoad(this);
@@ -372,9 +368,9 @@ public class SimpleRefreshLayout extends ViewGroup {
      * 刷新完成
      */
     public void freshFinished() {
-        STATUS_Current = STATUS_RefreshFinish;
+        SimpleRefreshState.STATUS_Current = SimpleRefreshState.STATUS_RefreshFinish;
         if (headView != null) {
-            headView.changeStatus(STATUS_Current);
+            headView.changeStatus(SimpleRefreshState.STATUS_Current);
         }
         this.postDelayed(new Runnable() {
             @Override
@@ -389,9 +385,9 @@ public class SimpleRefreshLayout extends ViewGroup {
      * 加载完成
      */
     public void loadFinished() {
-        STATUS_Current = STATUS_LoadingFinish;
+        SimpleRefreshState.STATUS_Current = SimpleRefreshState.STATUS_LoadingFinish;
         if (headView != null) {
-            footerView.changeStatus(STATUS_Current);
+            footerView.changeStatus(SimpleRefreshState.STATUS_Current);
         }
         this.postDelayed(new Runnable() {
             @Override
