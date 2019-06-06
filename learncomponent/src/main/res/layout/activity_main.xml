@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
+        android:orientation="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -16,18 +17,27 @@
     <!--</com.example.learncomponent.viewlearn.HorizontalScrollViewEx>-->
 
     <com.example.learncomponent.fresh.SimpleRefreshLayout
+            android:background="@color/bg_color"
             android:id="@+id/refreshLayout"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="30dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="500dp">
 
 
 
         <android.support.v7.widget.RecyclerView
-                android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
                 android:id="@+id/rv"
+                android:layout_marginTop="30dp"
+                android:paddingBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
-         </com.example.learncomponent.fresh.SimpleRefreshLayout>
+    </com.example.learncomponent.fresh.SimpleRefreshLayout>
 
-</RelativeLayout>
+    <TextView
+            android:text="稍后速递费事发地见覅及计算机覅绝对是"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

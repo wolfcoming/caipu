@@ -15,9 +15,8 @@ import com.infoholdcity.basearchitecture.self_extends.Klog;
 import static com.example.learncomponent.fresh.SimpleRefreshState.*;
 
 /**
- *
  * @author yangqing
- * @time   2019/6/5 10:07 AM
+ * @time 2019/6/5 10:07 AM
  * @describe 刷新控件容器
  */
 public class SimpleRefreshLayout extends ViewGroup {
@@ -27,11 +26,18 @@ public class SimpleRefreshLayout extends ViewGroup {
     private BaseHeaderView headView;
     private BaseFooterView footerView;
     Scroller mScroller;
+
+    float lastInterceptY = 0;
+    //是否是触发顶部拦截
+    boolean isTopIntercept = false;
+    //    是否是触发底部拦截
+    boolean isBottomIntercept = false;
+
+    //最后滑动的坐标
+    private float mLastY = 0;
     //</editor-fold>
 
-
-
-   // <editor-fold defaultstate="collapsed" desc="构造函数">
+    // <editor-fold defaultstate="collapsed" desc="构造函数">
     public SimpleRefreshLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
@@ -47,8 +53,9 @@ public class SimpleRefreshLayout extends ViewGroup {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
-   // </editor-fold>
+    // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="自动添加 header 和footer">
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -69,45 +76,62 @@ public class SimpleRefreshLayout extends ViewGroup {
         Klog.Companion.e("YYYY11", "onFinishInflate");
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        Klog.Companion.e("YYYY11", "onAttachedToWindow");
-    }
+    // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="测量和布局">
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Klog.Companion.e("YYYY11", "onMeasure");
         int childCount = getChildCount();
-
         if (childCount == 0) {
             throw new IllegalArgumentException("子布局数量不能为0");
         }
-
-
         if (childCount > 3) {
             throw new IllegalArgumentException("子布局数量不能超过三个");
         }
 
+
+
         View contentView = null;
         if (childCount == 1) {
-
             contentView = getChildAt(0);
-
-
         } else if (childCount == 3) {
             contentView = getChildAt(1);
         }
         for (int i = 0; i < childCount; i++) {
             View childAt = getChildAt(i);
 //            MarginLayoutParams layoutParams = (MarginLayoutParams) childAt.getLayoutParams();
-            measureChild(childAt, widthMeasureSpec, heightMeasureSpec);
+            if(i==1){
+                measureChildWithMargins(childAt, widthMeasureSpec, 0,heightMeasureSpec,0);
+            }else {
+                measureChild(childAt,widthMeasureSpec,heightMeasureSpec);
+            }
         }
 
-        //获取中间内容控件的宽高作为刷新控件的宽高
-//        MarginLayoutParams layoutParams = (MarginLayoutParams) contentView.getLayoutParams();
-        setMeasuredDimension(contentView.getMeasuredWidth(), contentView.getMeasuredHeight());
+
+        int modeWidth = MeasureSpec.getMode(widthMeasureSpec);
+        int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
+
+        int modeHeight = MeasureSpec.getMode(heightMeasureSpec);
+        int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
+
+
+
+//        MarginLayoutParams layoutParams = (MarginLayoutParams) getLayoutParams();
+        int resultWidth = 0;
+        int resultHeight= 0;
+        if(modeWidth == MeasureSpec.AT_MOST||modeWidth == MeasureSpec.UNSPECIFIED){
+            resultWidth = contentView.getMeasuredWidth();
+        }else {
+            resultWidth = sizeWidth;
+        }
+
+        if(modeHeight == MeasureSpec.AT_MOST|| modeHeight == MeasureSpec.UNSPECIFIED){
+            resultHeight = contentView.getMeasuredHeight();
+        }else {
+            resultHeight = sizeHeight;
+        }
+        setMeasuredDimension(resultWidth , resultHeight);
     }
 
 
@@ -130,15 +154,28 @@ public class SimpleRefreshLayout extends ViewGroup {
         int measuredHeight = headView.getMeasuredHeight();
         Klog.Companion.e("YYYY", measuredHeight + "");
         headView.layout(l, t - headView.getMeasuredHeight(), r, t);
-        contentView.layout(l, t, r, b);
+
+
+////        处理内容的布局 兼容父容器的padding 和 自身的margin
+        MarginLayoutParams layoutParams = (MarginLayoutParams) contentView.getLayoutParams();
+        int left = 0 + getPaddingLeft() + layoutParams.leftMargin;
+        int top = 0 + getPaddingTop() + layoutParams.topMargin;
+        int right = left + contentView.getMeasuredWidth();
+        int bottom = top + contentView.getMeasuredHeight();
+        contentView.layout(left, top, right, bottom);
+
+
+//        contentView.layout(l, t, r, b);
+
+
         footerView.layout(l, b, r, b + footerView.getMeasuredHeight());
 
     }
 
-    private void showLog(Object log) {
-        Klog.Companion.e("YYYYY", "result: " + log);
-    }
 
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="事件拦截和处理">
 
     /**
      * 是否能向下或向上滑动
@@ -157,22 +194,10 @@ public class SimpleRefreshLayout extends ViewGroup {
     }
 
 
-    float lastInterceptY = 0;
-    //是否是触发顶部拦截
-    boolean isTopIntercept = false;
-    //    是否是触发底部拦截
-    boolean isBottomIntercept = false;
-
-
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        return super.dispatchKeyEvent(event);
-    }
-
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         float y = 0;
-        Klog.Companion.e("YYYY", "触发onInterceptTouchEvent  " );
+        Klog.Companion.e("YYYY", "触发onInterceptTouchEvent  ");
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 lastInterceptY = ev.getY();
@@ -225,9 +250,6 @@ public class SimpleRefreshLayout extends ViewGroup {
         return false;
     }
 
-
-    //最后滑动的坐标
-    private float mLastY = 0;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -306,6 +328,28 @@ public class SimpleRefreshLayout extends ViewGroup {
     }
 
     /**
+     * 限制滑动范围
+     */
+    private void limitRange() {
+        if (isTopIntercept) {
+            //滑动到顶部之后(header刚刚隐藏）就禁止继续滑动
+            if (getScrollY() > 0) {
+                scrollTo(0, 0);
+            }
+        }
+        if (isBottomIntercept) {
+            //滑动到底部之后(footer刚刚隐藏）就禁止继续滑动
+            if (getScrollY() < 0) {
+                scrollTo(0, 0);
+            }
+        }
+    }
+
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="结束刷新和加载">
+
+    /**
      * 刷新完成
      */
     public void freshFinished() {
@@ -339,25 +383,9 @@ public class SimpleRefreshLayout extends ViewGroup {
 
     }
 
+    // </editor-fold>
 
-    /**
-     * 限制滑动范围
-     */
-    private void limitRange() {
-        if (isTopIntercept) {
-            //滑动到顶部之后(header刚刚隐藏）就禁止继续滑动
-            if (getScrollY() > 0) {
-                scrollTo(0, 0);
-            }
-        }
-        if (isBottomIntercept) {
-            //滑动到底部之后(footer刚刚隐藏）就禁止继续滑动
-            if (getScrollY() < 0) {
-                scrollTo(0, 0);
-            }
-        }
-    }
-
+    // <editor-fold defaultstate="collapsed" desc="缓慢滑动">
 
     /**
      * 缓慢滑动到指定位置
@@ -395,6 +423,9 @@ public class SimpleRefreshLayout extends ViewGroup {
             postInvalidate();
         }
     }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="监听方法">
 
     private RefreshCallback mRefreshCallback;
     private LoadCallback mLoadCallback;
@@ -407,5 +438,6 @@ public class SimpleRefreshLayout extends ViewGroup {
         this.mRefreshCallback = refreshCallbackListener;
     }
 
+    // </editor-fold>
 
 }

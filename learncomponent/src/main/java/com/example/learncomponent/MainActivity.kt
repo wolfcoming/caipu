@@ -62,6 +62,9 @@ class MainActivity : AppCompatActivity() {
         for (i in 0..40) {
             myAdapter.addData(i.toString())
         }
+        myAdapter.setOnItemClickListener { adapter, view, position ->
+            toast("测试$position")
+        }
         myAdapter.notifyDataSetChanged()
 
         refreshLayout.setRefreshCallbackListener { refreshLayout ->
