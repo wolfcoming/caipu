@@ -64,7 +64,7 @@ public class SimpleFooterView extends BaseFooterView {
                 //旋转箭头向下
                 roateIv(1);
             } else if (status == STATUS_PullUpToLoad) {
-                tvContent.setText(STATUS_ReleaseToLoadStr);
+                tvContent.setText(STATUS_PullUpToLoadStr);
                 //旋转箭头向上
                 roateIv(0);
             }

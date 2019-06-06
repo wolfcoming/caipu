@@ -55,44 +55,65 @@ class MainActivity : AppCompatActivity() {
 //            return
 //        }
 
-        rv.layoutManager = LinearLayoutManager(this)
-        val myAdapter = SimpleAdapter()
-        rv.adapter = myAdapter
+//        rv.layoutManager = LinearLayoutManager(this)
+//        val myAdapter = SimpleAdapter()
+//        rv.adapter = myAdapter
+//
+//        for (i in 0..40) {
+//            myAdapter.addData(i.toString())
+//        }
+//        myAdapter.setOnItemClickListener { adapter, view, position ->
+//            toast("测试$position")
+//        }
+//
+//        myAdapter.notifyDataSetChanged()
+//
+//        refreshLayout.setRefreshCallbackListener { refreshLayout ->
+//            Handler().postDelayed({
+//
+//                val datas = ArrayList<String>()
+//                for (i in 0..30) {
+//                    datas.add("当前元素" + i)
+//                }
+//                myAdapter.setNewData(datas)
+//                myAdapter.notifyDataSetChanged()
+//                refreshLayout?.freshFinished()
+//            }, 2000)
+//        }
+//
+//        refreshLayout.setLoadCallbackListener { refreshLayout ->
+//            Handler().postDelayed({
+//                val datas = ArrayList<String>()
+//                for (i in 0..5) {
+//                    datas.add("新加元素" + i)
+//                }
+//                myAdapter.addData(datas)
+//                myAdapter.notifyDataSetChanged()
+//                refreshLayout?.loadFinished()
+//            }, 1000)
+//
+//        }
 
-        for (i in 0..40) {
-            myAdapter.addData(i.toString())
-        }
-        myAdapter.setOnItemClickListener { adapter, view, position ->
-            toast("测试$position")
-        }
-        myAdapter.notifyDataSetChanged()
 
+
+        testScrollview();
+
+    }
+
+    private fun testScrollview() {
         refreshLayout.setRefreshCallbackListener { refreshLayout ->
-            Handler().postDelayed({
-
+                        Handler().postDelayed({
                 val datas = ArrayList<String>()
-                for (i in 0..30) {
-                    datas.add("当前元素" + i)
-                }
-                myAdapter.setNewData(datas)
-                myAdapter.notifyDataSetChanged()
                 refreshLayout?.freshFinished()
             }, 2000)
         }
 
         refreshLayout.setLoadCallbackListener { refreshLayout ->
             Handler().postDelayed({
-                val datas = ArrayList<String>()
-                for (i in 0..5) {
-                    datas.add("新加元素" + i)
-                }
-                myAdapter.addData(datas)
-                myAdapter.notifyDataSetChanged()
                 refreshLayout?.loadFinished()
             }, 1000)
 
         }
-
     }
 
 }

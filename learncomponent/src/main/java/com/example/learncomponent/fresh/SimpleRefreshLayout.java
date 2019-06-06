@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Scroller;
 import com.infoholdcity.basearchitecture.self_extends.Klog;
 
@@ -169,37 +170,49 @@ public class SimpleRefreshLayout extends ViewGroup {
 
     // <editor-fold defaultstate="collapsed" desc="事件拦截和处理">
 
-    /**
-     * 是否能向下或向上滑动
-     *
-     * @param direction >0 向上 <0 向下
-     * @return
-     */
-    private boolean isCanScroll(int direction) {
-        if (contentView != null && headView != null) {
-            if (contentView instanceof RecyclerView) {
-                boolean b = contentView.canScrollVertically(direction);
-                return b;
+    public static boolean canScrollUp(@NonNull View targetView) {
+        if (android.os.Build.VERSION.SDK_INT < 14) {
+            if (targetView instanceof AbsListView) {
+                final ViewGroup viewGroup = (ViewGroup) targetView;
+                final AbsListView absListView = (AbsListView) targetView;
+                return viewGroup.getChildCount() > 0
+                        && (absListView.getFirstVisiblePosition() > 0
+                        || viewGroup.getChildAt(0).getTop() < targetView.getPaddingTop());
+            } else {
+                return targetView.getScrollY() > 0;
             }
+        } else {
+            return targetView.canScrollVertically(1);
         }
-        return false;
     }
 
+    public static boolean canScrollDown(@NonNull View targetView) {
+        if (android.os.Build.VERSION.SDK_INT < 14) {
+            if (targetView instanceof AbsListView) {
+                final ViewGroup viewGroup = (ViewGroup) targetView;
+                final AbsListView absListView = (AbsListView) targetView;
+                final int childCount = viewGroup.getChildCount();
+                return childCount > 0 && (absListView.getLastVisiblePosition() < childCount - 1
+                        || viewGroup.getChildAt(childCount - 1).getBottom() > targetView.getPaddingBottom());
+            } else {
+                return targetView.getScrollY() < 0;
+            }
+        } else {
+            return targetView.canScrollVertically(-1);
+        }
+    }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
 
 
         float y = 0;
-        Klog.Companion.e("YYYY", "触发onInterceptTouchEvent  ");
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 lastInterceptY = ev.getY();
-                Klog.Companion.e("YYYY", "触发down  " + lastInterceptY);
                 return false;
             case MotionEvent.ACTION_MOVE:
                 y = ev.getY();
-                Klog.Companion.e("YYYY", "ACTION_MOVE  " + lastInterceptY);
 //                MOVe 和 Down 第一次获取到的值是一样的 所以我们从第二次开始
                 if (y == lastInterceptY) {
                     return false;
@@ -209,8 +222,7 @@ public class SimpleRefreshLayout extends ViewGroup {
                     if (!canPullDownFresh) {
                         return false;
                     }
-                    Klog.Companion.e("YYYY", "向下滑动：：：：yyy " + y + "   interceptY  " + lastInterceptY);
-                    if (!isCanScroll(-1)) {
+                    if (!canScrollDown(contentView)) {
                         isTopIntercept = true;
                         isBottomIntercept = false;
                         Klog.Companion.e("YYYY", "滚动到顶部了啊啊啊");
@@ -227,7 +239,7 @@ public class SimpleRefreshLayout extends ViewGroup {
                     }
 
                     Klog.Companion.e("YYYY", "向sshang滑动：：：：yyy " + y + "   interceptY  " + lastInterceptY);
-                    if (!isCanScroll(1)) {
+                    if (!canScrollUp(contentView)) {
                         isBottomIntercept = true;
                         isTopIntercept = false;
                         Klog.Companion.e("YYYY", "滚动到底部了啊啊啊");
