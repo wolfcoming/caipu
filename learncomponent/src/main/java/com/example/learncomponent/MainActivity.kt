@@ -38,6 +38,7 @@ import android.widget.ListView
 import android.widget.TextView
 import com.example.learncomponent.fresh.RefreshCallback
 import com.example.learncomponent.fresh.SimpleRefreshLayout
+import kotlinx.android.synthetic.main.simplerefreshlayout_footerview.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -49,7 +50,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        startActivity(Intent(this,LearnServiceActivity::class.java))
+//        if (true) {
+//            startActivity(Intent(this, ViewFilerActivity::class.java))
+//            return
+//        }
+
         rv.layoutManager = LinearLayoutManager(this)
         val myAdapter = SimpleAdapter()
         rv.adapter = myAdapter
