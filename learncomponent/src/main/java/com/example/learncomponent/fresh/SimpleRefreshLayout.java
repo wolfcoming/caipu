@@ -2,6 +2,7 @@ package com.example.learncomponent.fresh;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -35,6 +36,12 @@ public class SimpleRefreshLayout extends ViewGroup {
 
     //最后滑动的坐标
     private float mLastY = 0;
+    //    是否可以加载更多
+    boolean canLoadMore = true;
+
+    //是否可以下拉加载
+    boolean canPullDownFresh = true;
+
     //</editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="构造函数">
@@ -61,6 +68,7 @@ public class SimpleRefreshLayout extends ViewGroup {
         super.onFinishInflate();
         int childCount = getChildCount();
         if (childCount == 1) {
+            contentView = getChildAt(0);
             if (headView != null) {
                 removeView(headView);
             }
@@ -73,7 +81,6 @@ public class SimpleRefreshLayout extends ViewGroup {
             footerView = new SimpleFooterView(getContext());
             addView(footerView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         }
-        Klog.Companion.e("YYYY11", "onFinishInflate");
     }
 
     // </editor-fold>
@@ -91,7 +98,6 @@ public class SimpleRefreshLayout extends ViewGroup {
         }
 
 
-
         View contentView = null;
         if (childCount == 1) {
             contentView = getChildAt(0);
@@ -101,10 +107,10 @@ public class SimpleRefreshLayout extends ViewGroup {
         for (int i = 0; i < childCount; i++) {
             View childAt = getChildAt(i);
 //            MarginLayoutParams layoutParams = (MarginLayoutParams) childAt.getLayoutParams();
-            if(i==1){
-                measureChildWithMargins(childAt, widthMeasureSpec, 0,heightMeasureSpec,0);
-            }else {
-                measureChild(childAt,widthMeasureSpec,heightMeasureSpec);
+            if (i == 1) {
+                measureChildWithMargins(childAt, widthMeasureSpec, 0, heightMeasureSpec, 0);
+            } else {
+                measureChild(childAt, widthMeasureSpec, heightMeasureSpec);
             }
         }
 
@@ -116,22 +122,21 @@ public class SimpleRefreshLayout extends ViewGroup {
         int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
 
 
-
 //        MarginLayoutParams layoutParams = (MarginLayoutParams) getLayoutParams();
         int resultWidth = 0;
-        int resultHeight= 0;
-        if(modeWidth == MeasureSpec.AT_MOST||modeWidth == MeasureSpec.UNSPECIFIED){
+        int resultHeight = 0;
+        if (modeWidth == MeasureSpec.AT_MOST || modeWidth == MeasureSpec.UNSPECIFIED) {
             resultWidth = contentView.getMeasuredWidth();
-        }else {
+        } else {
             resultWidth = sizeWidth;
         }
 
-        if(modeHeight == MeasureSpec.AT_MOST|| modeHeight == MeasureSpec.UNSPECIFIED){
+        if (modeHeight == MeasureSpec.AT_MOST || modeHeight == MeasureSpec.UNSPECIFIED) {
             resultHeight = contentView.getMeasuredHeight();
-        }else {
+        } else {
             resultHeight = sizeHeight;
         }
-        setMeasuredDimension(resultWidth , resultHeight);
+        setMeasuredDimension(resultWidth, resultHeight);
     }
 
 
@@ -142,15 +147,6 @@ public class SimpleRefreshLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        if (getChildCount() == 3) {
-            headView = (BaseHeaderView) getChildAt(0);
-            contentView = getChildAt(1);
-            footerView = (BaseFooterView) getChildAt(2);
-        } else if (getChildCount() == 1) {
-
-            contentView = getChildAt(0);
-
-        }
         int measuredHeight = headView.getMeasuredHeight();
         Klog.Companion.e("YYYY", measuredHeight + "");
         headView.layout(l, t - headView.getMeasuredHeight(), r, t);
@@ -163,10 +159,6 @@ public class SimpleRefreshLayout extends ViewGroup {
         int right = left + contentView.getMeasuredWidth();
         int bottom = top + contentView.getMeasuredHeight();
         contentView.layout(left, top, right, bottom);
-
-
-//        contentView.layout(l, t, r, b);
-
 
         footerView.layout(l, b, r, b + footerView.getMeasuredHeight());
 
@@ -196,6 +188,8 @@ public class SimpleRefreshLayout extends ViewGroup {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+
+
         float y = 0;
         Klog.Companion.e("YYYY", "触发onInterceptTouchEvent  ");
         switch (ev.getAction()) {
@@ -212,6 +206,9 @@ public class SimpleRefreshLayout extends ViewGroup {
                 }
                 //向下滑动
                 if (y - lastInterceptY > 0) {
+                    if (!canPullDownFresh) {
+                        return false;
+                    }
                     Klog.Companion.e("YYYY", "向下滑动：：：：yyy " + y + "   interceptY  " + lastInterceptY);
                     if (!isCanScroll(-1)) {
                         isTopIntercept = true;
@@ -224,6 +221,11 @@ public class SimpleRefreshLayout extends ViewGroup {
                         isTopIntercept = false;
                     }
                 } else {
+
+                    if (!canLoadMore) {
+                        return false;
+                    }
+
                     Klog.Companion.e("YYYY", "向sshang滑动：：：：yyy " + y + "   interceptY  " + lastInterceptY);
                     if (!isCanScroll(1)) {
                         isBottomIntercept = true;
@@ -253,6 +255,11 @@ public class SimpleRefreshLayout extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
+//        在加载中和刷新中的时候不去处理
+        if (STATUS_Current == STATUS_Loading || STATUS_Current == STATUS_Refreshing) {
+            return true;
+        }
 
         float y = event.getY();
         switch (event.getAction()) {
@@ -382,6 +389,20 @@ public class SimpleRefreshLayout extends ViewGroup {
         }, 400);
 
     }
+
+    /**
+     * 是否可以加载更过
+     *
+     * @param b
+     */
+    public void setCanLoadMore(boolean b) {
+        this.canLoadMore = b;
+    }
+
+    public void setCanPullDownFresh(boolean b) {
+        this.canPullDownFresh = b;
+    }
+
 
     // </editor-fold>
 

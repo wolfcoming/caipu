@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".LearnServiceActivity"/>
         <activity android:name=".ViewFilerActivity"/>
+        <activity android:name=".NestActivity"/>
 
         <service android:name=".service.MyService"/>
     </application>

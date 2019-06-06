@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 //        if (true) {
-//            startActivity(Intent(this, ViewFilerActivity::class.java))
+//            startActivity(Intent(this, NestActivity::class.java))
 //            return
 //        }
 

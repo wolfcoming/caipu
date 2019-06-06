@@ -19,25 +19,18 @@
     <com.example.learncomponent.fresh.SimpleRefreshLayout
             android:background="@color/bg_color"
             android:id="@+id/refreshLayout"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="30dp"
             android:layout_width="match_parent"
-            android:layout_height="500dp">
+            android:layout_height="match_parent">
 
 
 
         <android.support.v7.widget.RecyclerView
                 android:background="@color/colorPrimary"
                 android:id="@+id/rv"
-                android:layout_marginTop="30dp"
-                android:paddingBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
     </com.example.learncomponent.fresh.SimpleRefreshLayout>
 
-    <TextView
-            android:text="稍后速递费事发地见覅及计算机覅绝对是"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+
 </LinearLayout>
