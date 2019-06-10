@@ -3,13 +3,15 @@ package com.example.learncomponent
 import android.os.*
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import com.infoholdcity.basearchitecture.self_extends.toast
+import com.example.learncomponent.viewlearn.LoadMoreWrapperAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
 
+
+    val datas = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,63 +26,60 @@ class MainActivity : AppCompatActivity() {
 //        testScrollview();
 
     }
-
+    var i=0;
     private fun testRecycleView() {
         rv.layoutManager = LinearLayoutManager(this)
-        val myAdapter = SimpleAdapter()
+        val myAdapter = LoadMoreWrapperAdapter(SimpleAdapter2(datas))
         rv.adapter = myAdapter
-
         for (i in 0..40) {
-            myAdapter.addData(i.toString())
+            datas.add(i.toString())
         }
-        myAdapter.setOnItemClickListener { adapter, view, position ->
-            toast("测试$position")
-        }
-
         myAdapter.notifyDataSetChanged()
 
+        refreshLayout.setCanLoadMore(true)
         refreshLayout.setRefreshCallbackListener { refreshLayout ->
             Handler().postDelayed({
-
-                val datas = ArrayList<String>()
+                i=0;
+                datas.clear()
                 for (i in 0..30) {
                     datas.add("当前元素" + i)
                 }
-                myAdapter.setNewData(datas)
                 myAdapter.notifyDataSetChanged()
                 refreshLayout?.freshFinished()
             }, 2000)
         }
 
-        refreshLayout.setLoadCallbackListener { refreshLayout ->
-            Handler().postDelayed({
-                val datas = ArrayList<String>()
-                for (i in 0..5) {
-                    datas.add("新加元素" + i)
-                }
-                myAdapter.addData(datas)
-                myAdapter.notifyDataSetChanged()
-                refreshLayout?.loadFinished()
-            }, 1000)
 
-        }
+
+
+
+
+        myAdapter.setOnLoadListener(object : LoadMoreWrapperAdapter.OnLoadListener {
+            override fun onRetry() {
+
+            }
+
+            override fun onLoadMore() {
+                i++
+                Handler().postDelayed({
+                    if(i<3){
+                        for (i in 0..5) {
+                            datas.add("新增$i")
+                        }
+                        myAdapter.loadMoreEnd()
+                    }else{
+//                        for (i in 0..2) {
+//                            datas.add("新增$i")
+//                        }
+                        myAdapter.loadMoreComplete()
+                    }
+                }, 1000)
+            }
+
+        })
+
 
     }
 
-    private fun testScrollview() {
-        refreshLayout.setRefreshCallbackListener { refreshLayout ->
-            Handler().postDelayed({
-                val datas = ArrayList<String>()
-                refreshLayout?.freshFinished()
-            }, 2000)
-        }
-
-        refreshLayout.setLoadCallbackListener { refreshLayout ->
-            Handler().postDelayed({
-                refreshLayout?.loadFinished()
-            }, 1000)
-
-        }
-    }
 
 }

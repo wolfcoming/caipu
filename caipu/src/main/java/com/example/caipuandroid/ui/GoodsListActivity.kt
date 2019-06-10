@@ -78,6 +78,7 @@ class GoodsListActivity : BaseActiviy() {
         initMuiltStatusArea(refreshLayout)
         showLoadingStatus()
         getData(true)
+        refreshLayout.setEnableAutoLoadMore(false)
         refreshLayout.setOnLoadMoreListener { refreshLayout ->
             getData(false)
         }

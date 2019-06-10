@@ -24,20 +24,26 @@ class SingleProgressDialog : Dialog {
                 context = weakReference!!.get()
             }else{
                 weakReference = WeakReference(con)
+                context = weakReference!!.get()
             }
+
             if (singleProgressDialog != null && singleProgressDialog!!.isShowing) {
-//                singleProgressDialog!!.dismiss()
                 return
             }
             if (context == null || !(context is Activity)) {
                 return
             }
 
-            singleProgressDialog = SingleProgressDialog(context, R.style.CustomProgressDialog)
-            val view = LayoutInflater.from(context).inflate(R.layout.dialog_progress, null)
-            singleProgressDialog!!.setContentView(view)
-            val tvMsg = view.findViewById<TextView>(R.id.tv_msg)
-            tvMsg.text = message
+            var tvMsg:TextView? = null
+            if(singleProgressDialog == null){
+                singleProgressDialog = SingleProgressDialog(context, R.style.CustomProgressDialog)
+                val view = LayoutInflater.from(context).inflate(R.layout.dialog_progress, null)
+                singleProgressDialog!!.setContentView(view)
+                tvMsg = view.findViewById<TextView>(R.id.tv_msg)
+                tvMsg.text = message
+            }
+
+            tvMsg?.text = message
             singleProgressDialog!!.setCancelable(canCancel)
             singleProgressDialog!!.setCanceledOnTouchOutside(false)
             if (singleProgressDialog != null && !singleProgressDialog!!.isShowing && !context.isFinishing) {
@@ -46,7 +52,6 @@ class SingleProgressDialog : Dialog {
         }
 
         fun hideLoading() {
-
             if (singleProgressDialog != null && singleProgressDialog!!.isShowing) {
                 singleProgressDialog!!.dismiss()
             }

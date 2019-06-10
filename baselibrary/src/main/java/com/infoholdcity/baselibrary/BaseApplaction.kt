@@ -7,7 +7,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 //import com.didichuxing.doraemonkit.DoraemonKit
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.squareup.leakcanary.LeakCanary
+//import com.squareup.leakcanary.LeakCanary
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.infoholdcity.baselibrary.base.JRTTDensity
 import com.infoholdcity.baselibrary.view.muiltview.DefaultGloadAdapter
@@ -30,13 +30,13 @@ abstract class BaseApplaction : Application() {
     override fun onCreate() {
         super.onCreate()
         mContext = this
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            return;
+//        }
         initModuleApp(this)
         initModuleData(this)
-        LeakCanary.install(this);
-        initDoraemon()//调试工具
+//        LeakCanary.install(this);
+//        initDoraemon()//调试工具
         initArouter()
         initFreshStyle()
 

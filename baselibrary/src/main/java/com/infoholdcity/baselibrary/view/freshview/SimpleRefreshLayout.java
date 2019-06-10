@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.view.NestedScrollingParentHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -215,7 +216,7 @@ public class SimpleRefreshLayout extends ViewGroup {
                 }
                 //向下滑动
                 if (y - lastInterceptY > 0) {
-                    if (!canPullDownFresh) {
+                    if (!canPullDownFresh || mRefreshCallback == null) {
                         return false;
                     }
                     if (!canScrollDown(contentView)) {
@@ -230,7 +231,7 @@ public class SimpleRefreshLayout extends ViewGroup {
                     }
                 } else {
 
-                    if (!canLoadMore) {
+                    if (!canLoadMore || mLoadCallback == null) {
                         return false;
                     }
 
@@ -438,9 +439,12 @@ public class SimpleRefreshLayout extends ViewGroup {
         this.smoothScrollTo(destX, destY, 300);
     }
 
+    private NestedScrollingParentHelper mNestedScrollingParentHelper;
 
     private void init(Context context) {
         mScroller = new Scroller(context);
+        mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);
+
     }
 
 
@@ -469,4 +473,36 @@ public class SimpleRefreshLayout extends ViewGroup {
 
     // </editor-fold>
 
+
+//    @Override
+//    public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
+//        super.onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
+//        Klog.Companion.e("YYYY__onNestedScroll", "dyUnconsumed: " + dyUnconsumed);
+//
+//    }
+//
+//
+//    @Override
+//    public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
+//        mScroller.fling(getScrollX(),getScrollY(),0, (int) velocityY,0,0,-Integer.MAX_VALUE, Integer.MAX_VALUE);
+//        mScroller.computeScrollOffset();
+//        invalidate();
+//        return super.onNestedPreFling(target, velocityX, velocityY);
+//    }
+//
+//    @Override
+//    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
+//        super.onNestedPreScroll(target, dx, dy, consumed);
+//        Klog.Companion.e("YYYY__onNestedPreScroll", "dy: " + dy);
+////        //如果 滚动到了底部  且启动了自动加载 则去显示
+////        if(dy>0)
+////        if (!canScrollUp(contentView)) {
+////            smoothScrollTo(0, footerView.getMeasuredHeight() + 20, 100);
+////        }
+//    }
+//
+//    @Override
+//    public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
+//        return true;
+//    }
 }
