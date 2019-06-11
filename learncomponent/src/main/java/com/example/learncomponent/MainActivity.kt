@@ -3,7 +3,7 @@ package com.example.learncomponent
 import android.os.*
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import com.example.learncomponent.viewlearn.LoadMoreWrapperAdapter
+import com.infoholdcity.baselibrary.view.freshview.LoadMoreWrapperAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.collections.ArrayList
 
@@ -29,9 +29,10 @@ class MainActivity : AppCompatActivity() {
     var i=0;
     private fun testRecycleView() {
         rv.layoutManager = LinearLayoutManager(this)
-        val myAdapter = LoadMoreWrapperAdapter(SimpleAdapter2(datas))
+        val simpleAdapter2 = SimpleAdapter2(datas)
+        val myAdapter = LoadMoreWrapperAdapter(simpleAdapter2)
         rv.adapter = myAdapter
-        for (i in 0..40) {
+        for (i in 0..4) {
             datas.add(i.toString())
         }
         myAdapter.notifyDataSetChanged()
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             Handler().postDelayed({
                 i=0;
                 datas.clear()
-                for (i in 0..30) {
+                for (i in 0..3) {
                     datas.add("当前元素" + i)
                 }
                 myAdapter.notifyDataSetChanged()

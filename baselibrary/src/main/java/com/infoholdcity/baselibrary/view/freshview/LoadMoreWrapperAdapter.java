@@ -1,6 +1,5 @@
-package com.example.learncomponent.viewlearn;
+package com.infoholdcity.baselibrary.view.freshview;
 
-import android.arch.persistence.room.Delete;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +8,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static android.widget.ListPopupWindow.MATCH_PARENT;
@@ -54,7 +50,12 @@ public class LoadMoreWrapperAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 }
             }
         };
+        mInnerAdapter.getItemCount();
+
     }
+
+
+
 
     /**
      * 加载更多结束
@@ -64,6 +65,7 @@ public class LoadMoreWrapperAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         isLoading = false;
         isHaveStatesView = true;
         notifyItemChanged(getItemCount());
+        mLoadMoreScrollListener.autoRefreshFinish();
     }
 
 
@@ -75,6 +77,7 @@ public class LoadMoreWrapperAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         isHaveStatesView = true;
         isLoading = false;
         notifyItemChanged(getItemCount());
+        mLoadMoreScrollListener.autoRefreshFinish();
     }
 
     /**
@@ -87,6 +90,7 @@ public class LoadMoreWrapperAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         isLoadComplete = true;
         notifyItemChanged(getItemCount());
         loadCompleCount = getItemCount();
+        mLoadMoreScrollListener.autoRefreshFinish();
     }
 
     public void disableLoadMore() {
@@ -226,6 +230,8 @@ public class LoadMoreWrapperAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         mOnLoadListener = onLoadListener;
         return this;
     }
+
+
 
     /*
      *加载状态的ViewHolder的父类,需要自定义加载状态的viewHolder请继承该类
