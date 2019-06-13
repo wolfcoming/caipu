@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+    <com.infoholdcity.baselibrary.view.freshview.SimpleRefreshLayout
+            android:background="@color/bg_color"
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+        <android.support.v7.widget.RecyclerView
+                android:background="@color/colorPrimary"
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+
+
+        <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<TextView-->
+        <!--android:gravity="center"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:text="测试scrollview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"/>-->
+        <!--<TextView-->
+        <!--android:gravity="center"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:text="测试scrollview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"/>-->
+        <!--<TextView-->
+        <!--android:gravity="center"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:text="测试scrollview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"/>-->
+        <!--<TextView-->
+        <!--android:gravity="center"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:text="测试scrollview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"/>-->
+        <!--<TextView-->
+        <!--android:gravity="center"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:text="测试scrollview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"/>-->
+        <!--<TextView-->
+        <!--android:gravity="center"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:text="测试scrollview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"/>-->
+        <!--<TextView-->
+        <!--android:gravity="center"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:text="测试scrollview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"/>-->
+        <!--<TextView-->
+        <!--android:gravity="center"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:text="测试scrollview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"/>-->
+        <!--</LinearLayout>-->
+
+        <!--</ScrollView>-->
+
+    </com.infoholdcity.baselibrary.view.freshview.SimpleRefreshLayout>
+</android.support.constraint.ConstraintLayout>

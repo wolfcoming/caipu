@@ -1,7 +1,8 @@
-package com.example.learncomponent
+package com.example.learncomponent.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.example.learncomponent.R
 
 class SimpleAdapter : BaseQuickAdapter<String, BaseViewHolder> {
 

@@ -18,8 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".LearnServiceActivity"/>
-        <activity android:name=".ViewFilerActivity"/>
         <activity android:name=".NestActivity"/>
+        <activity android:name=".fresh.RefreshActivity"/>
 
         <service android:name=".service.MyService"/>
     </application>

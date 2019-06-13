@@ -4,7 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.example.learncomponent.R;
-import com.example.learncomponent.SimpleAdapter;
+import com.example.learncomponent.adapter.SimpleAdapter;
 import com.infoholdcity.baselibrary.base.BaseFragment;
 import org.jetbrains.annotations.NotNull;
 
