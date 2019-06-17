@@ -19,10 +19,11 @@ class MainActivity : AppCompatActivity() {
         rvMain.layoutManager = LinearLayoutManager(this)
         val simpleAdapter = SimpleAdapter()
         rvMain.adapter = simpleAdapter
-        var datas = HashMap<String, Class<*>>()
+        var datas = LinkedHashMap<String, Class<*>>()
         datas.put("刷新控件", RefreshActivity::class.java)
         datas.put("滑动嵌套_悬停布局", NestActivity::class.java)
         datas.put("仿微博视频列表拖动播放", VideoListAutoPlayActivity::class.java)
+        datas.put("Android Q 适配", ShipeiActivity::class.java)
 
 
         val lists = ArrayList<String>()

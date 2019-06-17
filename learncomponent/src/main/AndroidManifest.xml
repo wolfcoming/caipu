@@ -26,6 +26,7 @@
         <activity android:name=".activity.NestActivity"/>
         <activity android:name=".fresh.RefreshActivity"/>
         <activity android:name=".activity.VideoListAutoPlayActivity"/>
+        <activity android:name=".activity.ShipeiActivity"/>
 
         <service android:name=".service.MyService"/>
     </application>
