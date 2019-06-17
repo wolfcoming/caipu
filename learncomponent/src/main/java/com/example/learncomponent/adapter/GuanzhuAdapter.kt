@@ -1,11 +1,11 @@
-package com.example.kaiyan.adapter
+package com.example.learncomponent.adapter
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.example.kaiyan.R
-import com.example.kaiyan.remote.ItemBean
+import com.example.learncomponent.R
+import com.example.learncomponent.remote.ItemBean
 
 class GuanzhuAdapter : BaseQuickAdapter<ItemBean, BaseViewHolder> {
     override fun convert(helper: BaseViewHolder?, item: ItemBean?) {

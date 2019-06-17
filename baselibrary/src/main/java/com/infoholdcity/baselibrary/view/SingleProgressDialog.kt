@@ -22,7 +22,7 @@ class SingleProgressDialog : Dialog {
             var context: Context? = null
             if (weakReference != null) {
                 context = weakReference!!.get()
-            }else{
+            } else {
                 weakReference = WeakReference(con)
                 context = weakReference!!.get()
             }
@@ -34,8 +34,8 @@ class SingleProgressDialog : Dialog {
                 return
             }
 
-            var tvMsg:TextView? = null
-            if(singleProgressDialog == null){
+            var tvMsg: TextView? = null
+            if (singleProgressDialog == null) {
                 singleProgressDialog = SingleProgressDialog(context, R.style.CustomProgressDialog)
                 val view = LayoutInflater.from(context).inflate(R.layout.dialog_progress, null)
                 singleProgressDialog!!.setContentView(view)
@@ -47,7 +47,8 @@ class SingleProgressDialog : Dialog {
             singleProgressDialog!!.setCancelable(canCancel)
             singleProgressDialog!!.setCanceledOnTouchOutside(false)
             if (singleProgressDialog != null && !singleProgressDialog!!.isShowing && !context.isFinishing) {
-                singleProgressDialog!!.show()
+                if (context != null)
+                    singleProgressDialog!!.show()
             }
         }
 

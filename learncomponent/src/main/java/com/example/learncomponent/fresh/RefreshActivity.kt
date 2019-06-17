@@ -1,11 +1,9 @@
 package com.example.learncomponent.fresh
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import com.example.learncomponent.NestActivity
 import com.example.learncomponent.R
 import com.example.learncomponent.adapter.SimpleAdapter2
 import com.infoholdcity.baselibrary.view.freshview.LoadMoreWrapperAdapter

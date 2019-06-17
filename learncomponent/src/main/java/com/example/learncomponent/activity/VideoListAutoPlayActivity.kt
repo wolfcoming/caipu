@@ -1,34 +1,32 @@
-package com.example.kaiyan
+package com.example.learncomponent.activity
 
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.ViewGroup
-import com.example.kaiyan.adapter.GuanzhuAdapter
+import android.view.ViewTreeObserver
+import android.widget.RelativeLayout
 import com.example.kaiyan.service.IKaiyanService
 import com.example.kaiyan.service.KaiyanServiceImpl
+import com.example.learncomponent.R
+import com.example.learncomponent.adapter.GuanzhuAdapter
+import com.example.learncomponent.remote.ItemBean
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.excute
 import com.infoholdcity.basearchitecture.self_extends.toast
-import android.support.v7.widget.RecyclerView.*
-import android.view.View
-import android.view.ViewTreeObserver
-import android.widget.RelativeLayout
-import com.example.kaiyan.remote.ItemBean
-import kotlinx.android.synthetic.main.activity_kaiyan.*
+import com.infoholdcity.baselibrary.base.BaseActiviy
+import kotlinx.android.synthetic.main.activity_video_list.*
 
-
-class KaiYanAcitivity : AppCompatActivity() {
+class VideoListAutoPlayActivity :BaseActiviy() {
 
     var adapter: GuanzhuAdapter? = null
     var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kaiyan)
+        setContentView(R.layout.activity_video_list)
         recycleView.layoutManager = linearLayoutManager
         adapter = GuanzhuAdapter()
         recycleView.adapter = adapter
@@ -40,7 +38,7 @@ class KaiYanAcitivity : AppCompatActivity() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 when (newState) {
-                    SCROLL_STATE_IDLE //滚动停止
+                    RecyclerView.SCROLL_STATE_IDLE //滚动停止
                     -> {
                         val first = linearLayoutManager.findFirstVisibleItemPosition()
                         val last = linearLayoutManager.findLastVisibleItemPosition()
@@ -110,4 +108,5 @@ class KaiYanAcitivity : AppCompatActivity() {
         }, 300)
 
     }
+
 }

@@ -1,4 +1,4 @@
-package com.example.learncomponent;
+package com.example.learncomponent.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.learncomponent.R;
 import com.example.learncomponent.adapter.SimpleAdapter;
 import com.example.learncomponent.fragment.FragmentA;
 

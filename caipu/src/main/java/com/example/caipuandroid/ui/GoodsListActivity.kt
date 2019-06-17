@@ -8,7 +8,9 @@ import android.os.Handler
 import android.os.Message
 import android.preference.PreferenceManager
 import android.support.v7.widget.LinearLayoutManager
+import android.text.method.KeyListener
 import android.util.Log
+import android.view.inputmethod.EditorInfo
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.baidu.aip.asrwakeup3.core.inputstream.InFileStream
@@ -41,9 +43,10 @@ import java.lang.ref.SoftReference
 
 @Route(path = ACT_CAIPU_LIST)
 class GoodsListActivity : BaseActiviy() {
-    companion object{
-        val handler =  Handler()
+    companion object {
+        val handler = Handler()
     }
+
     val service by lazy { IServiceNetImpl() }
     val adapter = GoodsListAdapter()
     var pageSize = 15
@@ -56,6 +59,16 @@ class GoodsListActivity : BaseActiviy() {
         setContentView(R.layout.activity_goodslist)
 
         initYuyin()
+        etName.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                showLoadingStatus()
+                name = etName.text.toString()
+                getData(true)
+                return@setOnEditorActionListener true
+            }
+
+            return@setOnEditorActionListener false
+        }
 
         name = intent.getStringExtra("name")
         val showKeyBoard = intent.getBooleanExtra("showKeyBoard", false)
@@ -106,17 +119,15 @@ class GoodsListActivity : BaseActiviy() {
         iv_audio.setOnClickListener {
             RxPermissions(this).request(Manifest.permission.RECORD_AUDIO)
                 .subscribe {
-                    if(it){
+                    if (it) {
                         showYuyin()
-                    }else{
+                    } else {
                         toast("请开启语音权限否则无法使用")
                     }
                 }
 
         }
     }
-
-
 
 
     protected var myRecognizer: MyRecognizer? = null
@@ -186,7 +197,6 @@ class GoodsListActivity : BaseActiviy() {
         super.onDestroy()
 
 
-
     }
 
     @SuppressLint("CheckResult")
@@ -194,7 +204,7 @@ class GoodsListActivity : BaseActiviy() {
         if (isFresh) {
             pageNumber = 1
         }
-       service.getGreensList(pageSize, pageNumber, name)
+        service.getGreensList(pageSize, pageNumber, name)
             .excute()
             .subscribe({
                 showLoadSuccessStatus()
