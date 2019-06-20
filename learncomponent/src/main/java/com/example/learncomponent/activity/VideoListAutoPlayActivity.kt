@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SimpleItemAnimator
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
@@ -20,7 +21,7 @@ import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import kotlinx.android.synthetic.main.activity_video_list.*
 
-class VideoListAutoPlayActivity :BaseActiviy() {
+class VideoListAutoPlayActivity : BaseActiviy() {
 
     var adapter: GuanzhuAdapter? = null
     var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this)
@@ -30,28 +31,47 @@ class VideoListAutoPlayActivity :BaseActiviy() {
         recycleView.layoutManager = linearLayoutManager
         adapter = GuanzhuAdapter()
         recycleView.adapter = adapter
+//        解决刷新闪动问题
+        (recycleView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
         getData()
 
 
+        var lastPostion = -1
         recycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 when (newState) {
                     RecyclerView.SCROLL_STATE_IDLE //滚动停止
                     -> {
+
                         val first = linearLayoutManager.findFirstVisibleItemPosition()
                         val last = linearLayoutManager.findLastVisibleItemPosition()
+                        //判断上次播放的位置是否在可见范围内，如果不在则先去关闭上次播放
+                        if (lastPostion != -1 && !(lastPostion in first..last)) {
+                            Klog.e(contents = "lastPostion： " + lastPostion)
+                            (adapter?.data!![lastPostion] as ItemBean).isSelect = false
+                            adapter?.notifyItemChanged(lastPostion)
+                        }
                         for (i in first..last) {
+                            Klog.e(contents = "可见范围： " + i)
                             val view = linearLayoutManager.findViewByPosition(i)
                             if (view != null) {
-                                (adapter?.data!![i] as ItemBean).isSelect = ifCenter(view)
+                                val ifCenter = ifCenter(view)
+                                (adapter?.data!![i] as ItemBean).isSelect = ifCenter
+                                if (ifCenter) {
+                                    lastPostion = i //记录上次播发的位置  在下次播放器关闭
+                                }
+
                             }
                         }
-//                        adapter?.notifyItemRangeChanged(first, last - first + 1)
-                        adapter?.notifyDataSetChanged()
+                        adapter?.notifyItemRangeChanged(first, last - first + 1)
                     }
                 }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
             }
         })
 
