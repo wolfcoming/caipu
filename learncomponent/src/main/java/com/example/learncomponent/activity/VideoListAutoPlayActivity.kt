@@ -65,6 +65,7 @@ class VideoListAutoPlayActivity : BaseActiviy() {
 
                             }
                         }
+
                         adapter?.notifyItemRangeChanged(first, last - first + 1)
                     }
                 }
