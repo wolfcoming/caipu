@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
         datas.put("刷新控件", RefreshActivity::class.java)
         datas.put("滑动嵌套_悬停布局", NestActivity::class.java)
         datas.put("仿微博视频列表拖动播放", VideoListAutoPlayActivity::class.java)
-        datas.put("Android Q 适配", ShipeiActivity::class.java)
+        datas.put("自定义LayoutManage", LayoutmanageActivity::class.java)
+        datas.put("Android Q 适配 未做", ShipeiActivity::class.java)
 
 
         val lists = ArrayList<String>()

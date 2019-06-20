@@ -53,19 +53,24 @@ class VideoListAutoPlayActivity : BaseActiviy() {
                             (adapter?.data!![lastPostion] as ItemBean).isSelect = false
                             adapter?.notifyItemChanged(lastPostion)
                         }
+
+                        var selectPostion = -1
                         for (i in first..last) {
-                            Klog.e(contents = "可见范围： " + i)
                             val view = linearLayoutManager.findViewByPosition(i)
                             if (view != null) {
                                 val ifCenter = ifCenter(view)
                                 (adapter?.data!![i] as ItemBean).isSelect = ifCenter
                                 if (ifCenter) {
-                                    lastPostion = i //记录上次播发的位置  在下次播放器关闭
+                                    selectPostion = i //记录上次播发的位置  在下次播放器关闭
                                 }
-
                             }
                         }
+//                        待处理细节
+//                        1. 如果正好停在了间隙 则去寻找最近的item
+//                        2. 如果滚动到了底部 则让底部去播放
 
+
+                        lastPostion = selectPostion
                         adapter?.notifyItemRangeChanged(first, last - first + 1)
                     }
                 }
@@ -94,7 +99,6 @@ class VideoListAutoPlayActivity : BaseActiviy() {
     fun getData() {
         service.getGuanzhuList().excute()
             .subscribe {
-                toast(it.size.toString())
                 Klog.e(contents = it)
                 adapter!!.setNewData(it)
 
