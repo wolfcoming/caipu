@@ -1,0 +1,121 @@
+{
+    "took": 9633,
+    "timed_out": false,
+    "_shards": {
+        "total": 5,
+        "successful": 5,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": 15767634,
+        "max_score": 8.100071,
+        "hits": [
+            {
+                "_index": "gps_real_time",
+                "_type": "doc",
+                "_id": "deeafb18b7fb11e8a65b20040fe6f889",
+                "_score": 8.100071,
+                "_source": {
+                    "accstatus": "1",
+                    "alarm": "0",
+                    "branum": "吉BE5125",
+                    "direction": "251",
+                    "expirytime": null,
+                    "gpslatitude": "36.213516",
+                    "gpslongitude": "117.739048",
+                    "id": "deeafb18b7fb11e8a65b20040fe6f889",
+                    "isexpiry": false,
+                    "nowRow": "BCAA4245353132350000000000000000000000000002120200000024000E0907E210363907048E280228930C000000000000001700FB0093000C000300000000",
+                    "oilquantity": null,
+                    "point": {
+                        "coordinates": [
+                            117.739048,
+                            36.213516
+                        ],
+                        "type": "Point"
+                    },
+                    "rectifyinglatitude": null,
+                    "rectifyinglongitude": null,
+                    "simcode": null,
+                    "speed": "0",
+                    "status": "11000000000000000011",
+                    "temperature": null,
+                    "time": "2018-09-14 16:54:57",
+                    "todaymileage": null,
+                    "totalmileage": "23"
+                }
+            },
+            {
+                "_index": "gps_real_time",
+                "_type": "doc",
+                "_id": "f0ba247fb7fb11e8a65b20040fe6f889",
+                "_score": 8.100071,
+                "_source": {
+                    "accstatus": "1",
+                    "alarm": "0",
+                    "branum": "吉BE5125",
+                    "direction": "251",
+                    "expirytime": null,
+                    "gpslatitude": "36.213516",
+                    "gpslongitude": "117.739048",
+                    "id": "f0ba247fb7fb11e8a65b20040fe6f889",
+                    "isexpiry": false,
+                    "nowRow": "BCAA4245353132350000000000000000000000000002120200000024000E0907E210371B07048E280228930C000000000000001700FB0093000C000300000000",
+                    "oilquantity": null,
+                    "point": {
+                        "coordinates": [
+                            117.739048,
+                            36.213516
+                        ],
+                        "type": "Point"
+                    },
+                    "rectifyinglatitude": null,
+                    "rectifyinglongitude": null,
+                    "simcode": null,
+                    "speed": "0",
+                    "status": "11000000000000000011",
+                    "temperature": null,
+                    "time": "2018-09-14 16:55:27",
+                    "todaymileage": null,
+                    "totalmileage": "23"
+                }
+            },
+            {
+                "_index": "gps_real_time",
+                "_type": "doc",
+                "_id": "8754c9dab7fc11e8a65b20040fe6f889",
+                "_score": 8.100071,
+                "_source": {
+                    "accstatus": "1",
+                    "alarm": "0",
+                    "branum": "吉BE5125",
+                    "direction": "251",
+                    "expirytime": null,
+                    "gpslatitude": "36.213516",
+                    "gpslongitude": "117.739048",
+                    "id": "8754c9dab7fc11e8a65b20040fe6f889",
+                    "isexpiry": false,
+                    "nowRow": "BCAA4245353132350000000000000000000000000002120200000024000E0907E2103B2A07048E280228930C000000000000001700FB0093000C000300000000",
+                    "oilquantity": null,
+                    "point": {
+                        "coordinates": [
+                            117.739048,
+                            36.213516
+                        ],
+                        "type": "Point"
+                    },
+                    "rectifyinglatitude": null,
+                    "rectifyinglongitude": null,
+                    "simcode": null,
+                    "speed": "0",
+                    "status": "11000000000000000011",
+                    "temperature": null,
+                    "time": "2018-09-14 16:59:42",
+                    "todaymileage": null,
+                    "totalmileage": "23"
+                }
+            }
+        ]
+    }
+}

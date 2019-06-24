@@ -7,4 +7,4 @@ include ':caipu',
         ':componentbase',
         ':userCentercomponent',
         ':baidu_yuyin_core',
-        ':learncomponent'
+        ':learncomponent', ':android_webview'

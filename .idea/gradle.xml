@@ -8,6 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/android_webview" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/baidu_yuyin_core" />
             <option value="$PROJECT_DIR$/baselibrary" />
