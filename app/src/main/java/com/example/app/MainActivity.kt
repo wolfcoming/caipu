@@ -2,16 +2,19 @@ package com.example.app
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v4.app.Fragment
+import android.util.DisplayMetrics
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.example.componentbase.ServiceFactory
 import com.example.componentbase.eventbus.SlideMenuEvent
 import com.infoholdcity.basearchitecture.self_extends.Klog
+import com.infoholdcity.basearchitecture.self_extends.log
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.utils.ColorUtils
@@ -32,9 +35,11 @@ class MainActivity : BaseActiviy() {
     private var shopFragment: Fragment? = null
     private var caipuHome: Fragment? = null
     private var tempFragment: Fragment? = null
+    private var collectFragment: Fragment? = null
     val fragments = ArrayList<Fragment>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        "onCreate".log()
         setContentView(R.layout.activity_main)
         StatusBarHelper.setStatusBar(this@MainActivity, false, false)
         initSlidingNav(savedInstanceState)
@@ -45,12 +50,15 @@ class MainActivity : BaseActiviy() {
             tempFragment = supportFragmentManager.findFragmentByTag("TempFragment")
             shopFragment = supportFragmentManager.findFragmentByTag("ShopFragment")
             minFragment = supportFragmentManager.findFragmentByTag("MinFragment")
-
+            collectFragment = supportFragmentManager.findFragmentByTag("CollectFragment")
         }
         initBottomNavBar()
 
         permissions()
     }
+
+
+
 
     @SuppressLint("CheckResult")
     private fun permissions() {
@@ -149,6 +157,11 @@ class MainActivity : BaseActiviy() {
 
         }
 
+
+        if(collectFragment == null){
+            collectFragment = ServiceFactory.instance.getCaipuService().getCollectFragment(null,"")
+        }
+
         if (minFragment == null) {
             minFragment = ServiceFactory.instance.getUsercenterService()
                 .getMineFragment(null, "")
@@ -156,7 +169,7 @@ class MainActivity : BaseActiviy() {
 
         fragments.add(caipuHome!!)
         fragments.add(categoryFragment!!)
-        fragments.add(tempFragment!!)
+        fragments.add(collectFragment!!)
         fragments.add(minFragment!!)
 
 
@@ -167,7 +180,7 @@ class MainActivity : BaseActiviy() {
                 when (i) {
                     0 -> tag = "CaipuHome"
                     1 -> tag = "CategoryFragment"
-                    2 -> tag = "TempFragment"
+                    2 -> tag = "CollectFragment"
                     3 -> tag = "MinFragment"
                 }
                 beginTransaction.add(R.id.hom_coantiner, f, tag).hide(f)
@@ -196,7 +209,7 @@ class MainActivity : BaseActiviy() {
             .addItem(
                 BottomNavigationItem(
                     R.drawable.app_icon_chat_press,
-                    "测试"
+                    "收藏"
                 ).setInactiveIconResource(R.drawable.app_icon_chat)
             )
             .addItem(
@@ -225,8 +238,5 @@ class MainActivity : BaseActiviy() {
 
             }
         })
-
-
     }
-
 }

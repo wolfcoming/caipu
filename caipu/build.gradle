@@ -58,7 +58,7 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$room_version"
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
     implementation "android.arch.persistence.room:rxjava2:$room_version"
-
+    kapt "android.arch.persistence.room:compiler:$room_version"
     kapt rootProject.ext.dependencies.arouter_compiler
     implementation project(':baidu_yuyin_core')
     api rootProject.ext.dependencies.banner

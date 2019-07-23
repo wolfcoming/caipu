@@ -1,5 +1,6 @@
 package com.example.caipuandroid.ui
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.widget.NestedScrollView
@@ -8,6 +9,8 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.Glide
 import com.example.caipuandroid.R
+import com.example.caipuandroid.db.AppDatabase
+import com.example.caipuandroid.db.CollectEntity
 import com.example.caipuandroid.remote.URLConfig
 import com.example.caipuandroid.service.ICaipuService
 import com.example.caipuandroid.service.impl.IServiceNetImpl
@@ -18,10 +21,15 @@ import com.example.caipuandroid.ui.vo.Greens
 import com.example.caipuandroid.ui.vo.MakesBean
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.excute
+import com.infoholdcity.basearchitecture.self_extends.log
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
 import com.infoholdcity.baselibrary.config.ARouterConfig
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_goodsdetail.*
+import kotlin.concurrent.thread
 
 
 @Route(path = ARouterConfig.ACT_CAIPU_DETAIL)
@@ -30,6 +38,9 @@ class GoodsDetailActivity : BaseActiviy() {
     val adapter = DetailBurdenAdapter(burdenData)
     val makeAdapter = DetailMakesAdapter()
     val service: ICaipuService by lazy { IServiceNetImpl() }
+
+    var item: Greens? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goodsdetail)
@@ -71,10 +82,12 @@ class GoodsDetailActivity : BaseActiviy() {
             }
         })
 
+
     }
 
-
+    var subscribe: Disposable? = null
     private fun dealData(it: Greens) {
+        item = it
         if (it.user != null) {
             llUserInfo.visibility = View.VISIBLE
             it.user!!.let {
@@ -110,7 +123,6 @@ class GoodsDetailActivity : BaseActiviy() {
         burdenData.clear()
         burdenData.addAll(burdenList)
         adapter.notifyDataSetChanged()
-//        adapter.setNewData(burdenList)
         var makesList: ArrayList<MakesBean> = ArrayList()
         for (item in it.makes!!.split("||")) {
             if (item.isNotBlank() and item.isNotEmpty()) {
@@ -121,5 +133,54 @@ class GoodsDetailActivity : BaseActiviy() {
         }
         makeAdapter.setNewData(makesList)
 
+        //处理收藏逻辑
+         subscribe = AppDatabase.getCollectDao().getCollectByid(it.id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                if (it != null) {
+                    btnCollect.setText("已收藏")
+                    btnCollect.isClickable = false
+                } else {
+                    btnCollect.setText("收藏")
+                    btnCollect.isClickable = true
+                }
+            }, {
+                toast(it.message!!)
+            })
+
+
+
+        btnCollect.setOnClickListener {
+            thread {
+                val collectEntity = CollectEntity()
+                collectEntity.id = item?.id!!
+                collectEntity.brief = item?.brief
+                collectEntity.burden = item?.burden
+                collectEntity.collect = item?.collect!!
+                collectEntity.img = item?.img
+                collectEntity.makes = item?.makes
+                collectEntity.name = item?.name
+                collectEntity.tips = item?.tips
+                collectEntity.views = item?.views!!
+                AppDatabase.getCollectDao().insertCollectGreen(collectEntity)
+
+                runOnUiThread {
+                    btnCollect.setText("已收藏")
+                    btnCollect.isClickable = false
+                }
+            }
+        }
     }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        subscribe?.let {
+            it.dispose()
+        }
+
+    }
+
+
 }

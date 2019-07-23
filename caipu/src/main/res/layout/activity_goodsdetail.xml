@@ -21,15 +21,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"/>
 
-            <TextView
-                    android:textSize="24dp"
-                    android:textStyle="bold"
-                    android:id="@+id/tvName"
-                    android:textColor="#000"
-                    android:layout_margin="10dp"
-                    android:text="-----"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:textSize="24dp"
+                        android:textStyle="bold"
+                        android:id="@+id/tvName"
+                        android:textColor="#000"
+                        android:layout_margin="10dp"
+                        android:text="-----"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <Button
+                        android:id="@+id/btnCollect"
+                        android:layout_alignParentRight="true"
+                        android:text="收藏"
+                        android:layout_marginRight="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
 
             <LinearLayout
                     android:layout_width="match_parent"

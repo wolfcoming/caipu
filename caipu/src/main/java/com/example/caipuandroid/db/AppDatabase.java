@@ -6,11 +6,13 @@ import android.arch.persistence.room.RoomDatabase;
 import com.infoholdcity.baselibrary.BaseApplaction;
 
 
-@Database(entities = {CategoryEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {CategoryEntity.class, CollectEntity.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
 
     public abstract CaipuDao CaipuDao();
+
+    public abstract CollectDao CollectDao();
 
     private static AppDatabase INSTANCE;
     private static final Object sLock = new Object();
@@ -18,12 +20,11 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getInstance() {
         synchronized (sLock) {
             if (INSTANCE == null) {
-                INSTANCE =
-                        Room.databaseBuilder(BaseApplaction.Companion.getContext(),
-                                AppDatabase.class, "test.db")
-                                .fallbackToDestructiveMigration() //强制升级 删除之前数据库数据
+                INSTANCE = Room.databaseBuilder(BaseApplaction.Companion.getContext(),
+                        AppDatabase.class, "test.db")
+                        .fallbackToDestructiveMigration() //强制升级 删除之前数据库数据
 //                                .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4)//数据库升级
-                                .build();
+                        .build();
 
             }
             return INSTANCE;
@@ -33,6 +34,10 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public static CaipuDao getCaipuDao() {
         return getInstance().CaipuDao();
+    }
+
+    public static CollectDao getCollectDao() {
+        return getInstance().CollectDao();
     }
 
 }

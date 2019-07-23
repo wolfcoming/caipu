@@ -14,4 +14,8 @@ interface ICaipuService {
 
     //获取菜谱首页界面
     fun getCaipuHomeFragment(bundle: Bundle?,tag: String):Fragment
+
+
+    //获取收藏界面
+    fun  getCollectFragment(bundle: Bundle?,tag: String):Fragment
 }

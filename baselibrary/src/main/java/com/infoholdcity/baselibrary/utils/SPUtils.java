@@ -25,7 +25,7 @@ public final class SPUtils {
      * @return {@link SPUtils}
      */
     public static SPUtils getInstance(Context context) {
-        return getInstance("baseArchitecture", context);
+        return getInstance("bjyhSP", context);
     }
 
     /**
@@ -35,7 +35,7 @@ public final class SPUtils {
      * @return {@link SPUtils}
      */
     public static SPUtils getInstance(String spName, Context context) {
-        if (isSpace(spName)) spName = "ztsSP";
+        if (isSpace(spName)) spName = "bjyhSP";
         SPUtils spUtils = (SPUtils) SP_UTILS_MAP.get(spName);
         if (spUtils == null) {
             spUtils = new SPUtils(spName, context);

@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     private var mWebView: X5WebView? = null
     private var mViewParent: ViewGroup? = null
     private val mHomeUrl = "file:///android_asset/dist2/index.html";
-    private var mHomeUrl2 = "http://192.168.43.224:8080/#/pageOne";
+    private var mHomeUrl2 = "http://app.html5.qq.com/navi/index";
     private var mErrorUrl = "http://192.168.1.112:8080/#/errorpage";
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
