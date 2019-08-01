@@ -20,7 +20,7 @@ class CategoryPresenter() : BasePresenter<CategoryContract.View>(), CategoryCont
                 mRootView?.showCategory(it!!)
             }, {
                 //获取不到则使用本地数据库
-
+                mRootView?.onError(ExceptionHandle.handleException(it))
 //                mRootView?.onError(ExceptionHandle.handleException(it))
             }, {
                 mRootView?.hideLoading()

@@ -134,16 +134,14 @@ class GoodsDetailActivity : BaseActiviy() {
         makeAdapter.setNewData(makesList)
 
         //处理收藏逻辑
-         subscribe = AppDatabase.getCollectDao().getCollectByid(it.id)
+        subscribe = AppDatabase.getCollectDao().getCollectByid(it.id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 if (it != null) {
-                    btnCollect.setText("已收藏")
-                    btnCollect.isClickable = false
+                    btnCollect.setText("取消收藏")
                 } else {
                     btnCollect.setText("收藏")
-                    btnCollect.isClickable = true
                 }
             }, {
                 toast(it.message!!)
@@ -152,24 +150,35 @@ class GoodsDetailActivity : BaseActiviy() {
 
 
         btnCollect.setOnClickListener {
-            thread {
-                val collectEntity = CollectEntity()
-                collectEntity.id = item?.id!!
-                collectEntity.brief = item?.brief
-                collectEntity.burden = item?.burden
-                collectEntity.collect = item?.collect!!
-                collectEntity.img = item?.img
-                collectEntity.makes = item?.makes
-                collectEntity.name = item?.name
-                collectEntity.tips = item?.tips
-                collectEntity.views = item?.views!!
-                AppDatabase.getCollectDao().insertCollectGreen(collectEntity)
+            if (btnCollect.text.trim().equals("收藏")) {
+                thread {
+                    val collectEntity = CollectEntity()
+                    collectEntity.id = item?.id!!
+                    collectEntity.brief = item?.brief
+                    collectEntity.burden = item?.burden
+                    collectEntity.collect = item?.collect!!
+                    collectEntity.img = item?.img
+                    collectEntity.makes = item?.makes
+                    collectEntity.name = item?.name
+                    collectEntity.tips = item?.tips
+                    collectEntity.views = item?.views!!
+                    AppDatabase.getCollectDao().insertCollectGreen(collectEntity)
 
-                runOnUiThread {
-                    btnCollect.setText("已收藏")
-                    btnCollect.isClickable = false
+                    runOnUiThread {
+                        btnCollect.setText("取消收藏")
+                    }
+                }
+            } else if (btnCollect.text.trim().equals("取消收藏")) {
+                thread {
+                    val lines = AppDatabase.getCollectDao().deletCollectByid(item?.id!!)
+                    if(lines>0){
+                        runOnUiThread {
+                            btnCollect.setText("收藏")
+                        }
+                    }
                 }
             }
+
         }
     }
 

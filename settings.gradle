@@ -1,4 +1,4 @@
-include ':caipu',
+include ':caipu', ':mm94',
         ':baselibrary',
         ':takephoto_library',
         ':shopingmodule',

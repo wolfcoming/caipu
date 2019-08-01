@@ -3,6 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.example.app">
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
@@ -36,10 +37,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".test.TcpClient"/>
-        <activity android:name=".test.bluetooth.BluetoothActivity">
 
-        </activity>
-        <activity android:name=".test.bluetooth.BluetoothChat"/>
     </application>
 
 </manifest>

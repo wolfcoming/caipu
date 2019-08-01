@@ -5,7 +5,6 @@ import android.view.View
 import com.example.caipuandroid.R
 import com.example.caipuandroid.db.AppDatabase
 import com.example.caipuandroid.ui.adapter.CollectAdapter
-import com.infoholdcity.basearchitecture.self_extends.log
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,15 +18,21 @@ class CollectFragment : BaseFragment() {
     }
 
     var subscribe: Disposable? = null
+    var adapter: CollectAdapter? = null
     override fun initView(anchor: View) {
+
         mRv.layoutManager = LinearLayoutManager(context)
-        val adapter = CollectAdapter()
+        adapter = CollectAdapter()
         mRv.adapter = adapter
+        getData()
+    }
+
+    private fun getData() {
         subscribe = AppDatabase.getCollectDao().getAllCollectGreen()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                adapter.setNewData(it)
+                adapter?.setNewData(it)
             }, {
                 toast(it.message!!)
             })
