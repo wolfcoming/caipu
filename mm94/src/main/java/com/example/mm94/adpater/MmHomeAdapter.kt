@@ -15,9 +15,10 @@ class MmHomeAdapter : BaseQuickAdapter<MmBeanVo, BaseViewHolder> {
         helper?.setText(R.id.tvTitle, item?.title)
         val imgUrl = item?.thumimg
         val ivImg = helper?.getView<ImageView>(R.id.ivImg)
-        Glide.with(ivImg!!.context).load(imgUrl)
+        Glide.with(ivImg!!.context)
+            .load(imgUrl)
             .into(ivImg)
-            .onLoadFailed(helper?.itemView.context.getDrawable(R.drawable.loadfail))
+
 
     }
 

@@ -23,7 +23,7 @@ ext {
             "background"                : 'com.noober.background:core:1.3.4',
             "debug_db"                  : 'com.amitshekhar.android:debug-db:1.0.4',
             "Luban"                     : 'top.zibin:Luban:1.1.8',
-            "glide"                     : 'com.github.bumptech.glide:glide:4.6.1',
+            "glide"                     : 'com.github.bumptech.glide:glide:4.9.0',
             "zxing_library"             : 'cn.yipianfengye.android:zxing-library:2.2',
             "smarttablayout"            : 'com.ogaclejapan.smarttablayout:library:1.7.0@aar',
             "smarttablayout_utils"      : 'com.ogaclejapan.smarttablayout:utils-v4:1.7.0@aar',

@@ -75,6 +75,10 @@ dependencies {
         runtimeOnly project(':userCentercomponent')
     }
 
+    if (!rootProject.ext.mm94RunAlone.toBoolean()) {
+        runtimeOnly project(':mm94')
+    }
+
     //依赖第三方
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation rootProject.ext.dependencies.appcompat_v7

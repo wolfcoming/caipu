@@ -1,4 +1,5 @@
-include ':caipu', ':mm94',
+include ':caipu',
+        ':mm94',
         ':baselibrary',
         ':takephoto_library',
         ':shopingmodule',
@@ -7,4 +8,5 @@ include ':caipu', ':mm94',
         ':componentbase',
         ':userCentercomponent',
         ':baidu_yuyin_core',
-        ':learncomponent', ':android_webview'
+        ':learncomponent',
+        ':android_webview'

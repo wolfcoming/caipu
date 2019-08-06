@@ -41,6 +41,7 @@ class GoodsDetailActivity : BaseActiviy() {
 
     var item: Greens? = null
 
+    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goodsdetail)
@@ -57,30 +58,6 @@ class GoodsDetailActivity : BaseActiviy() {
             }, {
                 toast(it.message!!)
             })
-
-
-
-
-
-        toobar.alpha = 0f
-        scrollview.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener {
-            override fun onScrollChange(
-                v: NestedScrollView,
-                scrollX: Int,
-                scrollY: Int,
-                oldScrollX: Int,
-                oldScrollY: Int
-            ) {
-                if (scrollY <= tvName.y) {
-                    val rate: Float = scrollY / tvName.y
-                    toobar.alpha = rate
-                } else {
-                    if (toobar.alpha != 1f) {
-                        toobar.alpha = 1f
-                    }
-                }
-            }
-        })
 
 
     }
@@ -171,7 +148,7 @@ class GoodsDetailActivity : BaseActiviy() {
             } else if (btnCollect.text.trim().equals("取消收藏")) {
                 thread {
                     val lines = AppDatabase.getCollectDao().deletCollectByid(item?.id!!)
-                    if(lines>0){
+                    if (lines > 0) {
                         runOnUiThread {
                             btnCollect.setText("收藏")
                         }
@@ -180,6 +157,35 @@ class GoodsDetailActivity : BaseActiviy() {
             }
 
         }
+
+
+        val position = IntArray(2)
+        tvName.getLocationOnScreen(position)
+        toobar.alpha = 0f
+        scrollview.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener {
+            override fun onScrollChange(
+                v: NestedScrollView,
+                scrollX: Int,
+                scrollY: Int,
+                oldScrollX: Int,
+                oldScrollY: Int
+            ) {
+
+                if (scrollY <= position[1]) {
+                    val rate: Float = scrollY * 1f / position[1]
+                    scrollY.log()
+                    position[1].log()
+                    rate.log()
+                    toobar.alpha = rate
+                } else {
+                    if (toobar.alpha != 1f) {
+                        toobar.alpha = 1f
+                    }
+                }
+            }
+        })
+
+
     }
 
 

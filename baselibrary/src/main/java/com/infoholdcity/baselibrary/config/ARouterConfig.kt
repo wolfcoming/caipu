@@ -1,11 +1,6 @@
 package com.infoholdcity.baselibrary.config
 
-/**
- *    author : JOJO
- *    e-mail : 18510829974@163.com
- *    date   : 2018/12/24 4:27 PM
- *    desc   : base-路由页面常量配置 注意：路径至少需要两级 {/xx/xx}
- */
+
 class ARouterConfig {
     companion object {
         //菜谱组件
@@ -28,6 +23,9 @@ class ARouterConfig {
         //通用actvity  嵌套fragment
         const val  ACT_COMMON = "/base/ACT_COMMON"
 
+
+        //94mm
+        const val ACT_MM94HOME = "/mm94/ACT_MM94HOME"
 
     }
 

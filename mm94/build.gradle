@@ -1,18 +1,31 @@
-apply plugin: 'com.android.application'
+if(rootProject.ext.mm94RunAlone.toBoolean()){
+    apply plugin: 'com.android.application'
+}else{
+    apply plugin: 'com.android.library'
+}
+
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
 
     defaultConfig {
-        applicationId "com.example.mm94"
+        if(rootProject.ext.mm94RunAlone.toBoolean()){
+            applicationId "com.example.mm94"
+        }
+
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
-
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -22,10 +35,20 @@ android {
         }
     }
 
+    sourceSets{
+        main {
+            // 单独调试与集成调试时使用不同的 AndroidManifest.xml 文件
+            if (rootProject.ext.mm94RunAlone.toBoolean()) {
+                manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
 }
 
 dependencies {
     implementation project(':componentbase')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
+    kapt rootProject.ext.dependencies.arouter_compiler
 }

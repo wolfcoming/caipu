@@ -8,15 +8,20 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
+import com.alibaba.android.arouter.launcher.ARouter
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
+import com.example.app.adapter.MenuAdapter
 import com.example.componentbase.ServiceFactory
 import com.example.componentbase.eventbus.SlideMenuEvent
 import com.infoholdcity.basearchitecture.self_extends.Klog
 import com.infoholdcity.basearchitecture.self_extends.log
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy
+import com.infoholdcity.baselibrary.config.ARouterConfig
 import com.infoholdcity.baselibrary.utils.ColorUtils
 import com.infoholdcity.baselibrary.utils.StatusBarHelper
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -30,6 +35,7 @@ import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : BaseActiviy() {
     private var slidingRootNav: SlidingRootNav? = null
+    private var mMenuList: RecyclerView? = null
     private var minFragment: Fragment? = null
     private var categoryFragment: Fragment? = null
     private var shopFragment: Fragment? = null
@@ -58,17 +64,15 @@ class MainActivity : BaseActiviy() {
     }
 
 
-
-
     @SuppressLint("CheckResult")
     private fun permissions() {
         RxPermissions(this).request(
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA
         ).subscribe {
-            if(it){
+            if (it) {
 
-            }else{
+            } else {
                 toast("未授权权限，部分功能不能使用")
             }
         }
@@ -122,6 +126,25 @@ class MainActivity : BaseActiviy() {
             .addDragListener(myDragListener())
             .inject()
 
+        mMenuList = findViewById(R.id.list)
+
+        val mMenuAdapter = MenuAdapter()
+        mMenuList?.let {
+            it.adapter = mMenuAdapter
+            it.layoutManager = LinearLayoutManager(this)
+        }
+
+        mMenuAdapter.addData("美女图片")
+        mMenuAdapter.setOnItemClickListener { adapter, view, position ->
+            ARouter.getInstance().build(ARouterConfig.ACT_MM94HOME).navigation()
+        }
+
+
+
+
+
+
+
 
     }
 
@@ -158,8 +181,8 @@ class MainActivity : BaseActiviy() {
         }
 
 
-        if(collectFragment == null){
-            collectFragment = ServiceFactory.instance.getCaipuService().getCollectFragment(null,"")
+        if (collectFragment == null) {
+            collectFragment = ServiceFactory.instance.getCaipuService().getCollectFragment(null, "")
         }
 
         if (minFragment == null) {
