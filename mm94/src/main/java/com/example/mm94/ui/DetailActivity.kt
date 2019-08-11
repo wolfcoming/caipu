@@ -27,7 +27,7 @@ class DetailActivity : BaseActiviy() {
         rvDetail.adapter = mAdapter
         mAdapter.setNewData(mmBeanVo.images)
 
-        val snaphelper = PagerSnapHelper()
-        snaphelper.attachToRecyclerView(rvDetail)
+//        val snaphelper = PagerSnapHelper()
+//        snaphelper.attachToRecyclerView(rvDetail)
     }
 }
