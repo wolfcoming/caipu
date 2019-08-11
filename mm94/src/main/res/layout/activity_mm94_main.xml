@@ -3,10 +3,22 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         tools:context=".ui.MM94MainActivity">
 
+    <com.infoholdcity.baselibrary.view.BaseToolBar
+            android:id="@+id/baseTooBar"
+            android:layout_width="match_parent"
+            app:showback="false"
+            app:commontitle="美女图片"
+            app:showRightImg="@drawable/ic_menu_grey"
+            app:showadd="true"
+            app:backgroundcolor="@color/white"
+            app:textcolor="#333333"
+            android:layout_height="wrap_content">
+
+    </com.infoholdcity.baselibrary.view.BaseToolBar>
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/mRv"

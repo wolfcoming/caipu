@@ -1,6 +1,8 @@
 package com.example.caipuandroid.ui
 
 import android.Manifest
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +12,7 @@ import android.preference.PreferenceManager
 import android.support.v7.widget.LinearLayoutManager
 import android.text.method.KeyListener
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -23,6 +26,8 @@ import com.baidu.aip.asrwakeup3.core.ui.DigitalDialogInput
 import com.baidu.aip.asrwakeup3.core.util.FileUtil
 import com.baidu.aip.asrwakeup3.core.util.MyLogger
 import com.baidu.speech.asr.SpeechConstant
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.animation.BaseAnimation
 import com.example.caipuandroid.R
 import com.example.caipuandroid.service.impl.IServiceNetImpl
 import com.example.caipuandroid.ui.adapter.GoodsListAdapter
@@ -127,6 +132,22 @@ class GoodsListActivity : BaseActiviy() {
                 }
 
         }
+
+        adapter.openLoadAnimation()
+        // 默认提供5种方法（渐显、缩放、从下到上，从左到右、从右到左）
+        adapter.openLoadAnimation(object : BaseAnimation {
+            override fun getAnimators(view: View?): Array<Animator> {
+                return arrayOf(
+                    ObjectAnimator.ofFloat(view, "alpha", 0f, 1f),
+                    ObjectAnimator.ofFloat(view, "scaleY", 1f, 1.2f, 1f),
+                    ObjectAnimator.ofFloat(view, "scaleX", 1f, 1.2f, 1f)
+                )
+            }
+
+        })
+        adapter.isFirstOnly(false)
+
+
     }
 
 

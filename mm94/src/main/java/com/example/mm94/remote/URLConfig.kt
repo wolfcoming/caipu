@@ -1,5 +1,7 @@
 package com.example.caipuandroid.remote
 
+import com.example.componentbase.common.Constant
+
 /**
  *@date     创建时间： 2018/10/11
  *@author   创建人：杨庆
@@ -7,6 +9,6 @@ package com.example.caipuandroid.remote
  *@version  
 */
 object URLConfig {
-    const val mm94Baseurl = "http://192.168.43.224:8000/"
+    const val mm94Baseurl = Constant.BaseUrl
 
 }

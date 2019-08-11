@@ -18,7 +18,7 @@ import com.infoholdcity.baselibrary.R
  *@version
  */
 class BaseToolBar @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private var ibLeft: ImageButton? = null
@@ -29,12 +29,12 @@ class BaseToolBar @JvmOverloads constructor(
         val typeArray = context.theme.obtainStyledAttributes(attrs, R.styleable.BaseToolBar, defStyleAttr, 0)
         val showAdd = typeArray.getBoolean(R.styleable.BaseToolBar_showadd, false)
         val showBack = typeArray.getBoolean(R.styleable.BaseToolBar_showback, true)
-        val title = typeArray.getString(R.styleable.BaseToolBar_commontitle)
+        var title: String? = typeArray.getString(R.styleable.BaseToolBar_commontitle)
 
-        val bgColor = typeArray.getColor(R.styleable.BaseToolBar_backgroundcolor,resources.getColor(R.color.colorPrimary))
+        val bgColor =
+            typeArray.getColor(R.styleable.BaseToolBar_backgroundcolor, resources.getColor(R.color.colorPrimary))
         val textColor = typeArray.getColor(R.styleable.BaseToolBar_textcolor, Color.WHITE)
-
-
+        var rightImg = typeArray.getResourceId(R.styleable.BaseToolBar_showRightImg, R.drawable.ic_add)
 
         val contentView: View = LayoutInflater.from(getContext()).inflate(R.layout.view_base_toolbar, null)
         ibLeft = contentView.findViewById<ImageButton>(R.id.ib_left)
@@ -50,6 +50,7 @@ class BaseToolBar @JvmOverloads constructor(
 
         if (showAdd) {
             ibRight?.visibility = View.VISIBLE
+            ibRight?.setBackgroundResource(rightImg)
         } else ibRight?.visibility = View.GONE
 
 
@@ -59,9 +60,11 @@ class BaseToolBar @JvmOverloads constructor(
 
         } else ibLeft?.setBackgroundResource(R.drawable.ic_menu)
 
-        if (title.isNotEmpty()) {
-            tvTitle?.text = title
+        if (title == null) {
+            title = "无题"
         }
+
+        tvTitle?.text = title
 
 
         ibLeft?.setOnClickListener { v ->

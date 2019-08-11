@@ -34,5 +34,5 @@ ext {
     UserCenterRunAlone = false
     CaipuRunAlone = false
     ShopRunAlone = false
-    mm94RunAlone = false
+    mm94RunAlone = true
 }

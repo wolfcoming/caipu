@@ -51,4 +51,8 @@ dependencies {
     implementation project(':componentbase')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     kapt rootProject.ext.dependencies.arouter_compiler
+
+    api(rootProject.ext.dependencies.photo_view){
+        exclude group:'com.android.support'
+    }
 }

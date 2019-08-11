@@ -45,5 +45,6 @@ ext {
             "eventbus"                  : 'org.greenrobot:eventbus:3.0.0',
             "banner"                    : 'com.youth.banner:banner:1.4.10',
             "kotlinx_coroutines_android": 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0',
+            "photo_view"                : 'com.github.chrisbanes:PhotoView:2.1.4'
     ]
 }

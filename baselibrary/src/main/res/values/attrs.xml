@@ -3,6 +3,7 @@
     <declare-styleable name="BaseToolBar">
         <!--显示右侧加号-->
         <attr name="showadd" format="boolean"></attr>
+        <attr name="showRightImg" format="reference"></attr>
         <!--显示返回按钮 否则显示侧滑菜单按钮-->
         <attr name="showback" format="boolean"></attr>
         <attr name="commontitle" format="string"></attr>

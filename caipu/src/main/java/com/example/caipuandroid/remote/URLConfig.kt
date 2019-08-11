@@ -1,5 +1,7 @@
 package com.example.caipuandroid.remote
 
+import com.example.componentbase.common.Constant
+
 /**
  *@date     创建时间： 2018/10/11
  *@author   创建人：杨庆
@@ -7,7 +9,7 @@ package com.example.caipuandroid.remote
  *@version  
 */
 object URLConfig {
-    const val caipuBaseurl = "http://192.168.43.224:8000/"
+    const val caipuBaseurl = Constant.BaseUrl
     //七牛云图片地址
     const val qiniuBaseurl = "http://po5amz3y7.bkt.clouddn.com/"
 }

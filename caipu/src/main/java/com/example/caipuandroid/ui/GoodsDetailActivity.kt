@@ -173,9 +173,6 @@ class GoodsDetailActivity : BaseActiviy() {
 
                 if (scrollY <= position[1]) {
                     val rate: Float = scrollY * 1f / position[1]
-                    scrollY.log()
-                    position[1].log()
-                    rate.log()
                     toobar.alpha = rate
                 } else {
                     if (toobar.alpha != 1f) {
