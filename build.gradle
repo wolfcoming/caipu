@@ -32,7 +32,7 @@ task clean(type: Delete) {
 
 ext {
     UserCenterRunAlone = false
-    CaipuRunAlone = false
+    CaipuRunAlone = true
     ShopRunAlone = false
     mm94RunAlone = true
 }

@@ -13,19 +13,17 @@ import kotlinx.android.synthetic.main.activity_detail.*
 class DetailActivity : BaseActiviy() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        //不显示系统的标题栏
-        getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN );
         setContentView(R.layout.activity_detail)
-
-
         val mmBeanVo: MmBeanVo = intent.extras["MM"] as MmBeanVo
-
         rvDetail.layoutManager = LinearLayoutManager(this)
         val mAdapter = DetailAdapter()
         rvDetail.adapter = mAdapter
         mAdapter.setNewData(mmBeanVo.images)
+
+
+        mAdapter.setOnItemClickListener { adapter, view, position ->
+            ImageShowActivity.startImageShowActivity(this@DetailActivity, adapter.getItem(position) as String)
+        }
 
 //        val snaphelper = PagerSnapHelper()
 //        snaphelper.attachToRecyclerView(rvDetail)

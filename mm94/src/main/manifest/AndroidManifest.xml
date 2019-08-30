@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.DetailActivity"/>
+        <activity android:name=".ui.ImageShowActivity" android:theme="@style/Transparent"/>
     </application>
 
 </manifest>

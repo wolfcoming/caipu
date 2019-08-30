@@ -12,7 +12,7 @@ class DetailAdapter : BaseQuickAdapter<String, BaseViewHolder> {
             .placeholder(R.drawable.ic_loading_greybg)
             .error(R.drawable.ic_loading_faile)
         Glide.with(helper.itemView.context)
-            .load(item)
+           .load(item)
             .apply(sharedOptions)
             .into(helper.getView(R.id.imageView))
 
