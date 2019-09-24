@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         simpleAdapter.setNewData(lists)
-
         simpleAdapter.setOnItemClickListener { adapter, view, position ->
             if (position == 0) {
                 val canFingerprint = canFingerprint()
