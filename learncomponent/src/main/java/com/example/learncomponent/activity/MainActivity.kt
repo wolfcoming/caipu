@@ -21,10 +21,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-
-
         rvMain.layoutManager = LinearLayoutManager(this)
         val simpleAdapter = SimpleAdapter()
         rvMain.adapter = simpleAdapter
@@ -41,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         simpleAdapter.setNewData(lists)
-
         simpleAdapter.setOnItemClickListener { adapter, view, position ->
             if (position == 0) {
                 val canFingerprint = canFingerprint()
@@ -114,6 +109,4 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
-
-
 }
