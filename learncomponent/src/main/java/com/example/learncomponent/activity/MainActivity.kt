@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         datas.put("自定义LayoutManage", LayoutmanageActivity::class.java)
         datas.put("应用升级安装", TestActivity::class.java)
 
-
         val lists = ArrayList<String>()
         for (data in datas) {
             lists.add(data.key)
