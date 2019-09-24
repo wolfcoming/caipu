@@ -98,7 +98,6 @@ class MainActivity : AppCompatActivity() {
             Log.e("YYYYYY", "canFingerprint: 报错了" + e.message)
             return 1
         }
-
     }
 
     /**
