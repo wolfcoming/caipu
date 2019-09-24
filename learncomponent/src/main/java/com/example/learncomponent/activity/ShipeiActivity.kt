@@ -19,7 +19,6 @@ class ShipeiActivity : BaseActiviy() {
         setContentView(R.layout.activity_shipei)
         save1.setOnClickListener {
             SPUtils.getInstance(this).put("name2","yqqq")
-            SharedPrefsUtil.putString(this, "name", "yyyy")
         }
 
         save2.setOnClickListener {
@@ -27,11 +26,14 @@ class ShipeiActivity : BaseActiviy() {
         }
 
         btnget.setOnClickListener {
-            val string = SharedPrefsUtil.getString(this, "name", "null")
-            toast(string)
         }
 
     }
+
+
+
+
+
 
 
 }
