@@ -21,10 +21,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-
-
         rvMain.layoutManager = LinearLayoutManager(this)
         val simpleAdapter = SimpleAdapter()
         rvMain.adapter = simpleAdapter
@@ -34,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         datas.put("仿微博视频列表拖动播放", VideoListAutoPlayActivity::class.java)
         datas.put("自定义LayoutManage", LayoutmanageActivity::class.java)
         datas.put("应用升级安装", TestActivity::class.java)
-
 
         val lists = ArrayList<String>()
         for (data in datas) {
