@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     private var mWebView: X5WebView? = null
     private var mViewParent: ViewGroup? = null
     private val mHomeUrl = "file:///android_asset/dist2/index.html";
-    private var mHomeUrl2 = "http://app.html5.qq.com/navi/index";
+    private var mHomeUrl2 = "https://www.baidu.com";
     private var mErrorUrl = "http://192.168.1.112:8080/#/errorpage";
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,25 +50,10 @@ class MainActivity : AppCompatActivity() {
         initWebview()
 
         btnReload.setOnClickListener {
-            reload()
-//            RxPermissions(this)
-//                    .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                    .subscribe { granted ->
-//                        if (granted) {
-//                            val intent = Intent(this@MainActivity, CaptureActivity::class.java)
-//                            startActivityForResult(intent, 1000)
-//                        } else {
-//                            toast("获取权限失败")
-//                        }
-//                    }
-
+            AndroidWebViewActivity.showWebViewAcitvity(this,"file:///android_asset/test.html")
+//            reload()
         }
-
-
-
-
         initListener()
-
         val shakeListener = ShakeListener(this)//创建一个对象
         shakeListener.setOnShakeListener {
             //对手机摇晃后的处理
@@ -160,6 +145,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         mWebView?.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(p0: WebView?, p1: WebResourceRequest?): Boolean {
+                return super.shouldOverrideUrlLoading(p0, p1)
+            }
             override fun onReceivedError(view: WebView,
                                          errorCode: Int, description:
                                          String, failingUrl: String) {

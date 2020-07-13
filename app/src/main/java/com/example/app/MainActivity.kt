@@ -192,7 +192,7 @@ class MainActivity : BaseActiviy() {
 
         fragments.add(caipuHome!!)
         fragments.add(categoryFragment!!)
-        fragments.add(collectFragment!!)
+        fragments.add(shopFragment!!)
         fragments.add(minFragment!!)
 
 
@@ -203,7 +203,7 @@ class MainActivity : BaseActiviy() {
                 when (i) {
                     0 -> tag = "CaipuHome"
                     1 -> tag = "CategoryFragment"
-                    2 -> tag = "CollectFragment"
+                    2 -> tag = "ShopFragment"
                     3 -> tag = "MinFragment"
                 }
                 beginTransaction.add(R.id.hom_coantiner, f, tag).hide(f)

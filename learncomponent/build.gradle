@@ -50,7 +50,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api project(':componentbase')
     implementation 'com.rmtheis:tess-two:9.0.0'
-    debugImplementation ('com.didichuxing.doraemonkit:doraemonkit:1.1.7'){
-        exclude group: 'com.google.zxing'
-    }
+//    debugImplementation ('com.didichuxing.doraemonkit:doraemonkit:1.1.7'){
+//        exclude group: 'com.google.zxing'
+//    }
 }

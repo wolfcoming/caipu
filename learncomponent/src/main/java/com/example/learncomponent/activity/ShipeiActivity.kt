@@ -3,7 +3,6 @@ package com.example.learncomponent.activity
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import com.bumptech.glide.Glide
-import com.didichuxing.doraemonkit.util.SharedPrefsUtil
 import com.example.learncomponent.R
 import com.infoholdcity.basearchitecture.self_extends.toast
 import com.infoholdcity.baselibrary.base.BaseActiviy

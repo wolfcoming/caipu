@@ -41,7 +41,7 @@ public class BrowserActivity extends Activity {
     private ImageButton mHome;
     private ImageButton mMore;
 
-    private static String mHomeUrl = "http://app.html5.qq.com/navi/index";
+    private static String mHomeUrl = "https://www.baidu.com";
     private static final String TAG = "SdkDemo";
     private final int disable = 120;
     private final int enable = 255;
